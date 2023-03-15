@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{C2915FE4-57F9-A6B2-A514-416114BE3858}</ProjectGuid>
+    <ProjectGuid>{A0585688-2525-E33D-C985-1913C6558780}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.2D.Animation.Runtime</AssemblyName>
@@ -53,7 +53,7 @@
     <UnityVersion>2021.3.6f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Library\PackageCache\com.unity.2d.animation@7.0.6\Runtime\SpriteSkin.cs" />
@@ -658,23 +658,23 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.2D.Common.Runtime.Player.csproj">
-      <Project>{D3C0C6A7-FB55-7E89-D86B-FC0E946B7926}</Project>
+      <Project>{56E6BD97-994C-9D23-930C-5B92DDF502F4}</Project>
       <Name>Unity.2D.Common.Runtime.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InternalAPIEngineBridge.001.Player.csproj">
-      <Project>{0945A939-6491-6738-B5E4-320F462A4036}</Project>
+      <Project>{54464C91-A7A0-FB3D-A90D-3B4B02C191D6}</Project>
       <Name>Unity.InternalAPIEngineBridge.001.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Mathematics.Player.csproj">
-      <Project>{08124AD8-57EF-BD59-777C-C2E446F6AC4D}</Project>
+      <Project>{0D0E949D-9A19-FCF5-CF78-BA235D01187E}</Project>
       <Name>Unity.Mathematics.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Burst.Player.csproj">
-      <Project>{3E289DE4-44FA-B48B-6CFD-192E906D7CA8}</Project>
+      <Project>{16A1F4A9-26F1-FB8D-7118-7F90027D0D59}</Project>
       <Name>Unity.Burst.Player</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.Player.csproj">
-      <Project>{4333E935-9868-4AB3-306E-4BDA3AC26786}</Project>
+      <Project>{CE5EDE7C-783A-C188-A96A-D8DC005D593D}</Project>
       <Name>UnityEngine.UI.Player</Name>
     </ProjectReference>
   </ItemGroup>

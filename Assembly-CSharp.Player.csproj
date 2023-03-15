@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{5F7FE777-0B6F-0918-84C2-1B7B0E170097}</ProjectGuid>
+    <ProjectGuid>{9A93E2B8-2A39-90F1-2743-5E4156783251}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -53,13 +53,37 @@
     <UnityVersion>2021.3.6f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\PlayerMovement.cs" />
+    <Compile Include="Assets\bombDisappear.cs" />
+    <Compile Include="Assets\Script\CameraMovement.cs" />
+    <Compile Include="Assets\Script\PlayerMovement.cs" />
+    <Compile Include="Assets\gameControlScript.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\BayatGames\Free Platform Game Assets\Readme.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -641,79 +665,79 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.2D.Tilemap.Extras.Player.csproj">
-      <Project>{DEF3E6A3-6362-33C6-3A2A-7E3180B960E7}</Project>
+      <Project>{1E9A2F54-968A-4E3B-692C-A1FB42744679}</Project>
       <Name>Unity.2D.Tilemap.Extras.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InternalAPIEngineBridge.001.Player.csproj">
-      <Project>{0945A939-6491-6738-B5E4-320F462A4036}</Project>
+      <Project>{54464C91-A7A0-FB3D-A90D-3B4B02C191D6}</Project>
       <Name>Unity.InternalAPIEngineBridge.001.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.PixelPerfect.Player.csproj">
-      <Project>{1FC559CA-83FC-6D9B-97C1-71888555F684}</Project>
+      <Project>{CAF34255-D8F6-66AD-11D8-FD3072D0C4D6}</Project>
       <Name>Unity.2D.PixelPerfect.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Timeline.Player.csproj">
-      <Project>{1AB0A5B2-DECC-4ED4-ED06-C3E09C9F4637}</Project>
+      <Project>{363E6438-95F5-3FCC-74C3-294C774A4F42}</Project>
       <Name>Unity.Timeline.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Player.csproj">
-      <Project>{F7D946AD-DEFB-4810-ACBF-6DA38F664B0A}</Project>
+      <Project>{BDC38E65-49ED-71A0-9344-28B921C606A9}</Project>
       <Name>Unity.TextMeshPro.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Flow.Player.csproj">
-      <Project>{9963F5D8-DD1F-BA84-8179-23A51D77E7D1}</Project>
+      <Project>{E28123C7-1D02-7E95-2C5C-27C99566247F}</Project>
       <Name>Unity.VisualScripting.Flow.Player</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.Player.csproj">
-      <Project>{4333E935-9868-4AB3-306E-4BDA3AC26786}</Project>
+      <Project>{CE5EDE7C-783A-C188-A96A-D8DC005D593D}</Project>
       <Name>UnityEngine.UI.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Services.Core.Player.csproj">
-      <Project>{F0AD277D-B8DB-8F48-A390-C0EB56FF7F9B}</Project>
+      <Project>{61F70600-687D-C82D-7BF8-B8D605CE5F37}</Project>
       <Name>Unity.Services.Core.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Core.Player.csproj">
-      <Project>{5A0C6D02-EDA2-8CF7-ACAB-B39150C8DC96}</Project>
+      <Project>{4647B168-4106-4179-02BF-151F47E0BF84}</Project>
       <Name>Unity.VisualScripting.Core.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Mathematics.Player.csproj">
-      <Project>{08124AD8-57EF-BD59-777C-C2E446F6AC4D}</Project>
+      <Project>{0D0E949D-9A19-FCF5-CF78-BA235D01187E}</Project>
       <Name>Unity.Mathematics.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.IK.Runtime.Player.csproj">
-      <Project>{CA2422E3-B995-7661-3D18-EFD894D62860}</Project>
+      <Project>{BAFA0BC4-AA8D-47A1-4606-100AD14F06D3}</Project>
       <Name>Unity.2D.IK.Runtime.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Services.Core.Analytics.Player.csproj">
-      <Project>{4B8E19E6-A267-BDCD-2640-5577B1F5FE87}</Project>
+      <Project>{34B3ED1F-3BB9-FA77-E2DF-C262BD4E36E2}</Project>
       <Name>Unity.Services.Core.Analytics.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Burst.Player.csproj">
-      <Project>{3E289DE4-44FA-B48B-6CFD-192E906D7CA8}</Project>
+      <Project>{16A1F4A9-26F1-FB8D-7118-7F90027D0D59}</Project>
       <Name>Unity.Burst.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Services.Core.Environments.Player.csproj">
-      <Project>{4AE58A83-6BE0-9414-D7FD-CE649197FFD5}</Project>
+      <Project>{E88927E9-D0D8-4E65-6DC8-A4E565A98796}</Project>
       <Name>Unity.Services.Core.Environments.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Animation.Runtime.Player.csproj">
-      <Project>{C2915FE4-57F9-A6B2-A514-416114BE3858}</Project>
+      <Project>{A0585688-2525-E33D-C985-1913C6558780}</Project>
       <Name>Unity.2D.Animation.Runtime.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Common.Runtime.Player.csproj">
-      <Project>{D3C0C6A7-FB55-7E89-D86B-FC0E946B7926}</Project>
+      <Project>{56E6BD97-994C-9D23-930C-5B92DDF502F4}</Project>
       <Name>Unity.2D.Common.Runtime.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.SpriteShape.Runtime.Player.csproj">
-      <Project>{D5F8C0D5-8A3C-06B1-5AE8-BEEF5A775158}</Project>
+      <Project>{F85DB904-2621-EBBC-9077-80CF9806C7D1}</Project>
       <Name>Unity.2D.SpriteShape.Runtime.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.State.Player.csproj">
-      <Project>{BBCAA1BA-3966-6F5F-7158-847FC6538845}</Project>
+      <Project>{5B67A388-9536-BD8E-1689-5E8FB099D1A1}</Project>
       <Name>Unity.VisualScripting.State.Player</Name>
     </ProjectReference>
     <ProjectReference Include="SuperTiled2Unity.Player.csproj">
-      <Project>{B9DF73C0-7657-10FB-0E2D-A955D6D30A18}</Project>
+      <Project>{6FBDE497-6ED8-3E04-BC44-36208B758C02}</Project>
       <Name>SuperTiled2Unity.Player</Name>
     </ProjectReference>
   </ItemGroup>

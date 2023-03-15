@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{203DE090-B6A3-D1F0-74BF-8F712D43A20D}</ProjectGuid>
+    <ProjectGuid>{6F899D02-5589-0F4A-BE2F-97B52628DE27}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.2D.Psdimporter.Editor</AssemblyName>
@@ -53,7 +53,7 @@
     <UnityVersion>2021.3.6f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Library\PackageCache\com.unity.2d.psdimporter@6.0.4\Editor\Analytics.cs" />
@@ -336,9 +336,6 @@
     </Reference>
     <Reference Include="UnityEditor.WindowsStandalone.Extensions">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.6f1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.UWP.Extensions">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.6f1\Editor\Data\PlaybackEngines\MetroSupport\UnityEditor.UWP.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Plastic.Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.collab-proxy@1.15.18\Lib\Editor\PlasticSCM\Unity.Plastic.Newtonsoft.Json.dll</HintPath>
@@ -763,47 +760,47 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="PsdPlugin.csproj">
-      <Project>{83C2558E-12E8-2839-FD2A-886144B5969F}</Project>
+      <Project>{B190D2D9-EC9F-B7ED-27C1-EC95295ECA2C}</Project>
       <Name>PsdPlugin</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InternalAPIEditorBridge.001.csproj">
-      <Project>{B3BA378D-2A6E-738C-0E38-F00ACD96AAC4}</Project>
+      <Project>{2F184A18-18C6-63A9-1042-C17800743065}</Project>
       <Name>Unity.InternalAPIEditorBridge.001</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Common.Editor.csproj">
-      <Project>{C26A4568-19AA-821B-0B93-A258F6B0B2FB}</Project>
+      <Project>{AFFB6307-9147-1133-AAF7-84620F08D213}</Project>
       <Name>Unity.2D.Common.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Animation.Editor.csproj">
-      <Project>{7879BB9D-EEEA-CBD6-E4A7-3933A5781A70}</Project>
+      <Project>{A8D8D16C-248D-8E27-5A37-C43767D958BC}</Project>
       <Name>Unity.2D.Animation.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Animation.Runtime.csproj">
-      <Project>{48AA56A2-EB8B-1CB5-CD59-41209B3AEABF}</Project>
+      <Project>{9F6D44FB-E295-DB08-D9DC-12E9B5331106}</Project>
       <Name>Unity.2D.Animation.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.Sprite.Editor.csproj">
-      <Project>{E3729A75-3B04-59B3-C7C0-78D979A0FB6D}</Project>
+      <Project>{4788DB28-2519-0091-D5AD-03AAC98E593F}</Project>
       <Name>Unity.2D.Sprite.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InternalAPIEngineBridge.001.csproj">
-      <Project>{CF1FC6DC-E5A7-CA2D-9EB6-1FA000C22129}</Project>
+      <Project>{C68847C0-E764-757B-834E-39AA408D25F8}</Project>
       <Name>Unity.InternalAPIEngineBridge.001</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{F56AC2D2-03E2-D7D9-BF4F-3D436DDCD632}</Project>
+      <Project>{41EADA4B-5BFE-B0BD-94E8-08A1F09CB143}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{392C5E61-9D23-CC7C-3414-C2E953B8A829}</Project>
+      <Project>{DECFFCC7-A472-E836-F172-3F6F0A5357AA}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.TestRunner.csproj">
-      <Project>{5371252E-9631-6CCB-5E05-A4FB7339D72F}</Project>
+      <Project>{2983D37B-ED2D-E92B-CDEC-3421FD562554}</Project>
       <Name>UnityEngine.TestRunner</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.TestRunner.csproj">
-      <Project>{9E807CF6-C9C5-E1E5-19E8-C5222954E8EB}</Project>
+      <Project>{DF6A2968-EE6D-A40D-0229-25CF76101EF4}</Project>
       <Name>UnityEditor.TestRunner</Name>
     </ProjectReference>
   </ItemGroup>
