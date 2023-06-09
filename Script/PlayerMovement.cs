@@ -1,15 +1,19 @@
-using TMPro;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
     public float speed;
     public bool canMove;
+
     public GameObject amUser;
-    //public GameObject finishpopup;
-    //public GameObject finishPoint;
-  
-    //public TMP_Text text;
+    public GameObject pedestrian;
+
+    [SerializeField]
+    private FixedJoystick joystick;
+    [SerializeField]
+    private float movespeed;
 
     private Rigidbody2D myRigidBody;
     private Vector3 change;
@@ -30,10 +34,15 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         change = Vector3.zero;
-        change.x = Input.GetAxisRaw("Horizontal");
-        change.y = Input.GetAxisRaw("Vertical");
+        /*change.x = Input.GetAxisRaw("Horizontal");
+        change.y = Input.GetAxisRaw("Vertical");*/
         Debug.Log(change);
+        //myRigidBody.velocity = new Vector2(joystick.Vertical * movespeed, myRigidBody.velocity.y);
+        //myRigidBody.velocity = new Vector2(joystick.Horizontal * movespeed, myRigidBody.velocity.x);
+        change.x = new Vector2(joystick.Horizontal* movespeed, myRigidBody.velocity.x).x;
+        change.y = new Vector2(joystick.Vertical * movespeed, myRigidBody.velocity.y).x;
         UpdateAnimationAndMove();
+        
     }
 
     void UpdateAnimationAndMove()
