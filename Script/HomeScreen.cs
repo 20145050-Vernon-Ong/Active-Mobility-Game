@@ -4,10 +4,11 @@ public class HomeScreen : MonoBehaviour
 {
     public GameObject Screen;
     public GameObject questButton;
-    public GameObject messageButton;
+    public GameObject gpsBtn;
     public GameObject callButton;
     public GameObject openQuestList;
     public GameObject openSMS;
+    public GameObject openGPS;
     public GameObject minimisedPhone;
     public GameObject winPanel;
     // Start is called before the first frame update
@@ -16,6 +17,7 @@ public class HomeScreen : MonoBehaviour
         Screen.SetActive(true);
         openQuestList.SetActive(false);
         openSMS.SetActive(false);
+        openGPS.SetActive(false);
     }
 
     public void OpenQuestList()
@@ -30,11 +32,17 @@ public class HomeScreen : MonoBehaviour
         openSMS.SetActive(true);
     }
 
+    public void OpenGPS()
+    {
+        Screen.SetActive(false);
+        openGPS.SetActive(true);
+    }
+
     public void ClosePhone()
     {
         if (Screen.activeInHierarchy)
         {
-            minimisedPhone.transform.position = new Vector3(900, -110, 0);
+            minimisedPhone.transform.localPosition = new Vector3(5, -445, 0);
         } else if (openQuestList.activeInHierarchy)
         {
             Screen.SetActive(true);
@@ -44,6 +52,13 @@ public class HomeScreen : MonoBehaviour
         {
             Screen.SetActive(true);
             openSMS.SetActive(false);
+        } else if (callButton.activeInHierarchy)
+        {
+
+        } else if (openGPS.activeInHierarchy)
+        {
+            Screen.SetActive(true);
+            openGPS.SetActive(false);
         }
     }
 

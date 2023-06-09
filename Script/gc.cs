@@ -17,7 +17,7 @@ public class gc : MonoBehaviour
     public TextMeshProUGUI ValueText;
     public TextMeshProUGUI lifeValueText;
 
-    int totalpoints;
+    public int totalpoints;
     int lifetotalpoints = 3;
 
     void Start()
