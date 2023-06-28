@@ -2,13 +2,14 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.UIElements.Experimental;
 
 public class Quest : MonoBehaviour
 {
     public class QuestClass
     {
         public string QuestDetail;
-        public float QuestTime;
+        public float QuestTime; 
         public float resetTime;
         public string genre;
         public string difficulty;
@@ -28,7 +29,7 @@ public class Quest : MonoBehaviour
 
         public string GetQuestDetail() { return QuestDetail; }
 
-        public float GetQuestTime() { return QuestTime; }
+        public float GetQuestTime() { return QuestTime;}
 
         public float GetResetTime() { return resetTime; }
 
@@ -39,6 +40,8 @@ public class Quest : MonoBehaviour
         public bool IsFinished() { return isFinished; }
         
         public int GetReward() { return reward; }
+
+        
     }
 
     readonly QuestClass quest1 = new("Travel to 7-Eleven in 1 Minute 30 Seconds", 90, 90, "", "easy", 10);
@@ -51,14 +54,12 @@ public class Quest : MonoBehaviour
     public GameObject maxPhone;
     public GameObject failpopup;
     public GameObject finishpopup;
-
-    //public float hideDistance;
+    public GameObject pointer;
 
     public Button confirmBtn;
 
     private Vector3 originalPos;
-
-    private Transform Target;
+    private Vector3 pointerPos;
 
     public TMP_Text obj;
     public TMP_Text countDown;
@@ -71,8 +72,10 @@ public class Quest : MonoBehaviour
 
     bool time = false;
     bool isQuest = false;
+    bool isTracking = false;
 
     private float distance;
+    public float hideDistance;
 
     private readonly List<QuestClass> quests = new();
     public List<Transform> pointList = new();
@@ -83,7 +86,7 @@ public class Quest : MonoBehaviour
     private Animator animator;
     private gc addPoint;
     // Start is called before the first frame update
-    private void Awake()
+    void Awake()
     {
         quests.Add(quest1);
         quests.Add(quest2);
@@ -99,6 +102,8 @@ public class Quest : MonoBehaviour
             Debug.Log(quests.Count);
             Debug.Log(textList.Count);
         }
+        pointerPos = pointer.transform.position;
+        pointer.SetActive(false);
         finishpopup.SetActive(false);
         windowDetails.SetActive(false);
         failpopup.SetActive(false);
@@ -110,14 +115,15 @@ public class Quest : MonoBehaviour
     void Start()
     {
         OpenQuestDetails();  
+
     }
     // Update is called once per frame
     void Update()
     {
         Mission();
-        /*var dir = Target.position - transform.position;
-        var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);*/
+        if (isTracking) {
+
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -137,23 +143,21 @@ public class Quest : MonoBehaviour
             if (isQuest == true && obj.text == quests[i].GetQuestDetail())
             {
                 QuestSystem();
-                 active.text += quests[i].GetQuestDetail();
+                active.text += quests[i].GetQuestDetail();
+                var dir = pointList[i].position - transform.position;
                 if (pointList[i].gameObject.activeInHierarchy)
                 {
                     distance = (pointList[i].transform.position - transform.position).magnitude;
                     distanceText.text = "Distance: " + distance.ToString("F1") + " meters";
-                    /*var dir = pointList[i].position - transform.position;
-                    if (dir.magnitude < hideDistance)
+                    isTracking = true;
+                    if (isTracking)
                     {
-                        SetChildrenActive(false);
-                    } else
-                    {
-                        SetChildrenActive(true);
+                        pointer.SetActive(true);
                         var angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                        transform.rotation = Quaternion.AngleAxis(angle, dir);
-                    }*/
-                }
-            } 
+                        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+                    }
+                } 
+            }
         }
     }
 
@@ -164,7 +168,7 @@ public class Quest : MonoBehaviour
 
     public void MinimumPhone()
     {
-        maxPhone.transform.localPosition = new Vector3(5, -445, 0);
+        maxPhone.transform.localPosition = new Vector3(-5, -464.6f, 0);
     }
 
     private void OpenQuestDetails()
@@ -177,22 +181,26 @@ public class Quest : MonoBehaviour
                 missionList[i].onClick.AddListener(() => obj.text = quest1.GetQuestDetail());
                 missionList[i].onClick.AddListener(() => diffText.text = "Difficulty: " + quest1.GetDifficulty());
                 missionList[i].onClick.AddListener(() => rewardText.text = "Reward: " + quest1.GetReward() + " points");
-            } else if (textList[i].text.Equals(quest2.GetQuestDetail()))
+            }
+            else if (textList[i].text.Equals(quest2.GetQuestDetail()))
             {
                 missionList[i].onClick.AddListener(() => obj.text = quest2.GetQuestDetail());
                 missionList[i].onClick.AddListener(() => diffText.text = "Difficulty: " + quest2.GetDifficulty());
                 missionList[i].onClick.AddListener(() => rewardText.text = "Reward: " + quest2.GetReward() + " points");
-            } else if (textList[i].text.Equals(quest3.GetQuestDetail()))
+            }
+            else if (textList[i].text.Equals(quest3.GetQuestDetail()))
             {
                 missionList[i].onClick.AddListener(() => obj.text = quest3.GetQuestDetail());
                 missionList[i].onClick.AddListener(() => diffText.text = "Difficulty: " + quest3.GetDifficulty());
                 missionList[i].onClick.AddListener(() => rewardText.text = "Reward: " + quest3.GetReward() + " points");
-            } else if (textList[i].text.Equals(quest4.GetQuestDetail()))
+            }
+            else if (textList[i].text.Equals(quest4.GetQuestDetail()))
             {
                 missionList[i].onClick.AddListener(() => obj.text = quest4.GetQuestDetail());
                 missionList[i].onClick.AddListener(() => diffText.text = "Difficulty: " + quest4.GetDifficulty());
                 missionList[i].onClick.AddListener(() => rewardText.text = "Reward: " + quest4.GetReward() + " points");
-            } else if (textList[i].text.Equals(quest5.GetQuestDetail()))
+            }
+            else if (textList[i].text.Equals(quest5.GetQuestDetail()))
             {
                 missionList[i].onClick.AddListener(() => obj.text = quest5.GetQuestDetail());
                 missionList[i].onClick.AddListener(() => diffText.text = "Difficulty: " + quest5.GetDifficulty());
@@ -215,20 +223,21 @@ public class Quest : MonoBehaviour
         for (int i = 0; i < quests.Count; i++)
         {
             missionList[i].enabled = false;
-            if (time == true && obj.text == quests[i].GetQuestDetail())
+            if (obj.text == quests[i].GetQuestDetail())
             {
                 isQuest = true;
-                countDown.text += ((int)quests[i].GetQuestTime());
+                countDown.text += (int)quests[i].GetQuestTime();
                 pointList[i].gameObject.SetActive(true);
+                StartTime();
                 if (quests[i].GetQuestTime() > 0)
                 {
                     quests[i].QuestTime -= Time.deltaTime;
-                    if (finishpopup.activeInHierarchy)
+
+                    if (finishpopup.activeInHierarchy && time == false)
                     {
                         Time.timeScale = 0;
                         quests[i].isFinished = true;
-                        CloseTime();
-                        animator.SetBool("moving", false);
+                        //animator.SetBool("moving", false);
                     }
                 }
                 else if (quests[i].GetQuestTime() <= 0)
@@ -240,6 +249,9 @@ public class Quest : MonoBehaviour
                     quests[i].QuestTime = quests[i].GetResetTime();
                     pointList[i].gameObject.SetActive(false);
                 }
+
+
+
 
             }
         }
@@ -307,6 +319,7 @@ public class Quest : MonoBehaviour
 
     public void Finish()
     {
+        //pointer.transform.position = pointerPos;
         Time.timeScale = 1;
         windowDetails.SetActive(false);
         finishpopup.SetActive(false);
@@ -314,22 +327,27 @@ public class Quest : MonoBehaviour
         countDown.text = string.Empty;
         distanceText.text = "Distance:";
         isQuest = false;
+        isTracking = false;
         for (int i = 0; i < pointList.Count; i++)
         {
+            missionList[i].enabled = true;
             if (pointList[i].gameObject.activeInHierarchy)
             {
-                addPoint.totalpoints += quests[i].GetReward();
-                addPoint.ValueText.text = addPoint.totalpoints.ToString();
-                GameObject.Destroy(pointList[i].gameObject);
-                GameObject.Destroy(missionList[i].gameObject);
-                GameObject.Destroy(textList[i].gameObject);
-                pointList.RemoveAt(i);
-                missionList.RemoveAt(i);
-                textList.RemoveAt(i);
-                quests.Remove(quests[i]);
-
+                
+                if (!isTracking)
+                {
+                    pointer.SetActive(false);
+                    addPoint.totalpoints += quests[i].GetReward();
+                    addPoint.ValueText.text = addPoint.totalpoints.ToString();
+                    GameObject.Destroy(pointList[i].gameObject);
+                    GameObject.Destroy(missionList[i].gameObject);
+                    GameObject.Destroy(textList[i].gameObject);
+                    pointList.RemoveAt(i);
+                    missionList.RemoveAt(i);
+                    textList.RemoveAt(i);
+                    quests.Remove(quests[i]);
+                }
             }
-            missionList[i].enabled = true;
         }
 
     }

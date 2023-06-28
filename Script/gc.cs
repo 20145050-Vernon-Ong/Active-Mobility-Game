@@ -65,9 +65,9 @@ public class gc : MonoBehaviour
         if (lifetotalpoints <= 0)
             {
                 yield return new WaitForSeconds(1);
-                PlayerPrefs.SetString("currentScore",ValueText.text);
+                PlayerPrefs.SetString("currentScore", ValueText.text);
                 SceneManager.LoadScene("LoseScreen");
-            }
+        }
     }
 
 }

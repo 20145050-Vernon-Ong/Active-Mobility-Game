@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class scoreHandler : MonoBehaviour
 {
+
     public GameObject currentScore;
     public GameObject highScore;
 
@@ -15,6 +14,7 @@ public class scoreHandler : MonoBehaviour
     private int current;
     private int high;
     
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +22,7 @@ public class scoreHandler : MonoBehaviour
         currentScoreText = currentScore.GetComponent<TextMeshProUGUI>();
         highScoreText = highScore.GetComponent<TextMeshProUGUI>();
         // currentscore
-        currentScoreText.text = PlayerPrefs.GetString("currentScore");
+        currentScoreText.text = "Score: " + PlayerPrefs.GetString("currentScore");
         // retrieve and convert currentscore into current
         current = int.Parse(PlayerPrefs.GetString("currentScore"));
         high = int.Parse(PlayerPrefs.GetString("highScore"));
@@ -31,8 +31,13 @@ public class scoreHandler : MonoBehaviour
         if(current > high)
         {
             PlayerPrefs.SetString("highScore", System.Convert.ToString(current));
+        } else
+        {
+            
         }
 
-        highScoreText.text = PlayerPrefs.GetString("highScore");
+        highScoreText.text = "High Score: " + PlayerPrefs.GetString("highScore");
     }
+
+
 }

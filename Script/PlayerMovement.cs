@@ -1,25 +1,27 @@
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.UI;
+
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
     public float speed;
+    private float ap;
     public bool canMove;
 
     public GameObject amUser;
     public GameObject pedestrian;
+    public Button pauseBtn;
 
-    [SerializeField]
-    private FixedJoystick joystick;
-    [SerializeField]
-    private float movespeed;
+    public FixedJoystick joystick;
+    public float movespeed;
 
     private Rigidbody2D myRigidBody;
     private Vector3 change;
     private Animator animator;
     void Start()
     {
+        Debug.Log(Screen.width);
+        Debug.Log(Screen.height);
         GetComponent<Collider2D>().isTrigger = true;
         animator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
@@ -34,15 +36,28 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         change = Vector3.zero;
+        if (Screen.orientation == ScreenOrientation.LandscapeLeft || Screen.orientation == ScreenOrientation.LandscapeRight){
+            change.x = new Vector2(joystick.Horizontal * movespeed, myRigidBody.velocity.x).x;
+            change.y = new Vector2(joystick.Vertical * movespeed, myRigidBody.velocity.y).x;
+            joystick.gameObject.SetActive(true);
+            pauseBtn.gameObject.SetActive(true);
+        } else
+        {
+            change.x = Input.GetAxisRaw("Horizontal");
+            change.y = Input.GetAxisRaw("Vertical");
+            joystick.gameObject.SetActive(false);
+            pauseBtn.gameObject.SetActive(false);
+        }
+        /*joystick.gameObject.SetActive(true);
+        pauseBtn.gameObject.SetActive(true);*/
         /*change.x = Input.GetAxisRaw("Horizontal");
         change.y = Input.GetAxisRaw("Vertical");*/
-        Debug.Log(change);
+        /*joystick.gameObject.SetActive(false);
+        pauseBtn.gameObject.SetActive(false);*/
+        //Debug.Log(change);       
+        UpdateAnimationAndMove();
         //myRigidBody.velocity = new Vector2(joystick.Vertical * movespeed, myRigidBody.velocity.y);
         //myRigidBody.velocity = new Vector2(joystick.Horizontal * movespeed, myRigidBody.velocity.x);
-        change.x = new Vector2(joystick.Horizontal* movespeed, myRigidBody.velocity.x).x;
-        change.y = new Vector2(joystick.Vertical * movespeed, myRigidBody.velocity.y).x;
-        UpdateAnimationAndMove();
-        
     }
 
     void UpdateAnimationAndMove()
@@ -58,6 +73,10 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("moving", false);
         }
+    }
+
+    public void StopWalking() {
+        animator.SetBool("moving", false);
     }
 
     void MoveCharacter()
@@ -82,6 +101,7 @@ public class PlayerMovement : MonoBehaviour
     {
         canMove = true;
     }
+
 
 }
 

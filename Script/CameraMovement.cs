@@ -6,7 +6,7 @@ public class CameraMovement : MonoBehaviour
 {
     // Start is called before the first frame update
     public Transform target;
-    public Transform Menu;
+    public Transform newTarget;
     public float smoothing;
     public Vector2 maxPosition;
     public Vector2 minPosition;
@@ -18,14 +18,22 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position != target.position)
+        if (transform.position != target.position)
         {
             Vector3 targetPosition = new Vector3(target.position.x, target.position.y, transform.position.z);
             targetPosition.x = Mathf.Clamp(targetPosition.x, minPosition.x, maxPosition.x);
             targetPosition.y = Mathf.Clamp(targetPosition.y, minPosition.y, maxPosition.y);
             transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing);
-            Menu.position = new Vector2(transform.position.x-1, transform.position.y+1.5f);
-            
         }
+    }
+
+    public void ChangeMap(Transform target)
+    {
+        this.target = target;
+    }
+
+    public void NewMap()
+    {
+        ChangeMap(this.newTarget);
     }
 }
