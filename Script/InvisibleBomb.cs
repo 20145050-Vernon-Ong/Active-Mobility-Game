@@ -3,7 +3,7 @@ using UnityEngine;
 public class InvisibleBomb : MonoBehaviour
 {
 
-    public int bombs;
+    private readonly int bombs = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +16,8 @@ public class InvisibleBomb : MonoBehaviour
         //Destroy the coin if Object tagged Player comes in contact with it
         if (c2d.CompareTag("Player"))
         {
-           
-            Destroy(gameObject);
             ItemSystem.instance.BombCollection(bombs);
-            
+            Destroy(gameObject);
         }
 
     }

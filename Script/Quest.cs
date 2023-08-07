@@ -98,9 +98,6 @@ public class Quest : MonoBehaviour
             missionList[i].gameObject.SetActive(true);
             textList[i].text = quests[i].GetQuestDetail();
             pointList[i].transform.gameObject.SetActive(false);
-            Debug.Log(missionList.Count);
-            Debug.Log(quests.Count);
-            Debug.Log(textList.Count);
         }
         pointerPos = pointer.transform.position;
         pointer.SetActive(false);

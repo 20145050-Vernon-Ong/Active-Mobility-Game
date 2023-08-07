@@ -117,15 +117,17 @@ public class HomeScreen : MonoBehaviour
 
     public void Rotate()
     {
-        if (minimisedPhone.transform.localRotation.z == 0)
+        
+        if (minimisedPhone.transform.rotation.z == 0)
         {
             minimisedPhone.transform.Rotate(0, 0, 90);
-            cam.transform.Rotate(0, 0 , 90);
-        } else
+            cam.transform.Rotate(0, 0, 90);
+            
+        } else if (minimisedPhone.transform.rotation.z == 90)
         {
             minimisedPhone.transform.Rotate(0, 0, 0);
+            cam.transform.Rotate(0, 0, 0);
         }
-        
     }
 
     public void Maxismise()
