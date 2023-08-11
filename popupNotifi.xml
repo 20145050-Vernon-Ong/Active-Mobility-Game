@@ -30,4 +30,10 @@
 		<duration>3</duration>
 		<type>notification</type>
 	</popNoti>
+	<popNoti id="6">
+		<text>Remember to stay in the correct lane and keep a lookout.</text>
+		<colliderName>footTag</colliderName>
+		<duration>3</duration>
+		<type>notification</type>
+	</popNoti>
 </popupNotify>
