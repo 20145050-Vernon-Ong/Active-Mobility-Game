@@ -1,7 +1,34 @@
-<amgame>
-	<popup>
-		<tutorial1>you are late for class and would need to go to the tuition centre</tutorial1>
-		<tutorial2>Controls are a to go left and d to go right</tutorial2>
-		<tutorial3>Remember to stay on the correct lane and keep a lookout for vehicles.</tutorial3>
-	</popup>
-</amgame>
+<?xml version="1.0" encoding="utf-8" ?>
+<popupNotify>
+	<popNoti id="1">
+		<text>You are late for class and need to go to the tuition center</text>
+		<colliderName>popupTag</colliderName>
+		<duration></duration>
+		<type>popup</type>
+	</popNoti>
+	<popNoti id="2">
+		<text>Controls are “A” to go left and “D” to go right</text>
+		<colliderName>popupTag</colliderName>
+		<duration></duration>
+		<type>popup</type>
+	</popNoti>
+	<popNoti id="3">
+		<text>You are in the wrong lane, avoid going towards the bicycle lane.</text>
+		<colliderName>cyclingTag</colliderName>
+		<duration>3</duration>
+		<type>notification</type>
+	</popNoti>
+	<popNoti id="4">
+		<text>You are in the wrong lane, avoid going towards the road.</text>
+		<colliderName>roadTag</colliderName>
+		<duration>3</duration>
+		<type>notification</type>
+	</popNoti>
+	<popNoti id="5">
+		<text>Coins and bombs are scattered around the map. Avoid the bombs.</text>
+		<colliderName>coinTag</colliderName>
+		<duration></duration>
+		<type>popup</type>
+	</popNoti>
+	
+</popupNotify>
