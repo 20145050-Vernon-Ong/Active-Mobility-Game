@@ -28,6 +28,6 @@
 		<text>Coins and bombs are scattered around the map. Avoid the bombs.</text>
 		<colliderName>coinTag</colliderName>
 		<duration></duration>
-		<type>notification</type>
+		<type>popup</type>
 	</popNoti>
 </popupNotify>
