@@ -4,13 +4,13 @@
 		<text>You are late for class and need to go to the tuition center</text>
 		<colliderName>popupTag</colliderName>
 		<duration></duration>
-		<type>popup</type>
+		<type>startPopup</type>
 	</popNoti>
 	<popNoti id="2">
 		<text>Controls are “A” to go left and “D” to go right</text>
 		<colliderName>popupTag</colliderName>
 		<duration></duration>
-		<type>popup</type>
+		<type>startPopup</type>
 	</popNoti>
 	<popNoti id="3">
 		<text>You are in the wrong lane, avoid going towards the bicycle lane.</text>
