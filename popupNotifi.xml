@@ -17,7 +17,7 @@
 		<text>You are in the wrong lane, avoid going towards the road.</text>
 		<colliderName>roadTag</colliderName>
 		<duration>3</duration>
-		<type>notification</type>
+		<type>popupNotification</type>
 	</popNoti>
 	<popNoti>
 		<text>Coins and bombs are scattered around the map. Avoid the bombs.</text>
