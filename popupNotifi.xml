@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <popupNotify>
-	<popNoti id="1">
-		<text>You are late for class and need to go to the tuition center</text>
+	<popNoti>
+		<text>You are late for class and need to go to the tuition center.
+		Controls are “A” to go left and “D” to go right.</text>
 		<colliderName>popupTag</colliderName>
 		<duration>0</duration>
 		<type>startPopup</type>
 	</popNoti>
-	<popNoti id="2">
-		<text>Controls are “A” to go left and “D” to go right</text>
-		<colliderName>popupTag</colliderName>
-		<duration>0</duration>
-		<type>startPopup</type>
-	</popNoti>
-	<popNoti id="3">
+	<popNoti>
 		<text>You are in the wrong lane, avoid going towards the bicycle lane.</text>
 		<colliderName>cyclingTag</colliderName>
 		<duration>3</duration>
 		<type>popupNotification</type>
 	</popNoti>
-	<popNoti id="4">
+	<popNoti>
 		<text>You are in the wrong lane, avoid going towards the road.</text>
 		<colliderName>roadTag</colliderName>
 		<duration>3</duration>
 		<type>popupNotification</type>
 	</popNoti>
-	<popNoti id="5">
+	<popNoti>
 		<text>Coins and bombs are scattered around the map. Avoid the bombs.</text>
 		<colliderName>coinTag</colliderName>
 		<duration></duration>
 		<type>popup</type>
 	</popNoti>
-	<popNoti id="6">
+	<popNoti>
 		<text>Remember to stay in the correct lane and keep a lookout.</text>
 		<colliderName>footTag</colliderName>
 		<duration>3</duration>
