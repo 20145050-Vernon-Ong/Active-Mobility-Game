@@ -16,13 +16,13 @@
 		<text>You are in the wrong lane, avoid going towards the bicycle lane.</text>
 		<colliderName>cyclingTag</colliderName>
 		<duration>3</duration>
-		<type>notification</type>
+		<type>popupNotification</type>
 	</popNoti>
 	<popNoti id="4">
 		<text>You are in the wrong lane, avoid going towards the road.</text>
 		<colliderName>roadTag</colliderName>
 		<duration>3</duration>
-		<type>notification</type>
+		<type>popupNotification</type>
 	</popNoti>
 	<popNoti id="5">
 		<text>Coins and bombs are scattered around the map. Avoid the bombs.</text>
@@ -34,6 +34,6 @@
 		<text>Remember to stay in the correct lane and keep a lookout.</text>
 		<colliderName>footTag</colliderName>
 		<duration>3</duration>
-		<type>notification</type>
+		<type>popupNotification</type>
 	</popNoti>
 </popupNotify>
