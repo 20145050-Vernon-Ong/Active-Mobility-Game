@@ -2,7 +2,7 @@
 <popupNotify>
 	<popNoti>
 		<text>You are late for class and need to go to the tuition center. 
-			Controls are “A” to go left and “D” to go right.</text>
+		Controls are “A” to go left and “D” to go right.</text>
 		<colliderName>popupTag</colliderName>
 		<duration>0</duration>
 		<type>startPopup</type>
