@@ -22,7 +22,7 @@
 		<text>Coins and bombs are scattered around the map. Avoid the bombs.</text>
 		<colliderName>coinTag</colliderName>
 		<duration></duration>
-		<type>popup</type>
+		<type>popupNotification</type>
 	</popNoti>
 	<popNoti>
 		<text>Remember to stay in the correct lane and keep a lookout.</text>
