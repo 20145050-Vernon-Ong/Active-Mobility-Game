@@ -2,10 +2,14 @@
 <popupNotify>
 	<popNoti id="1">
 		<text>You are late for class and need to go to the tuition center</text>
+		<colliderName></colliderName>
+		<duration></duration>
 		<type>startPopup</type>
 	</popNoti>
 	<popNoti id="2">
 		<text>Controls are “A” to go left and “D” to go right</text>
+		<colliderName></colliderName>
+		<duration></duration>
 		<type>startPopup</type>
 	</popNoti>
 	<popNoti id="3">
