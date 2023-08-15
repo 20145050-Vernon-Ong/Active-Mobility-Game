@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
-using Unity.VisualScripting;
 
 public class gc : MonoBehaviour
 {
@@ -19,11 +16,12 @@ public class gc : MonoBehaviour
     public TextMeshProUGUI summaryText;
 
     public int totalpoints;
-    private bool isTouch = false;
+    private bool isTouch;
     int lifetotalpoints = 3;
-    void Start()
+    void Awake()
     {
         // Store currentscore in prefs
+        isTouch = false;
         lifeValueText.text = lifetotalpoints.ToString();
         ValueText.text = totalpoints.ToString();
         PlayerPrefs.SetString("currentScore", "0");
@@ -58,16 +56,13 @@ public class gc : MonoBehaviour
             }
             StartCoroutine(RestartCurrentlevel());
         }
-
-
-        if (other.CompareTag("cointag"))
+        else if (other.CompareTag("coinTag") || other.CompareTag("cointag"))
         {
             other.gameObject.SetActive(false);
             totalpoints += 1 ;
             ValueText.text = totalpoints.ToString();
         }
-
-        if ((other.CompareTag("car")))
+        else if (other.CompareTag("car"))
         {
             isTouch = true;
             StartCoroutine(RestartCurrentlevel());
@@ -77,7 +72,7 @@ public class gc : MonoBehaviour
     public IEnumerator RestartCurrentlevel()
     {
         //|| isTouch
-        if (lifetotalpoints <= 0)
+        if (lifetotalpoints <= 0 || isTouch)
             {
                 yield return new WaitForSeconds(0.01f);
                 PlayerPrefs.SetString("currentScore", ValueText.text);

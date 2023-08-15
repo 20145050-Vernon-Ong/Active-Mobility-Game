@@ -11,30 +11,25 @@ public class notif : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        notifText.text = "Remember to stay on the correct lane and keep a lookout for vehicle";
     }
 
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         
-        if(collision.transform.tag == "Player")
+        if(collision.CompareTag("Player"))
         {
             
             StartCoroutine(WaitBeforeShow());
-            
-
-
         }
         
     }
 
-    // public void notifshow()
-    // {
-    //     notifpop.SetActive(false);
-
-    //     StartCoroutine(WaitBeforeShow());
-    // }
+     public void Notifshow()
+     {
+         notifpop.SetActive(false);
+         StartCoroutine(WaitBeforeShow());
+     }
 
     private IEnumerator WaitBeforeShow()
     {
