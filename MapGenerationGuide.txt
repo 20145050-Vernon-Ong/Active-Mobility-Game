@@ -1,0 +1,16 @@
+1) There should be 4 .tmx files downloaded (normal/zebra/traffic/bridge)
+
+2) A tileManager.cs should be downloaded too
+
+How to implement:
+1 - Can uncheck the other existing maps to avoid confusion
+2 - Create empty gameObject name "TileManager"
+3 - Attach the tileManager.cs script to it
+4 - Drag/Add the 4 different .tmx files to the list after importing it to TiledMapEditor (No specific order)
+
+If not working:
+Try change Y position of TileManager to -150 (BUT everything needs to be shifted)
+
+Things you can try:
+1 - Remove the ability for the player to move backwards
+2 - There are colliders between grass & cycling path (Should work) exclude bridge.tmx
