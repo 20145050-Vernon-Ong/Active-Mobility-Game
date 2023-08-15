@@ -31,4 +31,16 @@
 		<duration>3</duration>
 		<type>notification</type>
 	</popNoti>
+	<popNoti>
+		<text>Traffic light ahead. You are able to get across by using it.</text>
+		<colliderName>trafficTag</colliderName>
+		<duration>3</duration>
+		<type>popup</type>
+	</popNoti>
+	<popNoti>
+		<text>Zebra crossing ahead. You are able to get across by using it.</text>
+		<colliderName>zebraTag</colliderName>
+		<duration>3</duration>
+		<type>popup</type>
+	</popNoti>
 </popupNotify>
