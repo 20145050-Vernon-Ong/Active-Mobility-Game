@@ -29,7 +29,7 @@
 		<text>Remember to stay in the correct lane and keep a lookout.</text>
 		<colliderName>footTag</colliderName>
 		<duration>3</duration>
-		<type>notification</type>
+		<type>popupNotification</type>
 	</popNoti>
 	<popNoti>
 		<text>Traffic light ahead. You are able to get across by using it. Hold down Spacebar to stop moving.</text>
