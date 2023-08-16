@@ -11,13 +11,13 @@
 		<text>You are in the wrong lane, avoid going towards the bicycle lane.</text>
 		<colliderName>cyclingTag</colliderName>
 		<duration>3</duration>
-		<type>popupNotification</type>
+		<type>popup</type>
 	</popNoti>
 	<popNoti>
 		<text>You are in the wrong lane, avoid going towards the road.</text>
 		<colliderName>roadTag</colliderName>
 		<duration>3</duration>
-		<type>popupNotification</type>
+		<type>popup</type>
 	</popNoti>
 	<popNoti>
 		<text>Coins and bombs are scattered around the map. Avoid the bombs.</text>
@@ -29,7 +29,7 @@
 		<text>Remember to stay in the correct lane and keep a lookout.</text>
 		<colliderName>footTag</colliderName>
 		<duration>3</duration>
-		<type>popupNotification</type>
+		<type>popup</type>
 	</popNoti>
 	<popNoti>
 		<text>Traffic light ahead. You are able to get across by using it. Hold down Spacebar to stop moving.</text>
