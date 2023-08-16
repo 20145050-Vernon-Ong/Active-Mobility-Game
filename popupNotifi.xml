@@ -22,7 +22,7 @@
 	<popNoti>
 		<text>Coins and bombs are scattered around the map. Avoid the bombs.</text>
 		<colliderName>coinTag</colliderName>
-		<duration></duration>
+		<duration>0</duration>
 		<type>popup</type>
 	</popNoti>
 	<popNoti>
