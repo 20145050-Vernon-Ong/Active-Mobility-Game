@@ -1,79 +1,50 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-using System.IO;
-using System.Collections;
-using System;
-using NUnit.Framework;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using SystemInfo = UnityEngine.Device.SystemInfo;
+using UnityEngine.UIElements;
 
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-    protected string text = " ";
-    string word;
-    string[] textList;
-
     public float movespeed;
     public float speed;
     private float totalDistance = 0;
     readonly private float time = 0.001f;
-    private float left;
-    private float right;
-    private float playerPos;
 
     public bool canMove = true;
-    private bool isTutor;
-    private bool record = true;
+    private bool isMoving = true;
+    public bool keyDisabled;
 
-    public TMP_Text okayBtn;
-    public TMP_Text distanceText;
-    public TMP_Text sqlText;
+    public TextMeshProUGUI distanceText;
 
     private Vector2 startTouch;
     private Vector2 endTouch;
     private Vector3 startPosition;
-    private Vector3 previousLoc;
-    private Vector3 change;
-    
-    public GameObject amUser;
-    public GameObject pedestrian;
-    public GameObject resumeBtn;
-    public GameObject trafficCross;
-    public GameObject tutorialpopup1;
-    public GameObject tutorialInterface;
-    public GameObject cycleLane;
-    public GameObject footLane;
-    public GameObject roadLane;
+    public Vector3 change;
 
-    public Button pauseBtn;
+    public GameObject pedestrian;
+    public GameObject trafficCross;
+    public GameObject zebraCross;
+    public GameObject zebraCross2;
+    public GameObject pauseMenu;
+    public GameObject stopBtn;
 
     public FixedJoystick joystick;
     private Rigidbody2D myRigidBody;
+    [SerializeField]
     private Animator animator;
-    protected FileInfo source = null;
-    protected StreamReader reader = null;
-    [Obsolete]
+    private Readxml rl;
     void Awake()
     {
-        left = cycleLane.transform.localPosition.x;
-        right = roadLane.transform.localPosition.x;
-
-    }
-
-    void Start()
-    {
+        Debug.Log(SystemInfo.operatingSystemFamily);
         startPosition = pedestrian.transform.position;
-        Debug.Log(SystemInfo.deviceType);
         Debug.Log(Input.touchSupported);
         GetComponent<Collider2D>().isTrigger = true;
         animator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
-        amUser.SetActive(false);
-        resumeBtn.SetActive(false);
-        isTutor = true;
-        change.y = 1;
+        rl = GetComponent<Readxml>();
     }
     // Update is called once per frame 
     /*void Update()
@@ -197,58 +168,21 @@ public class PlayerMovement : MonoBehaviour
     }*/
     void Update()
     {
-        playerPos = pedestrian.transform.localPosition.y;
-        if (!resumeBtn.activeInHierarchy && !EventSystem.current.IsPointerOverGameObject())
+        totalDistance += Vector3.Distance(pedestrian.transform.localPosition, startPosition);
+        startPosition = pedestrian.transform.localPosition;
+        distanceText.text = totalDistance.ToString("0") + " Metre";
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
-            if (GameObject.FindWithTag("Player") && record)
+            if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Other)
             {
-                RecordDistance();
-                //change.x = Input.GetAxisRaw("Horizontal");
-                //change.y = Input.GetAxisRaw("Vertical");
-                if (Input.GetKey(KeyCode.Space))
-                {
-                    Time.timeScale = 0;
-                    canMove = false;
-                }
-                else if (canMove == false)
-                {
-                    canMove = true;
-                    Time.timeScale = 1;
-                }
-                if (Input.touchCount > 0)
-                {
-                    Touch touch = Input.GetTouch(0);
-                    switch (touch.phase)
-                    {
-                        case TouchPhase.Began:
-                            startTouch = touch.position;
-                            break;
-                        case TouchPhase.Moved:
-                            if (startTouch.x < 1300)
-                            {
-                                change.x = -1;
-                            }
-                            else if (startTouch.x > 1300)
-                            {
-                                change.x = 1;
-                            }
-                            break;
-                        case TouchPhase.Ended:
-                            if (endTouch.x < startTouch.x)
-                            {
-
-                                Invoke(nameof(MoveLeftRight), time);
-                            }
-                            else if (endTouch.x > startTouch.x)
-                            {
-
-                                Invoke(nameof(MoveLeftRight), time);
-                            }
-                            break;
-                    }
-
-                }
-
+                TouchInput();
+            } else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Windows)
+            {
+                ControlKey();
+                stopBtn.SetActive(false);
+                rl.panelLeft.SetActive(false);
+                rl.panelRight.SetActive(false);
+                rl.middleline.SetActive(false);
             }
         }
         UpdateAnimationAndMove();
@@ -258,41 +192,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.CompareTag("trafficBox"))
         {
-            trafficCross.SetActive(true);       
-        } 
-
-        if (collision.CompareTag("playertag"))
-        {
-
-            tutorialpopup1.SetActive(true);
-            Time.timeScale = 0;
-        }
-
-    }
-
-    void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.CompareTag("footTag"))
-        {
-            if (Input.GetKey(KeyCode.A))
-            {
-                pedestrian.transform.localPosition = new Vector3(cycleLane.transform.localPosition.x, playerPos, 0);
-            } else if (Input.GetKey(KeyCode.D)) 
-            {
-                pedestrian.transform.localPosition = new Vector3(roadLane.transform.localPosition.x, playerPos, 0);
-            }
-        } else if(collision.CompareTag("cyclingTag"))
-        {
-            if (Input.GetKey(KeyCode.D))
-            {
-                pedestrian.transform.localPosition = new Vector3(footLane.transform.localPosition.x, playerPos, 0);
-            }
-        } else if (collision.CompareTag("RoadTag"))
-        {
-            if (Input.GetKey(KeyCode.A))
-            {
-                pedestrian.transform.localPosition = new Vector3(footLane.transform.localPosition.x, playerPos, 0);
-            }
+            trafficCross.SetActive(true);
+            zebraCross.SetActive(true);
+            zebraCross2.SetActive(true);
         }
     }
 
@@ -300,50 +202,96 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.CompareTag("trafficBox"))
         {
-            trafficCross.SetActive(false);
+            zebraCross.SetActive(false);
+            zebraCross2.SetActive(false);
         }
     }
-
-    void RecordDistance()
+    void ControlKey()
     {
-        totalDistance += Vector3.Distance(pedestrian.transform.position, previousLoc);
-        previousLoc = transform.position;
-        distanceText.text = "Distance " + previousLoc.ToString();
-    }
-
-    void ToggleRecord() => record = !record;
-
-    public void CloseTutorial()
-    {
-
-        for (int i = 0; i < textList.Length; i++)
+        if (keyDisabled)
+        {
+            if (Input.GetKey(KeyCode.A))
+            {
+                change.y = 0;
+                change.x = -1;
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                change.y = 0;
+                change.x = 1;
+            }
+            else if (Input.GetKey(KeyCode.W))
+            {
+                change.y = 1;
+                change.x = 0;
+            }
+            else if (Input.GetKey(KeyCode.Space))
+            {
+                canMove = false;
+                change = Vector3.zero;
+            }
+        } else
         {
             
         }
-        
     }
+    void TouchInput()
+    {
+        if (Input.touchCount > 0 && keyDisabled)
+        {
+            Touch touch = Input.GetTouch(0);
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    startTouch = touch.position;
+                    Debug.Log(startTouch);
+                    break;
+                case TouchPhase.Stationary:
+                    if (startTouch.x < Screen.width / 2)
+                    {
+                        change.y = 0;
+                        change.x = -1;
+                    }
+                    else if (startTouch.x > Screen.width / 2)
+                    {
+                        change.y = 0;
+                        change.x = 1;
+                    }
+                    break;
+                case TouchPhase.Ended:
+                    if (endTouch.x < startTouch.x)
+                    {
+
+                        Invoke(nameof(MoveLeftRight), time);
+                    }
+                    else if (endTouch.x > startTouch.x)
+                    {
+
+                        Invoke(nameof(MoveLeftRight), time);
+                    }
+                    else if (endTouch.y > startTouch.y)
+                    {
+                        Invoke(nameof(MoveUp), time);
+                    }
+                    break;
+            }
+        }
+    }
+
     void MoveLeftRight()
     {
         change.x = 0;
+        change.y = 1;
     }
 
-    public void StopMove()
+    void MoveUp()
     {
-        change = Vector3.zero;
-        change.x = 0;
-        change.y = 0;
-        resumeBtn.SetActive(true);
+        change.y = 1;
     }
 
-    public void ResumeMove()
-    {
-        change = Vector3.up;
-        change.x = 0;
-        resumeBtn.SetActive(false);
-    }
     void UpdateAnimationAndMove()
     {
-        
+
         if (change != Vector3.zero)
         {
             MoveCharacter();
@@ -357,7 +305,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void StopWalking() {
+    public void StopWalking()
+    {
         animator.SetBool("moving", false);
     }
 
@@ -366,16 +315,37 @@ public class PlayerMovement : MonoBehaviour
         myRigidBody.MovePosition(transform.position + speed * Time.deltaTime * change);
     }
 
-    public void TrafficStopLook()
+    public void Pause()
     {
-        canMove = true;
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0;
     }
 
-    public void TrafficProceed()
+    public void Resume()
     {
-        canMove = true;
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1;
     }
 
+    public void ReturnMenu()
+    {
+        SceneManager.LoadScene("Menu");
+        Time.timeScale = 1;
+    }
 
+    public void StopMoving()
+    {
+        if(isMoving)
+        {
+            Time.timeScale = 0;
+            isMoving = false;
+        } else
+        {
+            Time.timeScale = 1;
+            isMoving = true;
+        }
+        
+    }
 }
+
 
