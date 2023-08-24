@@ -108,6 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notifpop: {fileID: 0}
   tutorPopup: {fileID: 0}
+  zebraInterface: {fileID: 0}
+  trafficInterface: {fileID: 0}
   notifText: {fileID: 0}
   tutorText: {fileID: 0}
   xmlFile: {fileID: 4900000, guid: 7264904d56725b34d9a8390c090e001f, type: 3}
@@ -127,12 +129,15 @@ MonoBehaviour:
   speed: 1
   canMove: 1
   distanceText: {fileID: 0}
+  change: {x: 0, y: 1, z: 0}
   pedestrian: {fileID: 1469542469760020653}
   trafficCross: {fileID: 0}
   zebraCross: {fileID: 0}
   zebraCross2: {fileID: 0}
   pauseMenu: {fileID: 0}
+  stopBtn: {fileID: 0}
   joystick: {fileID: 0}
+  animator: {fileID: 0}
 --- !u!114 &8301151593142851560
 MonoBehaviour:
   m_ObjectHideFlags: 0
