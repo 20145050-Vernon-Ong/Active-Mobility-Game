@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.SceneManagement;
 using SystemInfo = UnityEngine.Device.SystemInfo;
-using UnityEngine.UIElements;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,16 +11,15 @@ public class PlayerMovement : MonoBehaviour
     public float movespeed;
     public float speed;
     private float totalDistance = 0;
-    readonly private float time = 0.001f;
 
     public bool canMove = true;
-    private bool isMoving = true;
     public bool keyDisabled;
 
     public TextMeshProUGUI distanceText;
 
+    private Touch touch;
+
     private Vector2 startTouch;
-    private Vector2 endTouch;
     private Vector3 startPosition;
     public Vector3 change;
 
@@ -29,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     public GameObject zebraCross;
     public GameObject zebraCross2;
     public GameObject pauseMenu;
-    public GameObject stopBtn;
 
     public FixedJoystick joystick;
     private Rigidbody2D myRigidBody;
@@ -39,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         Debug.Log(SystemInfo.operatingSystemFamily);
+        Debug.Log(Screen.height / 2);
         startPosition = pedestrian.transform.position;
         Debug.Log(Input.touchSupported);
         GetComponent<Collider2D>().isTrigger = true;
@@ -171,19 +170,18 @@ public class PlayerMovement : MonoBehaviour
         totalDistance += Vector3.Distance(pedestrian.transform.localPosition, startPosition);
         startPosition = pedestrian.transform.localPosition;
         distanceText.text = totalDistance.ToString("0") + " Metre";
-        if (!EventSystem.current.IsPointerOverGameObject())
+        if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Other)
         {
-            if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Other)
-            {
-                TouchInput();
-            } else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Windows)
-            {
-                ControlKey();
-                stopBtn.SetActive(false);
-                rl.panelLeft.SetActive(false);
-                rl.panelRight.SetActive(false);
-                rl.middleline.SetActive(false);
-            }
+            TouchInput();
+        }
+        else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Windows)
+        {
+            ControlKey();
+            rl.panelLeft.SetActive(false);
+            rl.panelRight.SetActive(false);
+            rl.middleline.SetActive(false);
+            rl.panelTop.SetActive(false);
+            rl.middleline2.SetActive(false);
         }
         UpdateAnimationAndMove();
     }
@@ -230,63 +228,53 @@ public class PlayerMovement : MonoBehaviour
                 canMove = false;
                 change = Vector3.zero;
             }
-        } else
-        {
-            
-        }
+        } 
     }
     void TouchInput()
     {
-        if (Input.touchCount > 0 && keyDisabled)
+        if (Input.touchCount == 1 && keyDisabled)
         {
-            Touch touch = Input.GetTouch(0);
-            switch (touch.phase)
+            touch = Input.GetTouch(0);
+            if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId))
             {
-                case TouchPhase.Began:
-                    startTouch = touch.position;
-                    Debug.Log(startTouch);
-                    break;
-                case TouchPhase.Stationary:
-                    if (startTouch.x < Screen.width / 2)
-                    {
-                        change.y = 0;
-                        change.x = -1;
-                    }
-                    else if (startTouch.x > Screen.width / 2)
-                    {
-                        change.y = 0;
-                        change.x = 1;
-                    }
-                    break;
-                case TouchPhase.Ended:
-                    if (endTouch.x < startTouch.x)
-                    {
-
-                        Invoke(nameof(MoveLeftRight), time);
-                    }
-                    else if (endTouch.x > startTouch.x)
-                    {
-
-                        Invoke(nameof(MoveLeftRight), time);
-                    }
-                    else if (endTouch.y > startTouch.y)
-                    {
-                        Invoke(nameof(MoveUp), time);
-                    }
-                    break;
-            }
+                switch (touch.phase)
+                {
+                    case TouchPhase.Began:
+                        startTouch = touch.position;
+                        Debug.Log(startTouch);
+                        StartCoroutine(DoubleTap());
+                        break;
+                    case TouchPhase.Stationary:
+                        if (startTouch.y < (Screen.height / 2) && startTouch.x < (Screen.width / 2))
+                        {
+                            change.y = 0;
+                            change.x = -1;
+                        }
+                        else if (startTouch.y < (Screen.height / 2) && startTouch.x > (Screen.width / 2))
+                        {
+                            change.y = 0;
+                            change.x = 1;
+                        } 
+                        else if (startTouch.y > (Screen.height / 2))
+                        {
+                            change.y = 1;
+                            change.x = 0;
+                        }
+                        break;
+                    case TouchPhase.Ended:
+                        break;
+                }
+            } 
         }
     }
 
-    void MoveLeftRight()
+    private IEnumerator DoubleTap()
     {
-        change.x = 0;
-        change.y = 1;
-    }
-
-    void MoveUp()
-    {
-        change.y = 1;
+        yield return new WaitForSeconds(0.1f);
+        if (touch.tapCount == 2)
+        {
+            change = Vector3.zero;
+        } 
     }
 
     void UpdateAnimationAndMove()
@@ -303,11 +291,6 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("moving", false);
         }
-    }
-
-    public void StopWalking()
-    {
-        animator.SetBool("moving", false);
     }
 
     void MoveCharacter()
@@ -333,19 +316,6 @@ public class PlayerMovement : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void StopMoving()
-    {
-        if(isMoving)
-        {
-            Time.timeScale = 0;
-            isMoving = false;
-        } else
-        {
-            Time.timeScale = 1;
-            isMoving = true;
-        }
-        
-    }
 }
 
 

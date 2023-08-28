@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Xml;
 using System;
+using SystemInfo = UnityEngine.Device.SystemInfo;
 
 public class Readxml : MonoBehaviour
 {
@@ -28,76 +29,56 @@ public class Readxml : MonoBehaviour
 
         public string GetDuration() { return duration; }
 
-        public void SetDuration(string duration) { this.duration = duration; }
-
         public void SetType(string type) { this.type = type; }
-    
-    }
 
+    }
     private int count;
+    private string data;
     public GameObject notifpop;
     public GameObject tutorPopup;
+    public GameObject zebraInterface;
+    public GameObject trafficInterface;
+    public GameObject panelLeft;
+    public GameObject panelRight;
+    public GameObject panelTop;
+    public GameObject middleline;
+    public GameObject middleline2;
+
     public TMP_Text notifText;
     public TMP_Text tutorText;
+
     public XmlDocument xmldoc = new();
     public XmlNodeList nodes;
     public XmlElement root;
-    private readonly List<PopNotifi> popNotifiList = new();
+
     private string[] textList;
-    void Awake()
-    {
-        ReadXML();
-        count = 0;
-        for (int i = 0; i < popNotifiList.Count; i++)
-        {
-            if (popNotifiList[i].GetType().Equals("startPopup"))
-            {
-                textList = popNotifiList[i].GetText().Split("\n", StringSplitOptions.RemoveEmptyEntries);
-                tutorText.text = textList[count];
-                tutorPopup.SetActive(true);
-                Time.timeScale = 0;
-                count++;
-            }           
-        }
-    }
+    private readonly List<PopNotifi> popNotifiList = new();
 
-    private void ReadXML()
+    public TextAsset xmlFile;
+ 
+    private PlayerMovement pm;
+    /*IEnumerator GetRequest(string url)
     {
-        xmldoc.Load(@"https://raw.githubusercontent.com/20145050-Vernon-Ong/Active-Mobility-Game/main/popupNotifi.xml");
-        root = xmldoc.DocumentElement;
-        nodes = root.SelectNodes("/popupNotify/popNoti");
-        foreach (XmlNode node in nodes)
+        using UnityWebRequest webrequest = UnityWebRequest.Get(url);
+        yield return webrequest.SendWebRequest();
+        if (webrequest.result != UnityWebRequest.Result.Success)
         {
-            PopNotifi popNoti = new(node["text"].InnerText, node["colliderName"].InnerText, node["type"].InnerText, node["duration"].InnerText);
-            popNotifiList.Add(popNoti);
-        }
-    }
+            Debug.Log(webrequest.error);
+            Debug.LogError(webrequest.downloadHandler.error);
+            Debug.Log(webrequest.downloadHandler.text);
+        } else
+        {
+            xmldoc.Load(@url);
+            root = xmldoc.DocumentElement;
+            nodes = root.SelectNodes("/popupNotify/popNoti");
 
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        for (int i = 0; i < popNotifiList.Count; i++)
-        {
-            if (collision.CompareTag(popNotifiList[i].GetCollider()))
+            foreach (XmlNode node in nodes)
             {
-                Debug.Log(popNotifiList[i].GetCollider());
-                if (popNotifiList[i].GetType().Equals("popup") || popNotifiList[i].GetType().Equals("popupNotification"))
-                {
-                    tutorText.text = popNotifiList[i].GetText();
-                    tutorPopup.SetActive(true);
-                    Time.timeScale = 0;
-                    if (popNotifiList[i].GetType().Equals("popupNotification"))
-                    {
-                        popNotifiList[i].SetType("notification");
-                    }
-                }
-                else if (popNotifiList[i].GetType().Equals("notification"))
-                {
-                    notifText.text = popNotifiList[i].GetText();
-                    StartCoroutine(WaitBeforeShow(float.Parse(popNotifiList[i].GetDuration())));
-                } 
+                PopNotifi popNoti = new(node["text"].InnerText, node["colliderName"].InnerText, node["type"].InnerText, node["duration"].InnerText);
+                popNotifiList.Add(popNoti);
             }
         }
-    }
+    }*/
 
     private IEnumerator WaitBeforeShow(float time)
     {
@@ -112,6 +93,143 @@ public class Readxml : MonoBehaviour
         // }
     }
 
+    /*private async Task<string> AsyncGetRequest()
+    {
+        UnityWebRequest request = UnityWebRequest.Get(url);
+        request.SendWebRequest();
+        while (!request.isDone)
+        {
+            await Task.Yield();
+
+        }
+
+        if (request.result != UnityWebRequest.Result.ConnectionError)
+        {
+            xmldoc.Load(@url);
+            root = xmldoc.DocumentElement;
+            nodes = root.SelectNodes("/popupNotify/popNoti");
+
+            foreach (XmlNode node in nodes)
+            {
+                PopNotifi popNoti = new(node["text"].InnerText, node["colliderName"].InnerText, node["type"].InnerText, node["duration"].InnerText);
+                popNotifiList.Add(popNoti);
+
+            }
+        }
+        return request.url;
+    }*/
+
+    void Awake()
+    {
+        pm = GetComponent<PlayerMovement>();
+        //StartCoroutine(GetRequest("https://raw.githubusercontent.com/20145050-Vernon-Ong/Active-Mobility-Game/main/popupNotifi.xml"));
+        //var result = await AsyncGetRequest();
+        //xmldoc.Load("https://raw.githubusercontent.com/20145050-Vernon-Ong/Active-Mobility-Game/main/popupNotifi.xml");
+        data = xmlFile.text;
+        ParseXmlFile(data);
+        count = 0;
+        for (int i = 0; i < popNotifiList.Count; i++)
+        {
+            if (popNotifiList[i].GetType().Equals("startPopup"))
+            {
+                textList = popNotifiList[i].GetText().Split("\n", StringSplitOptions.RemoveEmptyEntries);
+                tutorText.text = textList[count];
+                tutorPopup.SetActive(true);
+                pm.change = Vector3.zero;
+                count++;
+            }
+        }
+    }
+
+    void Update()
+    {
+        if (tutorPopup.activeInHierarchy)
+        {
+            pm.change = Vector3.zero;
+            pm.keyDisabled = false;
+        } else
+        {
+            pm.keyDisabled = true;
+            panelLeft.SetActive(false);
+            panelRight.SetActive(false);
+            middleline.SetActive(false);
+            middleline2.SetActive(false);
+            panelTop.SetActive(false);
+        }
+    }
+    void ParseXmlFile(string xmlData)
+    {
+        xmldoc.LoadXml(xmlData);
+        string xmlPathPattern = "/popupNotify/popNoti";
+        nodes = xmldoc.SelectNodes(xmlPathPattern);
+        foreach (XmlNode node in nodes)
+        {
+            if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Windows)
+            {
+                PopNotifi popNoti = new(node["text"].InnerText, node["colliderName"].InnerText, node["type"].InnerText, node["duration"].InnerText);
+                popNotifiList.Add(popNoti);
+            } else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Other)
+            {
+                PopNotifi popNoti = new(node["mobileText"].InnerText, node["colliderName"].InnerText, node["type"].InnerText, node["duration"].InnerText);
+                popNotifiList.Add(popNoti);
+            }
+            
+        }
+    }
+    /*IEnumerator ReadXML(string url)
+    {
+        yield return url;
+        xmldoc.Load(@url);
+        root = xmldoc.DocumentElement;
+        nodes = root.SelectNodes("/popupNotify/popNoti");
+
+        foreach (XmlNode node in nodes)
+        {
+            PopNotifi popNoti = new(node["text"].InnerText, node["colliderName"].InnerText, node["type"].InnerText, node["duration"].InnerText);
+            popNotifiList.Add(popNoti);
+        }
+        /*var query = from p in xmldoc.Elements("popupNotify").Elements("popNoti")
+                    select p;
+        foreach (XElement record in query)
+        {
+            PopNotifi popNoti = new(record.Element("text").Value,
+                record.Element("colliderName").Value, record.Element("type").Value, record.Element("duration").Value);
+            popNotifiList.Add(popNoti);
+        }
+    }*/
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        for (int i = 0; i < popNotifiList.Count; i++)
+        {
+            if (collision.CompareTag(popNotifiList[i].GetCollider()))
+            {
+                Debug.Log(popNotifiList[i].GetCollider());
+                if (popNotifiList[i].GetType().Equals("popup"))
+                {
+                    tutorText.text = popNotifiList[i].GetText();
+                    pm.change = Vector3.zero;
+                    tutorPopup.SetActive(true);
+                    if (float.Parse(popNotifiList[i].GetDuration()) > 0)
+                    {
+                        popNotifiList[i].SetType("notification");
+                    } else if (popNotifiList[i].GetCollider().Equals("zebraTag"))
+                    {
+                        Destroy(zebraInterface);
+                    } else if (popNotifiList[i].GetCollider().Equals("trafficTag"))
+                    {
+                        Destroy(trafficInterface);
+                    }
+                }
+                else if (popNotifiList[i].GetType().Equals("notification"))
+                {
+                    notifText.text = popNotifiList[i].GetText();
+                    StartCoroutine(WaitBeforeShow(float.Parse(popNotifiList[i].GetDuration())));
+                }
+            }
+        }
+    }
+
     public void ClosePopup()
     {
         if (count == 1)
@@ -121,7 +239,6 @@ public class Readxml : MonoBehaviour
         } else if (count == 2)
         {
             tutorPopup.SetActive(false);
-            Time.timeScale = 1;
         }
     }
 }
