@@ -36,22 +36,18 @@ public class Readxml : MonoBehaviour
     private string data;
     public GameObject notifpop;
     public GameObject tutorPopup;
+    public GameObject popup;
     public GameObject zebraInterface;
     public GameObject trafficInterface;
-    public GameObject panelLeft;
-    public GameObject panelRight;
-    public GameObject panelTop;
-    public GameObject middleline;
-    public GameObject middleline2;
 
     public TMP_Text notifText;
     public TMP_Text tutorText;
+    public TMP_Text popupText;
 
     public XmlDocument xmldoc = new();
     public XmlNodeList nodes;
     public XmlElement root;
 
-    private string[] textList;
     private readonly List<PopNotifi> popNotifiList = new();
 
     public TextAsset xmlFile;
@@ -132,9 +128,7 @@ public class Readxml : MonoBehaviour
         {
             if (popNotifiList[i].GetType().Equals("startPopup"))
             {
-                textList = popNotifiList[i].GetText().Split("\n", StringSplitOptions.RemoveEmptyEntries);
-                tutorText.text = textList[count];
-                tutorPopup.SetActive(true);
+                tutorText.text = popNotifiList[i].GetText();
                 pm.change = Vector3.zero;
                 count++;
             }
@@ -150,11 +144,6 @@ public class Readxml : MonoBehaviour
         } else
         {
             pm.keyDisabled = true;
-            panelLeft.SetActive(false);
-            panelRight.SetActive(false);
-            middleline.SetActive(false);
-            middleline2.SetActive(false);
-            panelTop.SetActive(false);
         }
     }
     void ParseXmlFile(string xmlData)
@@ -207,9 +196,9 @@ public class Readxml : MonoBehaviour
                 Debug.Log(popNotifiList[i].GetCollider());
                 if (popNotifiList[i].GetType().Equals("popup"))
                 {
-                    tutorText.text = popNotifiList[i].GetText();
+                    popupText.text = popNotifiList[i].GetText();
                     pm.change = Vector3.zero;
-                    tutorPopup.SetActive(true);
+                    popup.SetActive(true);
                     if (float.Parse(popNotifiList[i].GetDuration()) > 0)
                     {
                         popNotifiList[i].SetType("notification");
@@ -232,13 +221,12 @@ public class Readxml : MonoBehaviour
 
     public void ClosePopup()
     {
-        if (count == 1)
-        {
-            tutorText.text = textList[count];
-            count++;
-        } else if (count == 2)
+        if (tutorPopup.activeInHierarchy)
         {
             tutorPopup.SetActive(false);
+        } else if (popup.activeInHierarchy)
+        {
+            popup.SetActive(false);
         }
     }
 }
