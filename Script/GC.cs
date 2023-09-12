@@ -9,6 +9,7 @@ public class GC : MonoBehaviour
     public GameObject Player;
     public GameObject Phone;
     private Vector3 pos;
+    private Vector3 PhonePos;
     public TextMeshProUGUI ValueText;
     public TextMeshProUGUI summaryText;
     public TextMeshProUGUI learningPoints;
@@ -36,14 +37,6 @@ public class GC : MonoBehaviour
         animator = GetComponent<Animator>();
         //lifeValueText.text = lifetotalpoints.ToString();
         ValueText.text = totalpoints.ToString();
-        PlayerPrefs.SetString("currentScore", "0");
-        PlayerPrefs.SetString("summary", "");
-        PlayerPrefs.SetString("learningPoint1", "");
-        PlayerPrefs.SetString("learningPoint2", "");
-        PlayerPrefs.SetString("learningPoint3", "");
-        PlayerPrefs.SetInt("tick1", isGreen);
-        PlayerPrefs.SetInt("tick2", isGreen2);
-        PlayerPrefs.SetInt("tick3", isGreen3);
         isGreen = 1;
         isGreen2 = 1;
         isGreen3 = 1;
@@ -165,7 +158,7 @@ public class GC : MonoBehaviour
     {
         if (Phone.transform.localPosition.y == 17)
         {
-            Phone.transform.localPosition = new Vector3(pos.x, -691, 0);
+            Phone.transform.localPosition = new Vector3(pos.x, pos.y, 0);
         } else
         {
             Phone.transform.localPosition = new Vector3(pos.x, 17, 0);
