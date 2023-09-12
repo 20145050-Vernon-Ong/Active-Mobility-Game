@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TrafficLightCar : MonoBehaviour
@@ -20,7 +19,6 @@ public class TrafficLightCar : MonoBehaviour
     void Update()
     {
         TrafficCar();
-
     }
     void TrafficCar()
     {

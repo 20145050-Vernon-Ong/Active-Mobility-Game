@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
             change.x = Input.GetAxisRaw("Horizontal");
             if (Input.GetKey(KeyCode.S))
             {
-                change.y = 0;
+
             } 
         } 
     }

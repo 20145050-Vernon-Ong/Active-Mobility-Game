@@ -68,7 +68,7 @@ public class GC : MonoBehaviour
             {
                 isGreen2 = 0;
                 _timeColliding = 0f;
-                learningPoints.color = new Color(255, 0, 0, 255);
+                learningPoints2.color = new Color(255, 0, 0, 255);
                 summaryText.text = "Be sure to cross only when the green man is flashing!";
             }
             //lifeValueText.text = lifetotalpoints.ToString();
