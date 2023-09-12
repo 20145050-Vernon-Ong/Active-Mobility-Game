@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class scoreHandler : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class scoreHandler : MonoBehaviour
     public GameObject learningPoint1;
     public GameObject learningPoint2;
     public GameObject learningPoint3;
+    public GameObject check1;
+    public GameObject check2;
+    public GameObject check3;
 
     private TextMeshProUGUI currentScoreText;
     //private TextMeshProUGUI highScoreText;
@@ -19,8 +23,15 @@ public class scoreHandler : MonoBehaviour
     private TextMeshProUGUI learningPoint1Text;
     private TextMeshProUGUI learningPoint2Text;
     private TextMeshProUGUI learningPoint3Text;
+
+    private AsyncOperation operation;
     
-    private int current;
+    private float current;
+    private int isTicked;
+    private int isTicked2;
+    private int isTicked3;
+
+    private HealthManager hm;
     //private int high;
     
     // Start is called before the first frame update
@@ -41,24 +52,55 @@ public class scoreHandler : MonoBehaviour
         // currentscore;
         currentScoreText.text = PlayerPrefs.GetString("currentScore");
         // retrieve and convert currentscore into current
-        current = int.Parse(PlayerPrefs.GetString("currentScore"));
+        current = float.Parse(PlayerPrefs.GetString("currentScore"));
         //high = int.Parse(PlayerPrefs.GetString("highScore"));
-
         // if current score is 100, set 100 to highscore mesh. set < to restart
         PlayerPrefs.SetString("highScore", System.Convert.ToString(current));
-        distanceText.text = PlayerPrefs.GetString("distance");
-        /*if (current > high)
+        if (HealthManager.health > 0)
         {
-            
+            distanceText.text = "Distance Covered: " + PlayerPrefs.GetString("distance") + "m";
         } else
         {
-            
-        }*/
-        //highScoreText.text = PlayerPrefs.GetString("highScore");
+            distanceText.text = "Distance Left: " + PlayerPrefs.GetString("distance") + "m";
+        }     
+        isTicked = PlayerPrefs.GetInt("tick1", isTicked);
+        isTicked2 = PlayerPrefs.GetInt("tick2", isTicked2);
+        isTicked3 = PlayerPrefs.GetInt("tick3", isTicked3);
+        if (isTicked == 1)
+        {
+            check1.SetActive(true);
+        }
+        else
+        {
+            check1.SetActive(false);
+        }
+        if (isTicked2 == 1)
+        {
+            check2.SetActive(true);
+        } else
+        {
+            check2.SetActive(false);
+        }
+        if (isTicked3 == 1)
+        {
+            check3.SetActive(true);
+        } else
+        {
+            check3.SetActive(false);
+        }
     }
 
-    public void LoadGame()
+    public IEnumerator LoadGame()
     {
-        SceneManager.LoadScene("MainScene");
+        operation = SceneManager.LoadSceneAsync("MainScene");
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    public void RestartGame()
+    {
+        StartCoroutine(LoadGame());
     }
 }

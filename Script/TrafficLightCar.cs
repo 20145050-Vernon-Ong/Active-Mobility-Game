@@ -1,3 +1,5 @@
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TrafficLightCar : MonoBehaviour
@@ -5,6 +7,10 @@ public class TrafficLightCar : MonoBehaviour
     private Animator animator;
     public GameObject cross;
     public GameObject cross2;
+    public GameObject bomb;
+    public GameObject timer;
+    public TMP_Text timerText;
+    private float time = 12;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +20,7 @@ public class TrafficLightCar : MonoBehaviour
     void Update()
     {
         TrafficCar();
+
     }
     void TrafficCar()
     {
@@ -23,6 +30,9 @@ public class TrafficLightCar : MonoBehaviour
             animator.SetBool("isRed", false);
             cross.SetActive(false);
             cross2.SetActive(false);
+            bomb.SetActive(true);
+            timer.SetActive(false);
+            time = 12;
         }
         else if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficLightAmber"))
         {
@@ -37,6 +47,9 @@ public class TrafficLightCar : MonoBehaviour
             animator.SetBool("isAmber", false);
             cross.SetActive(true);
             cross2.SetActive(true);
+            bomb.SetActive(false);
+            timer.SetActive(true);
+            timerText.text = "Cross in " + (time -= 1 * Time.deltaTime).ToString("0");
         }
     }
 }

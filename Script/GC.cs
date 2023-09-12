@@ -7,89 +7,105 @@ public class GC : MonoBehaviour
 {
     private SimpleFlash sf;
     public GameObject Player;
-    public GameObject tick1;
-    public GameObject tick2;
-    public GameObject tick3;
-
+    public GameObject Phone;
+    private Vector3 pos;
     public TextMeshProUGUI ValueText;
-    public TextMeshProUGUI lifeValueText;
     public TextMeshProUGUI summaryText;
     public TextMeshProUGUI learningPoints;
     public TextMeshProUGUI learningPoints2;
     public TextMeshProUGUI learningPoints3;
+    public TextMeshProUGUI distanceCoveredText;
 
-    private float totalpoints;
+    public float totalpoints;
     private float _timeColliding;
     private readonly float timeThreshold = 2f;
     private bool isTouch;
     private int isGreen;
     private int isGreen2;
     private int isGreen3;
-    private float lifetotalpoints = 3;
+    //private float lifetotalpoints = 3;
     private PlayerMovement pm;
+    private Animator animator;
     void Awake()
     {
         // Store currentscore in prefs
         isTouch = false;
+        pos = Phone.transform.localPosition;
         sf = GetComponent<SimpleFlash>();
         pm = GetComponent<PlayerMovement>();
-        lifeValueText.text = lifetotalpoints.ToString();
+        animator = GetComponent<Animator>();
+        //lifeValueText.text = lifetotalpoints.ToString();
         ValueText.text = totalpoints.ToString();
         PlayerPrefs.SetString("currentScore", "0");
         PlayerPrefs.SetString("summary", "");
         PlayerPrefs.SetString("learningPoint1", "");
         PlayerPrefs.SetString("learningPoint2", "");
+        PlayerPrefs.SetString("learningPoint3", "");
         PlayerPrefs.SetInt("tick1", isGreen);
         PlayerPrefs.SetInt("tick2", isGreen2);
         PlayerPrefs.SetInt("tick3", isGreen3);
-        learningPoints.color = new Color(0, 241, 17, 255);
-        learningPoints3.color = new Color(0, 241, 17, 255);
-        tick1.SetActive(true);
-        tick3.SetActive(true);
         isGreen = 1;
-        isGreen2 = 0;
+        isGreen2 = 1;
         isGreen3 = 1;
+    }
+
+    void Update()
+    {
+        if (Phone.transform.localPosition.y == 17 && animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
+        {
+            Debug.Log("Player has moved while the mobilephone is active.");
+            isGreen3 = 0;
+            learningPoints3.color = new Color(255, 0, 0, 255);
+        } else
+        {
+            Debug.Log("Player stop moving while the mobilephone is active.");
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)  
     {
-
         if (other.CompareTag("macetag") || other.CompareTag("maceTrafficTag"))
         {
             summaryText.text = "Be on the correct lane to avoid conflicts!";
-            lifetotalpoints --;
-            lifeValueText.text = lifetotalpoints.ToString();
+            //lifetotalpoints --;
+            HealthManager.health--;
             sf.Flash();
+            PlayerPrefs.SetString("distance", pm.distanceLeft.ToString());
             if (other.CompareTag("maceTrafficTag"))
             {
+                isGreen2 = 0;
                 _timeColliding = 0f;
+                learningPoints.color = new Color(255, 0, 0, 255);
                 summaryText.text = "Be sure to cross only when the green man is flashing!";
             }
+            //lifeValueText.text = lifetotalpoints.ToString();
             StartCoroutine(RestartCurrentlevel());
         }
-        else if (other.CompareTag("coinTag") || other.CompareTag("cointag"))
+        else if (other.CompareTag("coinTag"))
         {
-            other.gameObject.SetActive(false);
+            Destroy(other.gameObject);
             totalpoints++;
             ValueText.text = totalpoints.ToString();
         }
         else if (other.CompareTag("car"))
         {
-            isTouch = true;
+            sf.Flash();
+            isGreen = 0;
+            isGreen2 = 0;
+            HealthManager.health = 0;
+            learningPoints.color = new Color(255, 0, 0, 255);
+            learningPoints2.color = new Color(255, 0, 0, 255);
             summaryText.text = "Be sure to lookout for moving vehicles.";
+            PlayerPrefs.SetString("distance", pm.distanceLeft.ToString("0"));
             StartCoroutine(RestartCurrentlevel());
         }
         else if (other.CompareTag("questPoint"))
         {
             isTouch = true;
             summaryText.text = "You have completed the game!";
+            PlayerPrefs.SetString("distance", pm.totalDistance.ToString("0"));
             StartCoroutine(RestartCurrentlevel());
-        } else if (other.CompareTag("checkTag"))
-        {
-            learningPoints2.color = new Color(0, 241, 17, 255);
-            tick2.SetActive(true);
-            isGreen2 = 1;
-        } 
+        }
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -102,41 +118,39 @@ public class GC : MonoBehaviour
             }
             else
             {
-                // Time is over theshold, player takes damage
                 sf.Flash();
                 if (other.CompareTag("roadTag"))
                 {
-                    lifetotalpoints = 0;
-                } else if (other.CompareTag("cyclingTag"))
-                {
-                    lifetotalpoints--;
+                    HealthManager.health = 0;
                 }
-                if (lifetotalpoints >= 0)
+                else if (other.CompareTag("cyclingTag"))
                 {
-                    if (other.CompareTag("roadTag") || other.CompareTag("cyclingTag"))
-                    {
-                        summaryText.text = "Avoid walking across the wrong path!";
-                        learningPoints.color = new Color(255, 0, 0, 255);
-                        tick1.SetActive(false);
-                        isGreen = 0;
-                    }
-                    lifeValueText.text = lifetotalpoints.ToString();
+                    //lifetotalpoints--;
+                    HealthManager.health--;
                 }
-                // Reset timer
+                //lifeValueText.text = lifetotalpoints.ToString();
+                if (other.CompareTag("roadTag") || other.CompareTag("cyclingTag"))
+                {
+                    isGreen = 0;
+                    summaryText.text = "Avoid walking across the wrong path!";
+                    learningPoints.color = new Color(255, 0, 0, 255);
+                }
                 _timeColliding = 0f;
             }
-
+            // Time is over theshold, player takes damag
+            // Reset timer
+            PlayerPrefs.SetString("distance", pm.distanceLeft.ToString("0"));
             StartCoroutine(RestartCurrentlevel());
         }
     }
+
     public IEnumerator RestartCurrentlevel()
     {
-        if (lifetotalpoints == 0 || isTouch)
+        if (HealthManager.health == 0 || isTouch)
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.5f);
             PlayerPrefs.SetString("currentScore", ValueText.text);
             PlayerPrefs.SetString("summary", summaryText.text);
-            PlayerPrefs.SetString("distance", pm.distanceText.text);
             PlayerPrefs.SetString("learningPoint1", learningPoints.text);
             PlayerPrefs.SetString("learningPoint2", learningPoints2.text);
             PlayerPrefs.SetString("learningPoint3", learningPoints3.text);
@@ -147,4 +161,14 @@ public class GC : MonoBehaviour
         }
     }
 
+    public void OpenPhone()
+    {
+        if (Phone.transform.localPosition.y == 17)
+        {
+            Phone.transform.localPosition = new Vector3(pos.x, -691, 0);
+        } else
+        {
+            Phone.transform.localPosition = new Vector3(pos.x, 17, 0);
+        }  
+    }
 }

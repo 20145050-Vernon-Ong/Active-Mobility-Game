@@ -84,7 +84,7 @@ public class Quest : MonoBehaviour
 
     private PlayerMovement p;
     private Animator animator;
-    private gc addPoint;
+    private GC addPoint;
     // Start is called before the first frame update
     void Awake()
     {
@@ -107,7 +107,7 @@ public class Quest : MonoBehaviour
         finishpopup.SetActive(false);
         p = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
-        addPoint = GetComponent<gc>();
+        addPoint = GetComponent<GC>();
     }
     void Start()
     {
@@ -334,8 +334,8 @@ public class Quest : MonoBehaviour
                 if (!isTracking)
                 {
                     pointer.SetActive(false);
-                    addPoint.totalpoints += quests[i].GetReward();
-                    addPoint.ValueText.text = addPoint.totalpoints.ToString();
+                    //addPoint.totalpoints += quests[i].GetReward();
+                    //addPoint.ValueText.text = addPoint.totalpoints.ToString();
                     GameObject.Destroy(pointList[i].gameObject);
                     GameObject.Destroy(missionList[i].gameObject);
                     GameObject.Destroy(textList[i].gameObject);

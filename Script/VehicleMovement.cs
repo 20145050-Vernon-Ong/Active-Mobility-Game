@@ -2,14 +2,17 @@ using UnityEngine;
 
 public class VehicleMovement : MonoBehaviour
 {
-    public float speed = 0.03f;
+    public float speed;
+    private float exitSpeed;
     public GameObject vehicle;
     public GameObject reset;
     private Vector3 PosX;
+
     // Start is called before the first frame update
     void Awake()
     {
-        PosX = vehicle.transform.position;     
+        exitSpeed = speed;
+        PosX = vehicle.transform.position;
     }
 
     // Update is called once per frame
@@ -17,11 +20,11 @@ public class VehicleMovement : MonoBehaviour
     {
         if (vehicle.transform.rotation.z == 0)
         {
-            vehicle.transform.localPosition += Vector3.up * speed;
+            vehicle.transform.position += Vector3.up * speed;
         }
         else
         {
-            vehicle.transform.localPosition += Vector3.down * speed;
+            vehicle.transform.position += Vector3.down * speed;
         }
     }
 
@@ -38,10 +41,10 @@ public class VehicleMovement : MonoBehaviour
         {
             if (vehicle.transform.rotation.z == 0)
             {
-                vehicle.transform.localPosition = new Vector3(PosX.x, 0, 0);
+                vehicle.transform.position = new Vector3(PosX.x, reset.transform.position.y, 0);
             } else
             {
-                vehicle.transform.localPosition = new Vector3(PosX.x, 0, 0);
+                vehicle.transform.position = new Vector3(PosX.x, reset.transform.position.y, 0);
             }
         }
         
@@ -51,7 +54,7 @@ public class VehicleMovement : MonoBehaviour
     {
         if (collision.CompareTag("Stop") || collision.CompareTag("car"))
         {
-            speed = 0.03f;
+            speed = exitSpeed;
         }
     }
 

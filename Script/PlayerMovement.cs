@@ -1,25 +1,24 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.SceneManagement;
 using SystemInfo = UnityEngine.Device.SystemInfo;
-using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
     public float movespeed;
     public float speed;
-    private float totalDistance = 0;
+    public float totalDistance = 0;
+    public float distanceLeft = 0;
 
     public bool canMove = true;
     public bool keyDisabled;
 
     public TextMeshProUGUI distanceText;
 
-    private Touch touch;
+    /*private Touch touch;
 
-    private Vector2 startTouch;
+    private Vector2 startTouch;*/
     private Vector3 startPosition;
     public Vector3 change;
 
@@ -33,16 +32,14 @@ public class PlayerMovement : MonoBehaviour
 
     public FixedJoystick joystick;
     private Rigidbody2D myRigidBody;
-    [SerializeField]
-    private Animator animator;
-    
+    public Animator animator;
+    WebCamDevice webCamDevice;
     void Awake()
     {
-        startPosition = pedestrian.transform.position;
-        Debug.Log(Input.touchSupported);
         GetComponent<Collider2D>().isTrigger = true;
         animator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
+        startPosition = pedestrian.transform.position;
     }
     // Update is called once per frame 
     /*void Update()
@@ -69,12 +66,13 @@ public class PlayerMovement : MonoBehaviour
     }*/
     void Update()
     {
-        //totalDistance += Vector3.Distance(pedestrian.transform.localPosition, startPosition);
-        //startPosition = pedestrian.transform.localPosition;
-        totalDistance = Vector3.Distance(endPoint.transform.position, pedestrian.transform.position);
-        distanceText.text = totalDistance.ToString("0") + " Metre";
+        totalDistance += Vector3.Distance(pedestrian.transform.position, startPosition);
+        startPosition = pedestrian.transform.position;
+        distanceLeft = Vector3.Distance(endPoint.transform.position, pedestrian.transform.position);
+        distanceText.text = distanceLeft.ToString("0") + " m";
         if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Other)
         {
+            speed = 3;
             DPad.SetActive(true);
         }
         else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Windows)
@@ -89,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.CompareTag("trafficBox"))
         {
-            trafficCross.SetActive(true);
             zebraCross.SetActive(true);
             zebraCross2.SetActive(true);
         }
@@ -112,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.S))
             {
                 change.y = 0;
-            }
+            } 
         } 
     }
     /*void TouchInput()

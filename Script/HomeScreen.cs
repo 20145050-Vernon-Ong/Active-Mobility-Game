@@ -22,11 +22,6 @@ public class HomeScreen : MonoBehaviour
         can = GetComponent<CanvasScaler>();
     }
 
-    void Update()
-    {
-
-    }
-
     public void OpenQuestList()
     {
         Screen.SetActive(false);
