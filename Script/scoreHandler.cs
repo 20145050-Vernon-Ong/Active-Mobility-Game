@@ -27,6 +27,7 @@ public class scoreHandler : MonoBehaviour
     private AsyncOperation operation;
     
     private float current;
+    private int highscore;
     private int isTicked;
     private int isTicked2;
     private int isTicked3;
@@ -103,4 +104,20 @@ public class scoreHandler : MonoBehaviour
     {
         StartCoroutine(LoadGame());
     }
+
+    public void HighScore()
+    {
+
+        highscore = PlayerPrefs.GetInt("PlayerHighScore");
+
+        if (current > highscore)
+        {
+            highscore = (int)current;
+            PlayerPrefs.SetInt("PlayerHighScore", highscore);
+            PlayerPrefs.Save();
+            Debug.Log(highscore);
+        }
+
+    }
+
 }
