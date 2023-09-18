@@ -2,13 +2,17 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using SystemInfo = UnityEngine.Device.SystemInfo;
+using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    private readonly string distanceLeftKey = "DistanceLeft";
+    private float initialYPosition; // Store the initial Y position
     // Start is called before the first frame update
+    public int differenceY;
     public float movespeed;
     public float speed;
-    public float totalDistance = 0;
     public float distanceLeft = 0;
 
     public bool canMove = true;
@@ -19,27 +23,36 @@ public class PlayerMovement : MonoBehaviour
     /*private Touch touch;
 
     private Vector2 startTouch;*/
-    private Vector3 startPosition;
     public Vector3 change;
 
     public GameObject pedestrian;
     public GameObject trafficCross;
-    public GameObject zebraCross;
-    public GameObject zebraCross2;
     public GameObject pauseMenu;
     public GameObject endPoint;
     public GameObject DPad;
 
-    public FixedJoystick joystick;
+    // public FixedJoystick joystick;
     private Rigidbody2D myRigidBody;
     public Animator animator;
-    WebCamDevice webCamDevice;
+    public List<GameObject> trafficCrossList = new();
+
     void Awake()
     {
         GetComponent<Collider2D>().isTrigger = true;
         animator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
-        startPosition = pedestrian.transform.position;
+        if (PlayerPrefs.HasKey("InitialYPosition"))
+        {
+            initialYPosition = PlayerPrefs.GetFloat("InitialYPosition");
+        }
+        else
+        {
+            // If initial Y position doesn't exist in PlayerPrefs, set it to the current Y position
+            initialYPosition = transform.position.y;
+            // Save the initial Y position to PlayerPrefs so you can use it in the future
+            PlayerPrefs.SetFloat("InitialYPosition", initialYPosition);
+        }
+        trafficCrossList.Add(GameObject.FindWithTag("trafficBox"));
     }
     // Update is called once per frame 
     /*void Update()
@@ -66,10 +79,24 @@ public class PlayerMovement : MonoBehaviour
     }*/
     void Update()
     {
-        totalDistance += Vector3.Distance(pedestrian.transform.position, startPosition);
-        startPosition = pedestrian.transform.position;
+        if (PlayerPrefs.HasKey(distanceLeftKey))
+        {
+            distanceLeft = PlayerPrefs.GetFloat(distanceLeftKey);
+            
+            // Calculate the difference along the Y-axis between the initial Y position and the current Y position
+            float currentYPosition = transform.position.y;
+            differenceY = Mathf.CeilToInt(Mathf.Abs(currentYPosition - initialYPosition));
+            
+            // You can use 'differenceY' as an integer in your script
+            // For example, you can print it to the console:
+            Debug.Log("Y-axis Difference as Integer: " + differenceY);
+        }
         distanceLeft = Vector3.Distance(endPoint.transform.position, pedestrian.transform.position);
         distanceText.text = distanceLeft.ToString("0") + " m";
+
+        // Save distanceLeft in PlayerPrefs
+        PlayerPrefs.SetFloat(distanceLeftKey, distanceLeft);
+
         if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Other)
         {
             speed = 3;
@@ -83,23 +110,31 @@ public class PlayerMovement : MonoBehaviour
         UpdateAnimationAndMove();
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    /*void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("trafficBox"))
+        for (int i = 0; i < trafficCrossList.Count; i++)
         {
-            zebraCross.SetActive(true);
-            zebraCross2.SetActive(true);
+            if (collision.CompareTag("trafficBox"))
+            {
+                trafficCrossList[i].transform.GetChild(0).gameObject.SetActive(true);
+                trafficCrossList[i].transform.GetChild(1).gameObject.SetActive(true);
+            }
         }
+        
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("trafficBox"))
+        for (int i = 0; i < trafficCrossList.Count; i++)
         {
-            zebraCross.SetActive(false);
-            zebraCross2.SetActive(false);
+            if (collision.CompareTag("trafficBox"))
+            {
+                trafficCrossList[i].transform.GetChild(0).gameObject.SetActive(false);
+                trafficCrossList[i].transform.GetChild(1).gameObject.SetActive(false);
+            }
         }
-    }
+    }*/
+
     void ControlKey()
     {
         if (keyDisabled)
@@ -108,8 +143,11 @@ public class PlayerMovement : MonoBehaviour
             change.x = Input.GetAxisRaw("Horizontal");
             if (Input.GetKey(KeyCode.S))
             {
+                change.y = 0;
+            } else if (Input.GetKey(KeyCode.Space))
+            {
 
-            } 
+            }
         } 
     }
     /*void TouchInput()
@@ -161,19 +199,29 @@ public class PlayerMovement : MonoBehaviour
 
     public void GoUp()
     {
-        change.y = 1;
-        change.x = 0;
+        if (keyDisabled)
+        {
+            change.y = 1;
+            change.x = 0;
+        }        
     }
     public void GoLeft()
     {
-        change.y = 0;
-        change.x = -1;
+        if (keyDisabled)
+        {
+            change.y = 0;
+            change.x = -1;
+        }
     }
 
     public void GoRight()
     {
-        change.y = 0;
-        change.x = 1;
+        if (keyDisabled)
+        {
+            change.y = 0;
+            change.x = 1;
+        }
+        
     }
 
     public void Stop()
@@ -221,5 +269,3 @@ public class PlayerMovement : MonoBehaviour
     }
 
 }
-
-

@@ -14,16 +14,14 @@ public class TileManager : MonoBehaviour
     private int lastPrefabIndex = 0;
 
     private List<GameObject> activeTiles;
-
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         activeTiles = new List<GameObject>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-
         for (int i = 0; i < amnTileOnScreen; i++)
         {
-            spawnTile();
+            SpawnTile();
         }
         for (int i = 0; i < map.Length; i++)
         {
@@ -41,7 +39,7 @@ public class TileManager : MonoBehaviour
         }*/
     }
 
-    private void spawnTile(int prefabIndex = -1)
+    private void SpawnTile(int prefabIndex = -1)
     {
         GameObject go;
         go = Instantiate(tilePrefabs[RandomPrefabIndex()]) as GameObject;

@@ -22,7 +22,7 @@ public class TrafficLightCar : MonoBehaviour
     }
     void TrafficCar()
     {
-        if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficLightGreen"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficLightGreen"))
         {
             animator.SetBool("isGreen", true);
             animator.SetBool("isRed", false);
@@ -32,14 +32,14 @@ public class TrafficLightCar : MonoBehaviour
             timer.SetActive(false);
             time = 12;
         }
-        else if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficLightAmber"))
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficLightAmber"))
         {
             animator.SetBool("isAmber", true);
             animator.SetBool("isGreen", false);
             cross.SetActive(false);
             cross2.SetActive(false);
         }
-        else if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficLightRed"))
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficLightRed"))
         {
             animator.SetBool("isRed", true);
             animator.SetBool("isAmber", false);
@@ -47,7 +47,7 @@ public class TrafficLightCar : MonoBehaviour
             cross2.SetActive(true);
             bomb.SetActive(false);
             timer.SetActive(true);
-            timerText.text = "Cross in " + (time -= 1 * Time.deltaTime).ToString("0");
+            timerText.text = "Cross now (" + (time -= 1 * Time.deltaTime).ToString("0") + ")";
         }
     }
 }

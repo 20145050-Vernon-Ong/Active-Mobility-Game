@@ -12,18 +12,18 @@ public class TrafficSystem : MonoBehaviour
     public GameObject arrowLeftRight2;
     private float currentTime = 0;
     private float currentTime2 = 0;
-    public float startingTime = 12;
-    private float startingTime2 = 12;
+    private readonly float startingTime = 12;
+    private readonly float startingTime2 = 12;
     public float moveDistance;   // Total distance to move up and down.
     public float moveSpeed;      // Speed of the movement.
     public TextMeshPro ValueText;//fortext
     public TextMeshPro ValueText2;//fortext
-    public void StartTime()
+    private void StartTime()
     {
         currentTime = startingTime;
     }
     
-    public void StartTime2()
+    private void StartTime2()
     {  
         currentTime2 = startingTime2;
     }
@@ -45,21 +45,21 @@ public class TrafficSystem : MonoBehaviour
         {
             currentTime2 = 12;
         }
-        ValueText.text = "Cross in " + currentTime.ToString("0");
-        ValueText2.text = "Cross in " + currentTime2.ToString("0");
+        ValueText.text = "Cross now (" + currentTime.ToString("0") + ")";
+        ValueText2.text = "Cross now (" + currentTime2.ToString("0") + ")";
         Traffic();
         TrafficJunction();
     }
 
     void Traffic()
     {
-        if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficLightSideRed"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficLightSideRed"))
         {
             animator.SetBool("isGreen", false);
             animator.SetBool("isRed", true);
             currentTime = 0;
         }
-        else if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficLightSideGreen"))
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficLightSideGreen"))
         {
             animator.SetBool("isRed", false);
             animator.SetBool("isGreen", true);
@@ -76,7 +76,7 @@ public class TrafficSystem : MonoBehaviour
 
     void TrafficJunction()
     {
-        if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficJunctionRed") || this.animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficJunctionRed[Right]"))
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficJunctionRed") || animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficJunctionRed[Right]"))
         {
             StartTime();
             animator.SetBool("isGreen", false);
@@ -88,7 +88,7 @@ public class TrafficSystem : MonoBehaviour
             arrowLeftRight.SetActive(true);
             arrowLeftRight2.SetActive(true);
         }
-        else if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficJunctionGreen") || this.animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficJunctionGreen[Right]"))
+        else if (animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficJunctionGreen") || animator.GetCurrentAnimatorStateInfo(0).IsName("TrafficJunctionGreen[Right]"))
         {
             StartTime2();
             animator.SetBool("isRed", false);

@@ -110,7 +110,7 @@ public class Readxml : MonoBehaviour
         return request.url;
     }*/
 
-    void Awake()
+    void Start()
     {
         pm = GetComponent<PlayerMovement>();
         //StartCoroutine(ReadXML("https://raw.githubusercontent.com/20145050-Vernon-Ong/Active-Mobility-Game/main/popupNotifi.xml"));

@@ -8,7 +8,7 @@ public class GC : MonoBehaviour
     private SimpleFlash sf;
     public GameObject Player;
     public GameObject Phone;
-    private Vector3 pos;
+    public Vector3 pos;
     private Vector3 PhonePos;
     public TextMeshProUGUI ValueText;
     public TextMeshProUGUI summaryText;
@@ -17,10 +17,11 @@ public class GC : MonoBehaviour
     public TextMeshProUGUI learningPoints3;
     public TextMeshProUGUI distanceCoveredText;
 
-    public float totalpoints;
+    public int totalpoints;
     private float _timeColliding;
     private readonly float timeThreshold = 2f;
     private bool isTouch;
+    private bool isPhone;
     private int isGreen;
     private int isGreen2;
     private int isGreen3;
@@ -44,7 +45,7 @@ public class GC : MonoBehaviour
 
     void Update()
     {
-        if (Phone.transform.localPosition.y == 17 && animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
+        if (isPhone == true && animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
         {
             Debug.Log("Player has moved while the mobilephone is active.");
             isGreen3 = 0;
@@ -96,7 +97,7 @@ public class GC : MonoBehaviour
         {
             isTouch = true;
             summaryText.text = "You have completed the game!";
-            PlayerPrefs.SetString("distance", pm.totalDistance.ToString("0"));
+            PlayerPrefs.SetString("distance", pm.differenceY.ToString("0"));
             StartCoroutine(RestartCurrentlevel());
         }
     }
@@ -156,12 +157,14 @@ public class GC : MonoBehaviour
 
     public void OpenPhone()
     {
-        if (Phone.transform.localPosition.y == 17)
+        if (Phone.transform.localPosition.y == -109)
         {
+            isPhone = false;
             Phone.transform.localPosition = new Vector3(pos.x, pos.y, 0);
         } else
         {
-            Phone.transform.localPosition = new Vector3(pos.x, 17, 0);
+            isPhone = true;
+            Phone.transform.localPosition = new Vector3(pos.x, -109, 0);
         }  
     }
 }
