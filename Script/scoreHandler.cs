@@ -6,7 +6,7 @@ using System.Collections;
 public class scoreHandler : MonoBehaviour
 {
     public GameObject currentScore;
-    //public GameObject highScore;
+    public GameObject highScore;
     public GameObject summary;
     public GameObject distance;
     public GameObject learningPoint1;
@@ -17,7 +17,7 @@ public class scoreHandler : MonoBehaviour
     public GameObject check3;
 
     private TextMeshProUGUI currentScoreText;
-    //private TextMeshProUGUI highScoreText;
+    private TextMeshProUGUI highScoreText;
     private TextMeshProUGUI summaryText;
     private TextMeshProUGUI distanceText;
     private TextMeshProUGUI learningPoint1Text;
@@ -27,13 +27,12 @@ public class scoreHandler : MonoBehaviour
     private AsyncOperation operation;
     
     private float current;
-    private int highscore;
     private int isTicked;
     private int isTicked2;
     private int isTicked3;
 
-    private HealthManager hm;
-    //private int high;
+    private readonly HealthManager hm;
+    private int highscore;
     
     // Start is called before the first frame update
     void Awake()
@@ -44,7 +43,7 @@ public class scoreHandler : MonoBehaviour
         learningPoint3Text = learningPoint3.GetComponent<TextMeshProUGUI>();
         distanceText = distance.GetComponent<TextMeshProUGUI>();
         currentScoreText = currentScore.GetComponent<TextMeshProUGUI>();
-        //highScoreText = highScore.GetComponent<TextMeshProUGUI>();
+        highScoreText = highScore.GetComponent<TextMeshProUGUI>();
         summaryText = summary.GetComponent<TextMeshProUGUI>();
         learningPoint1Text.text = PlayerPrefs.GetString("learningPoint1", learningPoint1Text.text);
         learningPoint2Text.text = PlayerPrefs.GetString("learningPoint2", learningPoint2Text.text);
@@ -54,7 +53,7 @@ public class scoreHandler : MonoBehaviour
         currentScoreText.text = PlayerPrefs.GetString("currentScore");
         // retrieve and convert currentscore into current
         current = float.Parse(PlayerPrefs.GetString("currentScore"));
-        //high = int.Parse(PlayerPrefs.GetString("highScore"));
+        highScoreText.text = PlayerPrefs.GetString("PlayerHighScore");
         // if current score is 100, set 100 to highscore mesh. set < to restart
         PlayerPrefs.SetString("highScore", System.Convert.ToString(current));
         if (HealthManager.health > 0)
@@ -89,6 +88,7 @@ public class scoreHandler : MonoBehaviour
         {
             check3.SetActive(false);
         }
+        HighScore();
     }
 
     public IEnumerator LoadGame()
@@ -100,24 +100,19 @@ public class scoreHandler : MonoBehaviour
         }
     }
 
-    public void RestartGame()
-    {
-        StartCoroutine(LoadGame());
-    }
-
     public void HighScore()
     {
-
-        highscore = PlayerPrefs.GetInt("PlayerHighScore");
-
         if (current > highscore)
         {
             highscore = (int)current;
             PlayerPrefs.SetInt("PlayerHighScore", highscore);
             PlayerPrefs.Save();
             Debug.Log(highscore);
-        }
-
+        } 
     }
 
+    public void RestartGame()
+    {
+        StartCoroutine(LoadGame());
+    }
 }

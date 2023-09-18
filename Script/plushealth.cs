@@ -10,7 +10,7 @@ public class plushealth : MonoBehaviour
 
     public Color fullOpacityColor = Color.white;
     public Color lowOpacityColor = new Color(1f, 1f, 1f, 0.5f);
-    public AudioSource activationSound; // Reference to the AudioSource for the activation sound
+    //public AudioSource activationSound; // Reference to the AudioSource for the activation sound
 
     private bool buttonClicked = false;
     private int userCoins;
@@ -41,7 +41,7 @@ private void ActivateGameObjects()
         Debug.Log("Button clicked!");
 
         // Play the activation sound
-        activationSound.Play();
+        //activationSound.Play();
 
 
         Debug.Log("Deducting coins. userCoins before: " + userCoins);

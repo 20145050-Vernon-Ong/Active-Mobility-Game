@@ -167,4 +167,10 @@ public class GC : MonoBehaviour
             Phone.transform.localPosition = new Vector3(pos.x, -109, 0);
         }  
     }
+
+    public void SetTotalPoints(int newValue)
+    {
+        totalpoints = newValue;
+        ValueText.text = totalpoints.ToString();
+    }
 }
