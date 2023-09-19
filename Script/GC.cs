@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GC : MonoBehaviour
 {
@@ -32,10 +33,18 @@ public class GC : MonoBehaviour
     {
         // Store currentscore in prefs
         isTouch = false;
-        pos = Phone.transform.localPosition;
         sf = GetComponent<SimpleFlash>();
         pm = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
+        if (Screen.width / Screen.height == 2)
+        {
+            Phone.transform.localPosition = new Vector3(718, -660, 0);
+        }
+        else if (Screen.width / Screen.height == 1)
+        {
+            Phone.transform.localPosition = new Vector3(718, -723, 0);
+        }
+        pos = Phone.transform.localPosition;
         //lifeValueText.text = lifetotalpoints.ToString();
         ValueText.text = totalpoints.ToString();
         isGreen = 1;

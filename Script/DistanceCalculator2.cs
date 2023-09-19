@@ -8,15 +8,12 @@ public class DistanceCalculator2 : MonoBehaviour
     public GC script;
     private int userCoins;
     public Image compassArrow;
-
     public Transform player;           // Reference to the player's transform
     public string[] targetTags;        // Tags of target objects
     public TextMeshProUGUI distanceText; // Reference to the Text GameObject for displaying distance
     public float activationDistance = 5f; // The distance at which the object becomes active
-
     private Transform nearestObject;  // Reference to the nearest object
-    private float nearestDistance = Mathf.Infinity; // Initially set to positive infinity
-
+    private float nearestDistance; // Initially set to positive infinity
     private void Update()
     {
         userCoins = script.totalpoints;
@@ -50,18 +47,7 @@ public class DistanceCalculator2 : MonoBehaviour
                     obj.SetActive(false);
                 }
 
-                // Check if the nearest object is within contact distance
-                if (nearestDistance < 0.5f)
-                {
-                    // Remove the nearest object and destroy it
-                    Destroy(obj);
-
-                    userCoins += 5;
-                    script.SetTotalPoints(userCoins);
-
-                    // Log a message when an object is removed
-                    Debug.Log("Removed and destroyed an object. New userCoins: " + userCoins);
-                }
+           
             }
         }
 
@@ -69,10 +55,8 @@ public class DistanceCalculator2 : MonoBehaviour
         if (nearestObject != null)
         {
             // Convert the nearest distance to an integer
-            int distanceInt = Mathf.RoundToInt(nearestDistance);
-
             // Display the integer distance in the Text GameObject
-            distanceText.text = "Hidden Coin: " + distanceInt + " m";
+            distanceText.text = "Hidden Coin: " + nearestDistance.ToString("0") + " m";
         }
         else
         {
