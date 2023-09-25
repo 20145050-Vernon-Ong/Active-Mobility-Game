@@ -26,7 +26,7 @@ public class scoreHandler : MonoBehaviour
 
     private AsyncOperation operation;
     
-    private float current;
+    private int current;
     private int isTicked;
     private int isTicked2;
     private int isTicked3;
@@ -52,7 +52,7 @@ public class scoreHandler : MonoBehaviour
         // currentscore;
         currentScoreText.text = PlayerPrefs.GetString("currentScore");
         // retrieve and convert currentscore into current
-        current = float.Parse(PlayerPrefs.GetString("currentScore"));
+        current = int.Parse(PlayerPrefs.GetString("currentScore"));
         highScoreText.text = PlayerPrefs.GetString("PlayerHighScore");
         // if current score is 100, set 100 to highscore mesh. set < to restart
         PlayerPrefs.SetString("highScore", System.Convert.ToString(current));
@@ -102,14 +102,11 @@ public class scoreHandler : MonoBehaviour
 
     public void HighScore()
     {
-        if (current > highscore)
-        {
-            highscore = (int)current;
-            PlayerPrefs.SetInt("PlayerHighScore", highscore);
-            PlayerPrefs.Save();
-            Debug.Log(highscore);
-        } 
-    }
+        highscore += current;
+        PlayerPrefs.SetInt("PlayerHighScore", highscore);
+        PlayerPrefs.Save();
+    }    
+    
 
     public void RestartGame()
     {

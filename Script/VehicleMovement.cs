@@ -5,9 +5,7 @@ public class VehicleMovement : MonoBehaviour
     public float speed;
     private float exitSpeed;
     public GameObject vehicle;
-    public GameObject reset;
     private Vector3 PosX;
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -34,17 +32,32 @@ public class VehicleMovement : MonoBehaviour
         {
             speed = 0;
         }
-        else if (collision.CompareTag("car"))
+        else if (collision.gameObject.CompareTag("car"))
         {
-            speed = 0;
-        } else if (collision.CompareTag("resetCarPos"))
+            if (collision.gameObject.GetComponent<VehicleMovement>().speed == 0)
+            {
+                speed = 0;
+            } else if (collision.gameObject.GetComponent<VehicleMovement>().speed > 0)
+            {
+                if (collision.gameObject.GetComponent<VehicleMovement>().speed > speed)
+                {
+                    collision.gameObject.GetComponent<VehicleMovement>().speed = speed;
+                } else
+                {
+                    speed = collision.gameObject.GetComponent<VehicleMovement>().speed;
+                }
+                
+            }
+            
+        }
+        else if (collision.CompareTag("resetCarPos"))
         {
             if (vehicle.transform.rotation.z == 0)
             {
-                vehicle.transform.position = new Vector3(PosX.x, reset.transform.position.y, 0);
+                vehicle.transform.position = new Vector3(PosX.x, GameObject.Find("carSpawn").transform.position.y, 0);
             } else
             {
-                vehicle.transform.position = new Vector3(PosX.x, reset.transform.position.y, 0);
+                vehicle.transform.position = new Vector3(PosX.x, GameObject.Find("carSpawn (1)").transform.position.y, 0);
             }
         }
         

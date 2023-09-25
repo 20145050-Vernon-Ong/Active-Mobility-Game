@@ -6,6 +6,7 @@ public class spawncoins : MonoBehaviour
     public GC script;
     public Button activateButton;
     public GameObject[] gameObjectsToActivate;
+    public GameObject compass;
     public int requiredCoins = 3;
     public Color fullOpacityColor = Color.white;
     public Color lowOpacityColor = new Color(1f, 1f, 1f, 0.5f);
@@ -39,15 +40,10 @@ private void ActivateGameObjects()
     {
         Debug.Log("Button clicked!");
 
-        // Play the activation sound
-        //activationSound.Play();
-
+            // Play the activation sound
+            //activationSound.Play();
+        compass.SetActive(true);
         // Loop through the array and set each game object to active (true)
-        foreach (GameObject obj in gameObjectsToActivate)
-        {
-            obj.SetActive(true);
-        }
-
         Debug.Log("Deducting coins. userCoins before: " + userCoins);
 
         // Deduct the required coins from the user's total

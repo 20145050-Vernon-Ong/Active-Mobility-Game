@@ -1,17 +1,17 @@
 using UnityEngine;
-using UnityEngine.UI;
+using Image = UnityEngine.UI.Image;
 
 public class HealthManager : MonoBehaviour
 {
-    public static int health = 3;
-
+    public static int health;
+    public static int points;
     public Image[] hearts;
     public Sprite fullHeart;
     public Sprite emptyHeart;
-
     void Awake()
     {
         health = 3;
+        points = 0;
     }
     // Update is called once per frame
     void Update()
@@ -24,5 +24,11 @@ public class HealthManager : MonoBehaviour
         {
             hearts[i].sprite = fullHeart;
         }
+        points = health * 5;
+    }
+
+    public int GetPoints()
+    {
+        return points;
     }
 }

@@ -26,8 +26,10 @@ public class GC : MonoBehaviour
     private int isGreen;
     private int isGreen2;
     private int isGreen3;
+    private int addPoints = 0;
     //private float lifetotalpoints = 3;
     private PlayerMovement pm;
+    private HealthManager hm;
     private Animator animator;
     void Awake()
     {
@@ -36,13 +38,14 @@ public class GC : MonoBehaviour
         sf = GetComponent<SimpleFlash>();
         pm = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
+        hm = FindObjectOfType<HealthManager>();
         if (Screen.width / Screen.height == 2)
         {
-            Phone.transform.localPosition = new Vector3(718, -660, 0);
+            Phone.transform.localPosition = new Vector3(718, -650, 0);
         }
         else if (Screen.width / Screen.height == 1)
         {
-            Phone.transform.localPosition = new Vector3(718, -723, 0);
+            Phone.transform.localPosition = new Vector3(718, -754, 0);
         }
         pos = Phone.transform.localPosition;
         //lifeValueText.text = lifetotalpoints.ToString();
@@ -106,7 +109,9 @@ public class GC : MonoBehaviour
         {
             isTouch = true;
             summaryText.text = "You have completed the game!";
-            PlayerPrefs.SetString("distance", pm.differenceY.ToString("0"));
+            addPoints = totalpoints + hm.GetPoints();
+            ValueText.text = addPoints.ToString();
+            PlayerPrefs.SetString("distance", pm.differenceY.ToString("0")); 
             StartCoroutine(RestartCurrentlevel());
         }
     }

@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using SystemInfo = UnityEngine.Device.SystemInfo;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 startTouch;*/
     public Vector3 change;
 
-    public GameObject pedestrian;
+    public Transform pedestrian;
     public GameObject trafficCross;
     public GameObject pauseMenu;
     public GameObject endPoint;
@@ -34,10 +35,11 @@ public class PlayerMovement : MonoBehaviour
     // public FixedJoystick joystick;
     private Rigidbody2D myRigidBody;
     public Animator animator;
+    public Canvas canvas;
     public List<GameObject> trafficCrossList = new();
-
     void Awake()
     {
+        Application.targetFrameRate = 120;
         GetComponent<Collider2D>().isTrigger = true;
         animator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
@@ -89,9 +91,8 @@ public class PlayerMovement : MonoBehaviour
             
             // You can use 'differenceY' as an integer in your script
             // For example, you can print it to the console:
-            Debug.Log("Y-axis Difference as Integer: " + differenceY);
         }
-        distanceLeft = Vector3.Distance(endPoint.transform.position, pedestrian.transform.position);
+        distanceLeft = Vector3.Distance(endPoint.transform.position, pedestrian.position);
         distanceText.text = distanceLeft.ToString("0") + " m";
 
         // Save distanceLeft in PlayerPrefs
