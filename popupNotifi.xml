@@ -6,7 +6,10 @@
 2. Use W, A and D to move.
 3. Stay in the correct lane and keep a lookout.
 4. Use the phone to assist you.</text>
-		<mobileText>1. You need to get to the tuition centre.2. Use the D-Pad to move.3. Stay in the correct lane and keep a lookout.4. Use the phone to assist you.</mobileText>
+		<mobileText>1. You need to get to the tuition centre.
+2. Use W, A and D to move.
+3. Stay in the correct lane and keep a lookout.
+4. Use the phone to assist you.</mobileText>
 		<colliderName>popupTag</colliderName>
 		<duration>0</duration>
 		<type>startPopup</type>
