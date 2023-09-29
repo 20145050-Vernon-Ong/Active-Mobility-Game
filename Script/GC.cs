@@ -10,13 +10,14 @@ public class GC : MonoBehaviour
     public GameObject Player;
     public GameObject Phone;
     public Vector3 pos;
-    private Vector3 PhonePos;
     public TextMeshProUGUI ValueText;
     public TextMeshProUGUI summaryText;
     public TextMeshProUGUI learningPoints;
     public TextMeshProUGUI learningPoints2;
     public TextMeshProUGUI learningPoints3;
     public TextMeshProUGUI distanceCoveredText;
+    public TextMeshProUGUI pointsText;
+    private int points;
 
     public int totalpoints;
     private float _timeColliding;
@@ -27,18 +28,24 @@ public class GC : MonoBehaviour
     private int isGreen2;
     private int isGreen3;
     private int addPoints = 0;
-    //private float lifetotalpoints = 3;
     private PlayerMovement pm;
     private HealthManager hm;
     private Animator animator;
+    private bool isInDamageZone = false;
+    private Vector3 initialPosition;
+    public float maxDistanceBeforeDamage = 1f;
     void Awake()
     {
         // Store currentscore in prefs
-        isTouch = false;
         sf = GetComponent<SimpleFlash>();
         pm = GetComponent<PlayerMovement>();
         animator = GetComponent<Animator>();
         hm = FindObjectOfType<HealthManager>();
+    }
+
+    void Start()
+    {
+        isTouch = false;
         if (Screen.width / Screen.height == 2)
         {
             Phone.transform.localPosition = new Vector3(718, -650, 0);
@@ -48,11 +55,12 @@ public class GC : MonoBehaviour
             Phone.transform.localPosition = new Vector3(718, -754, 0);
         }
         pos = Phone.transform.localPosition;
-        //lifeValueText.text = lifetotalpoints.ToString();
         ValueText.text = totalpoints.ToString();
         isGreen = 1;
         isGreen2 = 1;
         isGreen3 = 1;
+        points = PlayerPrefs.GetInt("Points", 0);
+        UpdatePointsDisplay();
     }
 
     void Update()
@@ -70,6 +78,14 @@ public class GC : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)  
     {
+        if (other.CompareTag("roadTag"))
+        {
+            // Player entered the damage zone, start tracking position
+            isInDamageZone = true;
+            initialPosition = transform.position;
+            Debug.Log("damage" + isInDamageZone);
+        }
+
         if (other.CompareTag("macetag") || other.CompareTag("maceTrafficTag"))
         {
             summaryText.text = "Be on the correct lane to avoid conflicts!";
@@ -92,6 +108,7 @@ public class GC : MonoBehaviour
             Destroy(other.gameObject);
             totalpoints++;
             ValueText.text = totalpoints.ToString();
+            AddPoints(1);
         }
         else if (other.CompareTag("car"))
         {
@@ -114,11 +131,39 @@ public class GC : MonoBehaviour
             PlayerPrefs.SetString("distance", pm.differenceY.ToString("0")); 
             StartCoroutine(RestartCurrentlevel());
         }
+        else if (other.CompareTag("gemTag"))
+        {
+            // Add points to the totalpoints variable
+            Destroy(other.gameObject);
+            totalpoints += 10;
+            // Update the UI text
+            ValueText.text = totalpoints.ToString();
+        }
     }
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("roadTag") || other.CompareTag("cyclingTag"))
+        if (other.CompareTag("roadTag") && isInDamageZone)
+        {
+            // Calculate the distance the player has moved inside the zone
+            float distanceMoved = Vector3.Distance(initialPosition, transform.position);
+
+            if (distanceMoved >= maxDistanceBeforeDamage)
+            {
+                // Player has moved the maximum allowed distance, lose all health
+                HealthManager.health = 0;
+                sf.Flash();
+                summaryText.text = "Avoid walking across the wrong path";
+                isGreen = 0;
+                learningPoints.color = new Color(255, 0, 0, 255);
+                // Stop tracking position to prevent further damage
+                isInDamageZone = false;
+
+                StartCoroutine(RestartCurrentlevel());
+            }
+        }
+
+        if (other.CompareTag("cyclingTag"))
         {
             if (_timeColliding < timeThreshold)
             {
@@ -129,7 +174,7 @@ public class GC : MonoBehaviour
                 sf.Flash();
                 if (other.CompareTag("roadTag"))
                 {
-                    HealthManager.health = 0;
+                    HealthManager.health--;
                 }
                 else if (other.CompareTag("cyclingTag"))
                 {
@@ -137,7 +182,7 @@ public class GC : MonoBehaviour
                     HealthManager.health--;
                 }
                 //lifeValueText.text = lifetotalpoints.ToString();
-                if (other.CompareTag("roadTag") || other.CompareTag("cyclingTag"))
+                if (other.CompareTag("cyclingTag"))
                 {
                     isGreen = 0;
                     summaryText.text = "Avoid walking across the wrong path!";
@@ -149,6 +194,16 @@ public class GC : MonoBehaviour
             // Reset timer
             PlayerPrefs.SetString("distance", pm.distanceLeft.ToString("0"));
             StartCoroutine(RestartCurrentlevel());
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("roadTag"))
+        {
+            // Player exited the damage zone, stop tracking position
+            isInDamageZone = false;
+            Debug.Log("damage" + isInDamageZone);
         }
     }
 
@@ -180,6 +235,22 @@ public class GC : MonoBehaviour
             isPhone = true;
             Phone.transform.localPosition = new Vector3(pos.x, -109, 0);
         }  
+    }
+
+    public void UpdatePointsDisplay()
+    {
+        pointsText.text = points.ToString();
+        Debug.Log(points);
+    }
+
+    public void AddPoints(int amount)
+    {
+        points += amount;
+
+        PlayerPrefs.SetInt("Points", points);
+        PlayerPrefs.Save();
+
+        UpdatePointsDisplay();
     }
 
     public void SetTotalPoints(int newValue)

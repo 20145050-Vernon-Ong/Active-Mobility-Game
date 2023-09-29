@@ -58,12 +58,12 @@ public class DistanceCalculator2 : MonoBehaviour
             Vector3 directionToNearest = nearestObject.position - GameObject.FindWithTag("Player").transform.position;
             angle = Mathf.Atan2(directionToNearest.y, directionToNearest.x) * Mathf.Rad2Deg;
             compassArrow.transform.rotation = Quaternion.Euler(0f, 0f, angle);
-            distanceText.text = "Hidden Coin: " + nearestDistance.ToString("0") + " m";
+            distanceText.text = "Nearest Gem: " + nearestDistance.ToString("0") + " m";
         }
         else
         {
             // No nearest object found, display a message or handle this case as needed
-            distanceText.text = "No Hidden Coins";
+            distanceText.text = "No Gems Nearby";
             compassArrow.transform.rotation = Quaternion.Euler(0f, 0f, angle);
             //compassArrow.gameObject.SetActive(false);
         }

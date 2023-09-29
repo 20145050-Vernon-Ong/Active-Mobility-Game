@@ -16,7 +16,7 @@ public class Fps : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
     }
-    
+
     private void OnGUI()
     {
         fps.text = "FPS: " + Mathf.Round(count);

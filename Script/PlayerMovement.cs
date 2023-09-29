@@ -1,9 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using SystemInfo = UnityEngine.Device.SystemInfo;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -22,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     public TextMeshProUGUI distanceText;
 
     /*private Touch touch;
-
     private Vector2 startTouch;*/
     public Vector3 change;
 
@@ -39,10 +36,15 @@ public class PlayerMovement : MonoBehaviour
     public List<GameObject> trafficCrossList = new();
     void Awake()
     {
-        Application.targetFrameRate = 120;
         GetComponent<Collider2D>().isTrigger = true;
         animator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
+        trafficCrossList.Add(GameObject.FindWithTag("trafficBox"));
+    }
+
+    void Start()
+    {
+        change = Vector3.zero;
         if (PlayerPrefs.HasKey("InitialYPosition"))
         {
             initialYPosition = PlayerPrefs.GetFloat("InitialYPosition");
@@ -54,7 +56,6 @@ public class PlayerMovement : MonoBehaviour
             // Save the initial Y position to PlayerPrefs so you can use it in the future
             PlayerPrefs.SetFloat("InitialYPosition", initialYPosition);
         }
-        trafficCrossList.Add(GameObject.FindWithTag("trafficBox"));
     }
     // Update is called once per frame 
     /*void Update()
@@ -81,60 +82,31 @@ public class PlayerMovement : MonoBehaviour
     }*/
     void Update()
     {
+        if (PlayerPrefs.GetInt("mobile") == 1)
+        {
+            speed = 3;
+            DPad.SetActive(true);
+        }
+        else
+        {
+            ControlKey();
+            DPad.SetActive(false);
+        }
         if (PlayerPrefs.HasKey(distanceLeftKey))
         {
             distanceLeft = PlayerPrefs.GetFloat(distanceLeftKey);
-            
             // Calculate the difference along the Y-axis between the initial Y position and the current Y position
             float currentYPosition = transform.position.y;
             differenceY = Mathf.CeilToInt(Mathf.Abs(currentYPosition - initialYPosition));
-            
             // You can use 'differenceY' as an integer in your script
             // For example, you can print it to the console:
         }
         distanceLeft = Vector3.Distance(endPoint.transform.position, pedestrian.position);
         distanceText.text = distanceLeft.ToString("0") + " m";
-
         // Save distanceLeft in PlayerPrefs
         PlayerPrefs.SetFloat(distanceLeftKey, distanceLeft);
-
-        if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Other)
-        {
-            speed = 3;
-            DPad.SetActive(true);
-        }
-        else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Windows)
-        {
-            ControlKey();
-            DPad.SetActive(false);
-        }
         UpdateAnimationAndMove();
     }
-
-    /*void OnTriggerEnter2D(Collider2D collision)
-    {
-        for (int i = 0; i < trafficCrossList.Count; i++)
-        {
-            if (collision.CompareTag("trafficBox"))
-            {
-                trafficCrossList[i].transform.GetChild(0).gameObject.SetActive(true);
-                trafficCrossList[i].transform.GetChild(1).gameObject.SetActive(true);
-            }
-        }
-        
-    }
-
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        for (int i = 0; i < trafficCrossList.Count; i++)
-        {
-            if (collision.CompareTag("trafficBox"))
-            {
-                trafficCrossList[i].transform.GetChild(0).gameObject.SetActive(false);
-                trafficCrossList[i].transform.GetChild(1).gameObject.SetActive(false);
-            }
-        }
-    }*/
 
     void ControlKey()
     {
@@ -221,8 +193,7 @@ public class PlayerMovement : MonoBehaviour
         {
             change.y = 0;
             change.x = 1;
-        }
-        
+        }    
     }
 
     public void Stop()

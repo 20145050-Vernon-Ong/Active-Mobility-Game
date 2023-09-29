@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Xml;
-using SystemInfo = UnityEngine.Device.SystemInfo;
 using UnityEngine.Networking;
 
 public class Readxml : MonoBehaviour
@@ -32,8 +31,7 @@ public class Readxml : MonoBehaviour
         public void SetType(string type) { this.type = type; }
 
     }
-    private int count;
-    private string data;
+    private bool popupsDisabled;
     public GameObject notifpop;
     public GameObject tutorPopup;
     public GameObject popup;
@@ -45,31 +43,62 @@ public class Readxml : MonoBehaviour
     public XmlDocument xmldoc = new();
     public XmlNodeList nodes;
     public XmlElement root;
-    private readonly List<PopNotifi> popNotifiList = new();
-    public TextAsset xmlFile;
+    public List<PopNotifi> popNotifiList = new();
     private PlayerMovement pm;
-    /*IEnumerator GetRequest(string url)
+    private PopupManager pop;
+    
+    void Awake()
     {
-        using UnityWebRequest webrequest = UnityWebRequest.Get(url);
-        yield return webrequest.SendWebRequest();
-        if (webrequest.result != UnityWebRequest.Result.Success)
+        pm = GetComponent<PlayerMovement>();
+        pop = GetComponent<PopupManager>();
+        StartCoroutine(ReadXML("https://raw.githubusercontent.com/20145050-Vernon-Ong/Active-Mobility-Game/main/popupNotifi.xml"));
+    }
+
+    void Update()
+    {
+        if (tutorPopup.activeInHierarchy || popup.activeInHierarchy)
         {
-            Debug.Log(webrequest.error);
-            Debug.LogError(webrequest.downloadHandler.error);
-            Debug.Log(webrequest.downloadHandler.text);
+            pm.change = Vector3.zero;
+            pm.keyDisabled = false;
         } else
         {
-            xmldoc.Load(@url);
+            pm.keyDisabled = true;
+        }
+    }
+
+    IEnumerator ReadXML(string url)
+    {
+        using UnityWebRequest webRequest = UnityWebRequest.Get(url);
+        yield return webRequest.SendWebRequest();
+        if (webRequest.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Error");
+        }
+        else
+        {
+            xmldoc.LoadXml(@webRequest.downloadHandler.text);
             root = xmldoc.DocumentElement;
             nodes = root.SelectNodes("/popupNotify/popNoti");
-
-            foreach (XmlNode node in nodes)
+            for (int i = 0; i < nodes.Count; i++)
             {
-                PopNotifi popNoti = new(node["text"].InnerText, node["colliderName"].InnerText, node["type"].InnerText, node["duration"].InnerText);
-                popNotifiList.Add(popNoti);
+                if (PlayerPrefs.GetInt("mobile") == 0)
+                {
+                    PopNotifi popNoti = new(nodes[i]["text"].InnerText, nodes[i]["colliderName"].InnerText, nodes[i]["type"].InnerText, nodes[i]["duration"].InnerText);
+                    popNotifiList.Add(popNoti);
+                }
+                else 
+                {
+                    PopNotifi popNoti = new(nodes[i]["mobileText"].InnerText, nodes[i]["colliderName"].InnerText, nodes[i]["type"].InnerText, nodes[i]["duration"].InnerText);
+                    popNotifiList.Add(popNoti);
+                }
+                Checking(i);
+                if (nodes[i]["type"].InnerText.Equals("startPopup"))
+                {
+                    tutorText.text = nodes[i]["text"].InnerText;
+                }
             }
         }
-    }*/
+    }
 
     private IEnumerator WaitBeforeShow(float time)
     {
@@ -84,117 +113,12 @@ public class Readxml : MonoBehaviour
         // }
     }
 
-    /*private async Task<string> AsyncGetRequest()
-    {
-        UnityWebRequest request = UnityWebRequest.Get(url);
-        request.SendWebRequest();
-        while (!request.isDone)
-        {
-            await Task.Yield();
-
-        }
-
-        if (request.result != UnityWebRequest.Result.ConnectionError)
-        {
-            xmldoc.Load(@url);
-            root = xmldoc.DocumentElement;
-            nodes = root.SelectNodes("/popupNotify/popNoti");
-
-            foreach (XmlNode node in nodes)
-            {
-                PopNotifi popNoti = new(node["text"].InnerText, node["colliderName"].InnerText, node["type"].InnerText, node["duration"].InnerText);
-                popNotifiList.Add(popNoti);
-
-            }
-        }
-        return request.url;
-    }*/
-
-    void Start()
-    {
-        pm = GetComponent<PlayerMovement>();
-        //StartCoroutine(ReadXML("https://raw.githubusercontent.com/20145050-Vernon-Ong/Active-Mobility-Game/main/popupNotifi.xml"));
-        //var result = await AsyncGetRequest();
-        data = xmlFile.text;
-        ParseXmlFile(data);
-        count = 0;
-        for (int i = 0; i < popNotifiList.Count; i++)
-        {
-            if (popNotifiList[i].GetType().Equals("startPopup"))
-            {
-                tutorText.text = popNotifiList[i].GetText();
-                pm.change = Vector3.zero;
-                count++;
-            }
-        }
-    }
-
-    void Update()
-    {
-        if (tutorPopup.activeInHierarchy || popup.activeInHierarchy)
-        {
-            pm.change = Vector3.zero;
-            pm.keyDisabled = false;
-        } else
-        {
-            pm.keyDisabled = true;
-        }
-    }
-    void ParseXmlFile(string xmlData)
-    {
-        xmldoc.LoadXml(xmlData);
-        string xmlPathPattern = "/popupNotify/popNoti";
-        nodes = xmldoc.SelectNodes(xmlPathPattern);
-        foreach (XmlNode node in nodes)
-        {
-            if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Windows)
-            {
-                PopNotifi popNoti = new(node["text"].InnerText, node["colliderName"].InnerText, node["type"].InnerText, node["duration"].InnerText);
-                popNotifiList.Add(popNoti);
-            } else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Other)
-            {
-                PopNotifi popNoti = new(node["mobileText"].InnerText, node["colliderName"].InnerText, node["type"].InnerText, node["duration"].InnerText);
-                popNotifiList.Add(popNoti);
-            }
-            
-        }
-    }
-    /*IEnumerator ReadXML(string url)
-    {
-        using UnityWebRequest webRequest = UnityWebRequest.Get(url);
-        yield return webRequest.SendWebRequest();
-        if (webRequest.result != UnityWebRequest.Result.Success)
-        {
-            Debug.Log("Error");
-        } else
-        {
-            xmldoc.Load(@url);
-            root = xmldoc.DocumentElement;
-            nodes = root.SelectNodes("/popupNotify/popNoti");
-            foreach (XmlNode node in nodes)
-            {
-                if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Windows)
-                {
-                    PopNotifi popNoti = new(node["text"].InnerText, node["colliderName"].InnerText, node["type"].InnerText, node["duration"].InnerText);
-                    popNotifiList.Add(popNoti);
-                }
-                else if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Other)
-                {
-                    PopNotifi popNoti = new(node["mobileText"].InnerText, node["colliderName"].InnerText, node["type"].InnerText, node["duration"].InnerText);
-                    popNotifiList.Add(popNoti);
-                }
-            }
-        }
-        
-    }*/
-
     void OnTriggerEnter2D(Collider2D collision)
     {
         for (int i = 0; i < popNotifiList.Count; i++)
         {
             if (collision.CompareTag(popNotifiList[i].GetCollider()))
             {
-                Debug.Log(popNotifiList[i].GetCollider());
                 if (popNotifiList[i].GetType().Equals("popup"))
                 {
                     popupText.text = popNotifiList[i].GetText();
@@ -226,6 +150,23 @@ public class Readxml : MonoBehaviour
         }
     }
 
+    void Checking(int i)
+    {
+        if (pop.isChecked)
+        {
+            if (popNotifiList[i].GetType().Equals("popup"))
+            {
+                if (popNotifiList[i].GetCollider().Equals("cyclingTag") || popNotifiList[i].GetCollider().Equals("roadTag"))
+                {
+                    popNotifiList[i].SetType("notification");
+                } else
+                {
+                    popNotifiList.RemoveAt(i);
+                }
+            }
+        }
+    }
+
     public void ClosePopup()
     {
         if (tutorPopup.activeInHierarchy)
@@ -235,6 +176,29 @@ public class Readxml : MonoBehaviour
         else if (popup.activeInHierarchy)
         {
             popup.SetActive(false);
+        }
+    }
+
+    public void DisableAllPopupsPermanently()
+    {
+        if (popupsDisabled)
+        {
+            Debug.Log("on pops");
+            // Restore the initial states
+            // tutorPopup = initialTutorPopupState;
+            // popup = initialPopupState;
+            // notifpop = initialNotifpopState;
+            // Set the flag to false to enable popups
+            popupsDisabled = false;
+        }
+        else
+        {
+            Debug.Log("off pops");
+            popupsDisabled = true;
+            // Disable the popups and set the flag to true to disable popups permanently
+            // tutorPopup.SetActive(false);
+            // popup.SetActive(false);
+            // notifpop.SetActive(false);
         }
     }
 }

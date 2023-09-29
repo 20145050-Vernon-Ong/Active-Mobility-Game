@@ -11,7 +11,7 @@ public class TrafficLightCar : MonoBehaviour
     public TMP_Text timerText;
     private float time = 12;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         animator = GetComponent<Animator>();
     }
