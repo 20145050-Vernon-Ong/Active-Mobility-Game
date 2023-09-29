@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3634280826111797448}
   - component: {fileID: 4960397745866227544}
-  - component: {fileID: 4431002794047263541}
+  - component: {fileID: 3313283460999797298}
+  - component: {fileID: 4344712786048109006}
   - component: {fileID: 4456734767622177203}
   - component: {fileID: 8301151593142851560}
   - component: {fileID: 8880696316881826030}
@@ -95,7 +96,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4431002794047263541
+--- !u!114 &3313283460999797298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469542469760020653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61324a8ce369b3e498afa10496c9279c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isChecked: 0
+--- !u!114 &4344712786048109006
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,7 +129,6 @@ MonoBehaviour:
   notifText: {fileID: 0}
   tutorText: {fileID: 0}
   popupText: {fileID: 0}
-  xmlFile: {fileID: 4900000, guid: 7264904d56725b34d9a8390c090e001f, type: 3}
 --- !u!114 &4456734767622177203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,7 +178,9 @@ MonoBehaviour:
   learningPoints2: {fileID: 0}
   learningPoints3: {fileID: 0}
   distanceCoveredText: {fileID: 0}
+  pointsText: {fileID: 0}
   totalpoints: 0
+  maxDistanceBeforeDamage: 1
 --- !u!114 &8880696316881826030
 MonoBehaviour:
   m_ObjectHideFlags: 0
