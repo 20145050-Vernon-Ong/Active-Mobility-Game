@@ -17,7 +17,7 @@
 	</popNoti>
 	<popNoti>
 		<text>Stay on the correct path, avoid going to the bicycle lane.</text>
-		<mobileText><text></mobileText>
+		<mobileText></mobileText>
 		<colliderName>cyclingTag</colliderName>
 		<duration>3</duration>
 		<type>popup</type>
