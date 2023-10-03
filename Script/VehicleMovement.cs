@@ -44,18 +44,6 @@ public class VehicleMovement : MonoBehaviour
         } else if (collision.CompareTag("car"))
         {
             speed = 0;
-            /*if (collision.gameObject.GetComponent<VehicleMovement>().speed > speed)
-            {
-                collision.gameObject.GetComponent<VehicleMovement>().speed = speed - 0.01f;
-            }
-
-            if (collision.gameObject.GetComponent<VehicleMovement>().speed == 0)
-            {
-                speed = 0;
-            } else if (speed == 0)
-            {
-                collision.gameObject.GetComponent<VehicleMovement>().speed = 0;
-            }*/
         }
     }
 
@@ -68,18 +56,6 @@ public class VehicleMovement : MonoBehaviour
         else if (collision.CompareTag("car"))
         {
             speed = exitSpeed;
-            /*if (collision.gameObject.GetComponent<VehicleMovement>().speed == 0)
-            {
-                speed = exitSpeed;
-            }
-            else if (speed == 0)
-            {
-                speed = exitSpeed;
-            }
-            else if (collision.gameObject.GetComponent<VehicleMovement>().speed > 0)
-            {
-                collision.gameObject.GetComponent<VehicleMovement>().speed = exitSpeed;
-            }*/
         }
     }
 

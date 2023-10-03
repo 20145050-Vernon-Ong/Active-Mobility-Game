@@ -1,50 +1,43 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
+using UnityEditor;
 
 public class PlayerMovement : MonoBehaviour
 {
-
-    private readonly string distanceLeftKey = "DistanceLeft";
-    private float initialYPosition; // Store the initial Y position
     // Start is called before the first frame update
     public int differenceY;
-    public float movespeed;
-    public float speed;
     public float distanceLeft = 0;
-
     public bool canMove = true;
-    public bool keyDisabled;
-
-    public TextMeshProUGUI distanceText;
-
-    /*private Touch touch;
-    private Vector2 startTouch;*/
-    public Vector3 change;
-
+    public Canvas canvas;
     public Transform pedestrian;
     public GameObject trafficCross;
     public GameObject pauseMenu;
     public GameObject endPoint;
     public GameObject DPad;
-
-    // public FixedJoystick joystick;
+    public TextMeshProUGUI distanceText;
+    /*private Touch touch;
+    private Vector2 startTouch;
+    public FixedJoystick joystick;*/
+    private readonly string distanceLeftKey = "DistanceLeft";
+    private float speed;
+    private float initialYPosition; // Store the initial Y position
+    private bool keyDisabled;
+    private Vector3 change;
     private Rigidbody2D myRigidBody;
-    public Animator animator;
-    public Canvas canvas;
-    public List<GameObject> trafficCrossList = new();
+    private Readxml read;
+    private Animator animator;
     void Awake()
     {
         GetComponent<Collider2D>().isTrigger = true;
         animator = GetComponent<Animator>();
+        read = GetComponent<Readxml>();
         myRigidBody = GetComponent<Rigidbody2D>();
-        trafficCrossList.Add(GameObject.FindWithTag("trafficBox"));
     }
 
     void Start()
     {
-        change = Vector3.zero;
+        Time.timeScale = 1;
         if (PlayerPrefs.HasKey("InitialYPosition"))
         {
             initialYPosition = PlayerPrefs.GetFloat("InitialYPosition");
@@ -89,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            speed = 2;
             ControlKey();
             DPad.SetActive(false);
         }
@@ -105,7 +99,21 @@ public class PlayerMovement : MonoBehaviour
         distanceText.text = distanceLeft.ToString("0") + " m";
         // Save distanceLeft in PlayerPrefs
         PlayerPrefs.SetFloat(distanceLeftKey, distanceLeft);
+        CheckPopup();
         UpdateAnimationAndMove();
+    }
+
+    void CheckPopup()
+    {
+        if (read.tutorPopup.activeInHierarchy || read.popup.activeInHierarchy)
+        {
+            change = Vector3.zero;
+            keyDisabled = false;
+        }
+        else
+        {
+            keyDisabled = true;
+        }
     }
 
     void ControlKey()
@@ -117,10 +125,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.S))
             {
                 change.y = 0;
-            } else if (Input.GetKey(KeyCode.Space))
-            {
-
-            }
+            } 
         } 
     }
     /*void TouchInput()
@@ -224,20 +229,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void Pause()
     {
-        pauseMenu.SetActive(true);
         Time.timeScale = 0;
+        pauseMenu.SetActive(true);
     }
 
     public void Resume()
     {
-        pauseMenu.SetActive(false);
         Time.timeScale = 1;
+        pauseMenu.SetActive(false);
     }
 
     public void ReturnMenu()
     {
         SceneManager.LoadScene("Menu");
-        Time.timeScale = 1;
     }
 
 }

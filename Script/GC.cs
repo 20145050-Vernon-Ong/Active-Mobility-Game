@@ -2,28 +2,28 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using System;
 
 public class GC : MonoBehaviour
 {
-    private SimpleFlash sf;
-    public GameObject Player;
+    public int totalpoints;
+    public float maxDistanceBeforeDamage = 1f;
     public GameObject Phone;
-    public Vector3 pos;
     public TextMeshProUGUI ValueText;
     public TextMeshProUGUI summaryText;
     public TextMeshProUGUI learningPoints;
     public TextMeshProUGUI learningPoints2;
     public TextMeshProUGUI learningPoints3;
-    public TextMeshProUGUI distanceCoveredText;
     public TextMeshProUGUI pointsText;
-    private int points;
 
-    public int totalpoints;
-    private float _timeColliding;
-    private readonly float timeThreshold = 2f;
+    private SimpleFlash sf;
+    private Vector3 pos;
+    private Vector3 initialPosition;
+    private bool isInDamageZone = false;
     private bool isTouch;
     private bool isPhone;
+    private float _timeColliding;
+    private readonly float timeThreshold = 2f;
+    private int points;
     private int isGreen;
     private int isGreen2;
     private int isGreen3;
@@ -31,9 +31,6 @@ public class GC : MonoBehaviour
     private PlayerMovement pm;
     private HealthManager hm;
     private Animator animator;
-    private bool isInDamageZone = false;
-    private Vector3 initialPosition;
-    public float maxDistanceBeforeDamage = 1f;
     void Awake()
     {
         // Store currentscore in prefs
@@ -128,15 +125,17 @@ public class GC : MonoBehaviour
             summaryText.text = "You have completed the game!";
             addPoints = totalpoints + hm.GetPoints();
             ValueText.text = addPoints.ToString();
-            PlayerPrefs.SetString("distance", pm.differenceY.ToString("0")); 
+            PlayerPrefs.SetString("distance", pm.differenceY.ToString("0"));
+            AddPoints(HealthManager.points);
             StartCoroutine(RestartCurrentlevel());
         }
         else if (other.CompareTag("gemTag"))
         {
             // Add points to the totalpoints variable
             Destroy(other.gameObject);
-            totalpoints += 10;
+            AddPoints(10);
             // Update the UI text
+            totalpoints += 10;
             ValueText.text = totalpoints.ToString();
         }
     }
@@ -207,7 +206,7 @@ public class GC : MonoBehaviour
         }
     }
 
-    public IEnumerator RestartCurrentlevel()
+    IEnumerator RestartCurrentlevel()
     {
         if (HealthManager.health == 0 || isTouch)
         {

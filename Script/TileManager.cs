@@ -6,7 +6,7 @@ public class TileManager : MonoBehaviour
 {
     public GameObject[] tilePrefabs;
     public GameObject[] map;
-    private Transform playerTransform;
+    public Transform playerTransform;
     private float spawnY = -27f;
     private readonly float tileLength = 13.76f;
     //private float safeZone = 15.0f;
@@ -30,16 +30,16 @@ public class TileManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
-        /*if (playerTransform.position.y - safeZone > (spawnY - amnTileOnScreen * tileLength))
+        if (playerTransform.position.y - safeZone > (spawnY - amnTileOnScreen * tileLength))
         {
             spawnTile();
             deleteTile();
-        }*/
-    }
+        }
+    }*/
 
-    private void SpawnTile(int prefabIndex = -1)
+    private void SpawnTile()
     {
         GameObject go;
         go = Instantiate(tilePrefabs[RandomPrefabIndex()]) as GameObject;
