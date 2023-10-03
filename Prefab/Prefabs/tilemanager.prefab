@@ -2015,6 +2015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.04
+  exitSpeed: 0
   vehicle: {fileID: 550090605372371538}
 --- !u!50 &2232563993922769776
 Rigidbody2D:
@@ -2615,6 +2616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
+  exitSpeed: 0
   vehicle: {fileID: 958575701651117545}
 --- !u!50 &4693948795688199974
 Rigidbody2D:
@@ -7485,6 +7487,7 @@ MonoBehaviour:
   - {fileID: 5185811902974504512}
   - {fileID: 8700258286482453743}
   - {fileID: 7095500623324856527}
+  playerTransform: {fileID: 0}
 --- !u!1 &1019930199526395132
 GameObject:
   m_ObjectHideFlags: 0
@@ -7586,6 +7589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
+  exitSpeed: 0
   vehicle: {fileID: 1019930199526395132}
 --- !u!50 &9075894422654834289
 Rigidbody2D:
@@ -8811,7 +8815,7 @@ Transform:
   m_GameObject: {fileID: 1214178745534883559}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0.16, y: -4.64, z: 0.33551773}
+  m_LocalPosition: {x: 0.16, y: -0.92, z: 0.33551773}
   m_LocalScale: {x: 0.14321452, y: 0.12553051, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8882,6 +8886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.04
+  exitSpeed: 0
   vehicle: {fileID: 1214178745534883559}
 --- !u!50 &8685472926112708401
 Rigidbody2D:
@@ -18043,7 +18048,7 @@ Transform:
   m_GameObject: {fileID: 1977413141099132732}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: -0.77, y: -16.38, z: 0.33551773}
+  m_LocalPosition: {x: -0.77, y: -5.6, z: 0.33551773}
   m_LocalScale: {x: 0.16121659, y: 0.17970948, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18114,6 +18119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
+  exitSpeed: 0
   vehicle: {fileID: 1977413141099132732}
 --- !u!50 &5283873216499972647
 Rigidbody2D:
@@ -36394,6 +36400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.04
+  exitSpeed: 0
   vehicle: {fileID: 2626099891272763780}
 --- !u!50 &6621787445123217451
 Rigidbody2D:
@@ -37402,6 +37409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.04
+  exitSpeed: 0
   vehicle: {fileID: 2912075683131084102}
 --- !u!50 &3049078737026253408
 Rigidbody2D:
@@ -44602,6 +44610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
+  exitSpeed: 0
   vehicle: {fileID: 4056008461956178873}
 --- !u!50 &3098365563602477896
 Rigidbody2D:
@@ -48751,6 +48760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
+  exitSpeed: 0
   vehicle: {fileID: 4797609797225934130}
 --- !u!50 &8463510297153262002
 Rigidbody2D:
@@ -54484,6 +54494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
+  exitSpeed: 0
   vehicle: {fileID: 6021102517744958365}
 --- !u!50 &6826684992992406285
 Rigidbody2D:
@@ -55117,6 +55128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
+  exitSpeed: 0
   vehicle: {fileID: 6080648521634896573}
 --- !u!50 &5392113802070912516
 Rigidbody2D:
@@ -59620,6 +59632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.04
+  exitSpeed: 0
   vehicle: {fileID: 7191081051968153874}
 --- !u!50 &2100416089475330924
 Rigidbody2D:
@@ -61903,6 +61916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.05
+  exitSpeed: 0
   vehicle: {fileID: 7749440231834866064}
 --- !u!50 &2155220407985821686
 Rigidbody2D:
@@ -63521,6 +63535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.04
+  exitSpeed: 0
   vehicle: {fileID: 7927421505955789949}
 --- !u!50 &5352386324419520196
 Rigidbody2D:
@@ -63900,6 +63915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.04
+  exitSpeed: 0
   vehicle: {fileID: 7935081918891837643}
 --- !u!50 &2510649818645577547
 Rigidbody2D:
@@ -66320,6 +66336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.04
+  exitSpeed: 0
   vehicle: {fileID: 8380895408187552240}
 --- !u!50 &609525247746458339
 Rigidbody2D:
