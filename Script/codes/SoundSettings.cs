@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
@@ -20,7 +18,7 @@ public class SoundSettings : MonoBehaviour
         if(_value < 1)
         {
             _value = .001f;
-        }
+        } 
 
         RefreshSlider(_value);
         PlayerPrefs.SetFloat("SavedMasterVolume", _value);
