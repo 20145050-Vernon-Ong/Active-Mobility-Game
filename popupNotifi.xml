@@ -28,7 +28,7 @@
 		<type>popup</type>
 	</popNoti>
 	<popNoti>
-		<text>Coins are scattered around the map. Collect as much as possible.</text>
+		<text>Coins are scattered around the map. Collect as many as you can.</text>
 		<colliderName>coinTag</colliderName>
 		<duration>0</duration>
 		<type>popup</type>
