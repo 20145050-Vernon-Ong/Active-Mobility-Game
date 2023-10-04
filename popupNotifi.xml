@@ -16,7 +16,7 @@
 		<type>startPopup</type>
 	</popNoti>
 	<popNoti>
-		<text>Stay on the correct path, avoid going to the bicycle lane or you will die.</text>
+		<text>Stay on the correct path, avoid going to the bicycle lane.</text>
 		<colliderName>cyclingTag</colliderName>
 		<duration>3</duration>
 		<type>popup</type>
