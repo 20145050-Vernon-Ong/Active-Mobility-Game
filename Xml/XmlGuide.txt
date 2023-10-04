@@ -2,6 +2,6 @@ XML User Guide
 
 The XML file is used to load the text of the various popups and notifications. XML uses tag to store the value and parameters for each popups and notifications.
 
-Each popup and notification has parameters of text, colliderName, duration and type. 
+Each popup and notification has parameters of text or mobileText, colliderName, duration and type.
 Text is to show the message, collidername is the object the player collides to, duration is for notification on how long it will show the notification, however, for popup only it should be 0.
 Lastly, type is either popup or notification except for the first popup, it should be startPopup.
