@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<popupNotify>
+	<popNoti>
+		<text>
+1. You need to get to the tuition centre.
+2. Use W, A and D to move.
+3. Stay in the correct lane and keep a lookout.
+4. Use the phone to assist you.</text>
+		<mobileText>
+1. You need to get to the tuition centre.
+2. Use W, A and D to move.
+3. Stay in the correct lane and keep a lookout.
+4. Use the phone to assist you.</mobileText>
+		<colliderName>popupTag</colliderName>
+		<duration>0</duration>
+		<type>startPopup</type>
+	</popNoti>
+	<popNoti>
+		<text>Stay on the correct path, avoid going to the bicycle lane.</text>
+		<mobileText>Stay on the correct path, avoid going to the bicycle lane.</mobileText>
+		<colliderName>cyclingTag</colliderName>
+		<duration>3</duration>
+		<type>popup</type>
+	</popNoti>
+	<popNoti>
+		<text>Stay on the correct path, avoid going to the road.</text>
+		<mobileText>Stay on the correct path, avoid going to towards the road.</mobileText>
+		<colliderName>roadTag</colliderName>
+		<duration>3</duration>
+		<type>popup</type>
+	</popNoti>
+	<popNoti>
+		<text>Coins are scattered around the map. Collect as much as possible.</text>
+		<mobileText>Coins are scattered around the map. Collect as many as you can.</mobileText>
+		<colliderName>coinTag</colliderName>
+		<duration>0</duration>
+		<type>popup</type>
+	</popNoti>
+	<popNoti>
+		<text>Remember to stay in the correct lane and keep a lookout.</text>
+		<mobileText>Remember to stay in the correct lane and keep a lookout.</mobileText>
+		<colliderName>footTag</colliderName>
+		<duration>3</duration>
+		<type>notification</type>
+	</popNoti>
+	<popNoti>
+		<text>Traffic light ahead. Stop and wait for the green man to appear.</text>
+		<mobileText>Traffic light ahead. Stop and wait for the green man to appear.</mobileText>
+		<colliderName>trafficTag</colliderName>
+		<duration>0</duration>
+		<type>popup</type>
+	</popNoti>
+	<popNoti>
+		<text>Zebra crossing ahead. Stop and keep a lookout for ongoing vehicles.</text>
+		<mobileText>Zebra crossing ahead. Stop and keep a lookout for ongoing vehicles.</mobileText>
+		<colliderName>zebraTag</colliderName>
+		<duration>0</duration>
+		<type>popup</type>
+	</popNoti>
+	<popNoti>
+		<text>Bridge ahead. You are able to cross over the road by using it.</text>
+		<mobileText>Bridge ahead. You are able to cross over the road by using it.</mobileText>
+		<colliderName>bridgeTag</colliderName>
+		<duration>0</duration>
+		<type>popup</type>
+	</popNoti>
+</popupNotify>
