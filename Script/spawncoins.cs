@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +6,7 @@ public class spawncoins : MonoBehaviour
 {
     public GC script;
     public Button activateButton;
+    public GameObject gemText;
     public GameObject[] gameObjectsToActivate;
     public GameObject compass;
     public int requiredCoins = 3;
@@ -43,6 +45,7 @@ private void ActivateGameObjects()
             // Play the activation sound
             //activationSound.Play();
         compass.SetActive(true);
+        gemText.SetActive(true);
         // Loop through the array and set each game object to active (true)
         Debug.Log("Deducting coins. userCoins before: " + userCoins);
 

@@ -6,7 +6,7 @@ public class Fps : MonoBehaviour
 {
     private float count;
     public TMP_Text fps;
-    
+
     private IEnumerator Start()
     {
         GUI.depth = 2;

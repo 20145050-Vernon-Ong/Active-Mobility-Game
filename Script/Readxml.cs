@@ -30,8 +30,6 @@ public class Readxml : MonoBehaviour
 
         public void SetType(string type) { this.type = type; }
 
-        public void SetText(string text) { this.text = text; }
-
     }
     public GameObject notifpop;
     public GameObject tutorPopup;
@@ -39,18 +37,13 @@ public class Readxml : MonoBehaviour
     public TMP_Text notifText;
     public TMP_Text tutorText;
     public TMP_Text popupText;
+
     private bool popupsDisabled;
     private XmlNodeList nodes;
     private XmlElement root;
     private readonly XmlDocument xmldoc = new();
     private readonly List<PopNotifi> popNotifiList = new();
     private PopupManager pop;
-    
-    void Awake()
-    {
-        pop = GetComponent<PopupManager>();
-        StartCoroutine(ReadXML("https://raw.githubusercontent.com/20145050-Vernon-Ong/Active-Mobility-Game/main/popupNotifi.xml?token=GHSAT0AAAAAACFLHRDSFAADPOZDR5F6VD7SZI2GY6Q"));
-    }
 
     IEnumerator ReadXML(string url)
     {
@@ -63,19 +56,32 @@ public class Readxml : MonoBehaviour
             nodes = root.SelectNodes("/popupNotify/popNoti");
             for (int i = 0; i < nodes.Count; i++)
             {
-                PopNotifi popNoti = new(nodes[i]["text"].InnerText, nodes[i]["colliderName"].InnerText, nodes[i]["type"].InnerText, nodes[i]["duration"].InnerText);
-                popNotifiList.Add(popNoti);
-                Checking(i);
-                if (nodes[i]["type"].InnerText.Equals("startPopup"))
+                if (pop.isChecked)
                 {
-                    if (PlayerPrefs.GetInt("mobile") == 0)
+                    if (nodes[i]["colliderName"].InnerText.Equals("cyclingTag") || nodes[i]["colliderName"].InnerText.Equals("roadTag") || nodes[i]["colliderName"].InnerText.Equals("footTag"))
                     {
-                        tutorText.text = nodes[i]["text"].InnerText;
+                        nodes[i]["type"].InnerText = "notification";
+                        PopNotifi popNoti2 = new(nodes[i]["text"].InnerText, nodes[i]["colliderName"].InnerText, nodes[i]["type"].InnerText, nodes[i]["duration"].InnerText);
+                        popNotifiList.Add(popNoti2);
+                    }
+                }
+                else
+                {
+                    if (nodes[i]["type"].InnerText.Equals("startPopup"))
+                    {
+                        if (PlayerPrefs.GetInt("mobile") == 0)
+                        {
+                            tutorText.text = nodes[i]["text"].InnerText;
+                        }
+                        else
+                        {
+                            tutorText.text = nodes[i]["mobileText"].InnerText;
+                        }
                     } else
                     {
-                        tutorText.text = nodes[i]["mobileText"].InnerText;
+                        PopNotifi popNoti = new(nodes[i]["text"].InnerText, nodes[i]["colliderName"].InnerText, nodes[i]["type"].InnerText, nodes[i]["duration"].InnerText);
+                        popNotifiList.Add(popNoti);
                     }
-                    
                 }
             }
         }
@@ -97,6 +103,18 @@ public class Readxml : MonoBehaviour
         // }
     }
 
+    void Awake()
+    {
+        pop = GetComponent<PopupManager>();
+        StartCoroutine(ReadXML("https://raw.githubusercontent.com/20145050-Vernon-Ong/Active-Mobility-Game/main/Xml/popupNotifi.xml"));
+    }
+
+    private void Start()
+    {
+        
+        
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         for (int i = 0; i < popNotifiList.Count; i++)
@@ -114,30 +132,13 @@ public class Readxml : MonoBehaviour
                     else if (popNotifiList[i].GetCollider().Equals("coinTag") || popNotifiList[i].GetCollider().Equals("zebraTag") 
                         || popNotifiList[i].GetCollider().Equals("trafficTag"))
                     {
-                        popNotifiList.RemoveAt(i);
+                        popNotifiList.RemoveAt(i);          
                     }
                 }
                 else if (popNotifiList[i].GetType().Equals("notification"))
                 {
                     notifText.text = popNotifiList[i].GetText();
                     StartCoroutine(WaitBeforeShow(float.Parse(popNotifiList[i].GetDuration())));
-                }
-            }
-        }
-    }
-
-    void Checking(int i)
-    {
-        if (pop.isChecked)
-        {
-            if (popNotifiList[i].GetType().Equals("popup"))
-            {
-                if (float.Parse(popNotifiList[i].GetDuration()) == 0)
-                {
-                    popNotifiList.RemoveAt(i);
-                } else
-                {
-                    popNotifiList[i].SetType("notification");
                 }
             }
         }

@@ -15,7 +15,7 @@ public class PopupManager : MonoBehaviour
     {
         Debug.Log("activatePopups is set to: " + activatePopups); // Debugging statement
 
-        if (activatePopups == 0) // Check if popups should be disabled (assuming 0 means disabled)
+        if (activatePopups == 1) // Check if popups should be disabled (assuming 0 means disabled)
         {
             xl.tutorPopup.SetActive(false);
             xl.popup.SetActive(false);

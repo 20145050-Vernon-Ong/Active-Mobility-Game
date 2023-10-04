@@ -146,7 +146,6 @@ public class GC : MonoBehaviour
         {
             // Calculate the distance the player has moved inside the zone
             float distanceMoved = Vector3.Distance(initialPosition, transform.position);
-
             if (distanceMoved >= maxDistanceBeforeDamage)
             {
                 // Player has moved the maximum allowed distance, lose all health
@@ -157,7 +156,6 @@ public class GC : MonoBehaviour
                 learningPoints.color = new Color(255, 0, 0, 255);
                 // Stop tracking position to prevent further damage
                 isInDamageZone = false;
-
                 StartCoroutine(RestartCurrentlevel());
             }
         }
@@ -171,22 +169,10 @@ public class GC : MonoBehaviour
             else
             {
                 sf.Flash();
-                if (other.CompareTag("roadTag"))
-                {
-                    HealthManager.health--;
-                }
-                else if (other.CompareTag("cyclingTag"))
-                {
-                    //lifetotalpoints--;
-                    HealthManager.health--;
-                }
-                //lifeValueText.text = lifetotalpoints.ToString();
-                if (other.CompareTag("cyclingTag"))
-                {
-                    isGreen = 0;
-                    summaryText.text = "Avoid walking across the wrong path!";
-                    learningPoints.color = new Color(255, 0, 0, 255);
-                }
+                HealthManager.health--;
+                isGreen = 0;
+                summaryText.text = "Avoid walking across the wrong path!";
+                learningPoints.color = new Color(255, 0, 0, 255);
                 _timeColliding = 0f;
             }
             // Time is over theshold, player takes damag
@@ -248,7 +234,6 @@ public class GC : MonoBehaviour
 
         PlayerPrefs.SetInt("Points", points);
         PlayerPrefs.Save();
-
         UpdatePointsDisplay();
     }
 

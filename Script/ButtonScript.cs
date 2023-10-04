@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class ButtonScript : MonoBehaviour
 {
-    public Toggle toggle;
+    private Toggle toggle;
     private string toggleKey = "ToggleState"; // Key for PlayerPrefs
 
     private void Start()

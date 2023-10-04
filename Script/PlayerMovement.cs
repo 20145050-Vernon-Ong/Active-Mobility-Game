@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -125,7 +124,10 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.S))
             {
                 change.y = 0;
-            } 
+            } else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                change.y = 0;
+            }
         } 
     }
     /*void TouchInput()
