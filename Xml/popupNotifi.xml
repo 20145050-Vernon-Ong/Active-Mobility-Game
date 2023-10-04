@@ -16,7 +16,7 @@
 		<type>startPopup</type>
 	</popNoti>
 	<popNoti>
-		<text>It is safer to walk on footpaths instead of cycling paths, which are designed for cyclists. Walking on cycling paths can be dangerous as cyclists may be travelling at high speeds and may not be able to stop or avoid pedestrians in time.</text>
+		<text>Stay on the correct path, avoid going to the bicycle lane.</text>
 		<colliderName>cyclingTag</colliderName>
 		<duration>3</duration>
 		<type>popup</type>
