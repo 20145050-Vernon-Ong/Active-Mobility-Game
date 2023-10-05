@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Root Element-->
 <popupNotify>
+	<!--Child Element-->
 	<popNoti>
+		<!--Sub Child Element-->
 		<text>
 1. You need to get to the tuition centre.
 2. Use W, A and D to move.
 3. Stay in the correct lane and keep a lookout.
 4. Use the phone to assist you.</text>
+		<!--mobileText is used for smartphone while text is for computers-->
 		<mobileText>
 1. You need to get to the tuition centre.
 2. Use the D-Pad to move.
 3. Stay in the correct lane and keep a lookout.
 4. Use the phone to assist you.</mobileText>
+		<!--name of the colliding object. Must discuss with developer-->
 		<colliderName>popupTag</colliderName>
+		<!--duration of the notification-->
 		<duration>0</duration>
+		<!--stype is to indicate is it a popup or notification. For this attribute, startPopup is when game loads.-->
 		<type>startPopup</type>
 	</popNoti>
 	<popNoti>
 		<text>Stay on the correct path, avoid going to the bicycle lane.</text>
 		<colliderName>cyclingTag</colliderName>
+		<!--if type is popup and duration is more than 0, it means this must be popup first and then convert to notification-->
 		<duration>3</duration>
 		<type>popup</type>
 	</popNoti>
@@ -30,6 +38,7 @@
 	<popNoti>
 		<text>Coins are scattered around the map. Collect as many as you can.</text>
 		<colliderName>coinTag</colliderName>
+		<!--if duration is 0 and type is popup, it is popup only-->
 		<duration>0</duration>
 		<type>popup</type>
 	</popNoti>
