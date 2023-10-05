@@ -23,7 +23,7 @@
 		<type>startPopup</type>
 	</popNoti>
 	<popNoti>
-		<text>Stay on the correct path, avoid going to the bicycle lane or you will lose health.</text>
+		<text>Stay on the correct path, avoid going to the bicycle lane.</text>
 		<colliderName>cyclingTag</colliderName>
 		<!--if type is popup and duration is more than 0, it means this must be popup first and then convert to notification-->
 		<duration>3</duration>
