@@ -112,9 +112,9 @@ public class GC : MonoBehaviour
             sf.Flash();
             isGreen = 0;
             isGreen2 = 0;
-            HealthManager.health = 0;
             learningPoints.color = new Color(255, 0, 0, 255);
             learningPoints2.color = new Color(255, 0, 0, 255);
+            HealthManager.health = 0;
             summaryText.text = "Be sure to lookout for moving vehicles.";
             PlayerPrefs.SetString("distance", pm.distanceLeft.ToString("0"));
             StartCoroutine(RestartCurrentlevel());

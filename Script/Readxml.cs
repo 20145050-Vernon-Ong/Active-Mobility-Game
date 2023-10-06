@@ -58,9 +58,13 @@ public class Readxml : MonoBehaviour
             {
                 if (pop.isChecked)
                 {
-                    if (nodes[i]["colliderName"].InnerText.Equals("cyclingTag") || nodes[i]["colliderName"].InnerText.Equals("roadTag") || nodes[i]["colliderName"].InnerText.Equals("footTag"))
+                    if (!nodes[i]["colliderName"].InnerText.Equals("coinTag") && !nodes[i]["colliderName"].InnerText.Equals("startPopup"))        
                     {
                         nodes[i]["type"].InnerText = "notification";
+                        if (float.Parse(nodes[i]["duration"].InnerText) == 0)
+                        {
+                            nodes[i]["duration"].InnerText = "3";
+                        }
                         PopNotifi popNoti2 = new(nodes[i]["text"].InnerText, nodes[i]["colliderName"].InnerText, nodes[i]["type"].InnerText, nodes[i]["duration"].InnerText);
                         popNotifiList.Add(popNoti2);
                     }
