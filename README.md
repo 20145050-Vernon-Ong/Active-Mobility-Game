@@ -19,7 +19,8 @@ Tested with VS Community 2022 and VS Commmunity 2019. You can find these [here](
 Go to Visual Studio Installer and Download the Necessary Workloads Stated Below
 
 ### Unity 3rd Party Packages
--[SuperTiled2Unity](https://seanba.itch.io/supertiled2unity)
+- [SuperTiled2Unity](https://seanba.itch.io/supertiled2unity)
+- [Leaderboard Package](https://danqzq.itch.io/leaderboard-creator/download/eyJleHBpcmVzIjoxNjk2OTExNzc2LCJpZCI6MTE1NDU0OX0%3d.6wJHD42kz3l3krzHELR%2bb38XtUE%3d)
 
 ### Installation of Map Editor and Pixel Art Creation Software
 - [Tiled](https://www.mapeditor.org/)
