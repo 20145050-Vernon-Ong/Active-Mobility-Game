@@ -209,7 +209,20 @@ private string publicLeaderboardKey = "9adf1b039fb92837c0a268411dd78ff70a7820d17
 ![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/01a5c1bb-5d01-49cb-898c-9d50660cbf5e)
 
 Refer to demo2 video.
- 
+
+### Updating UI with new graphics.
+
+1) To update the UI for the game, head over to the Hierarchy of the unity project and look for canvas.
+   
+![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/060fc08d-cd85-4a58-9ce4-51cc4285a329)
+
+2) To change the graphics for the player information at the top left, you can edit the playerinfo prefab located in the hierachy.
+3) you can then edit any of the prefab with images under the inspector.
+
+![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/29ceef97-fbbe-4688-889f-06f25f398db1)
+
+4) The notable UI are PlayerInfo, NotifPop, TutorialPop, Popup, PauseMenu, D-Pad and any buttons or texts found in the canvas hierarchy.
+   
 ---
 ## Extra guide
 
