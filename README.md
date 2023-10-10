@@ -65,7 +65,7 @@ Go to Visual Studio Installer and Download the Necessary Workloads Stated Below
 1) Open Unity Hub
 2) New Project -> 2D (Core)
 
-### Installing and Importing Packages in Unity
+## Installing and Importing Packages in Unity
 
 Install the [SuperTiled2Unity](https://seanba.itch.io/supertiled2unity) for Unity by Assets -> Import Package -> Custom Package -> Select [SuperTiled2Unity](https://seanba.itch.io/supertiled2unity)
 
@@ -73,7 +73,7 @@ If you've imported the game and encounter any errors related to the scene order,
 
 ![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/f53b2d04-8eb4-4bb1-886b-1807c08cebe3)
 
-### Code walkthrough / explanation 
+## Code walkthrough / explanation 
 
 GC.cs – Within GC mostly contain codes that affect the gameobjects that the player comes in contact with. you'll primarily find codes responsible for handling interactions between the player and various game objects, such as coins and roads. Additionally, the script includes functions that enable the player to lose health upon collision with roads or vehicles. Adding of points and what happens when the game ends.
 
@@ -99,7 +99,7 @@ Scoremanager.cs – The scoremanager will invoke and parse the score that is sav
 
 Leaderboard.cs – The leaderboard script makes use of an api key that uses a leaderboard plugin which can be accessed by us to manage the leader board. Uploading an entry or deleting an entry can be done via code as well. 
 
-### Linking up Visual Studio and Unity for Auto Complete statements when coding / developing in Visual Studio
+## Linking up Visual Studio and Unity for Auto Complete statements when coding / developing in Visual Studio
 
 Go to Edit -> Preferences -> External Tools
 
@@ -141,6 +141,20 @@ To test how it looks on WebPage, Click File -> Build Setting -> Select WebGL -> 
 ![image](https://user-images.githubusercontent.com/25051402/209916109-94901c68-c116-451c-970f-a46e2f650f19.png)
 
 For Deploying, Zip the file and upload to [itch.io](itch.io)
+
+## Update and Guides
+
+You can manage the leaderboard by accessing it through this link: [Leaderboard Creator by Danial Jumagaliyev (itch.io)](https://danqzq.itch.io/leaderboard-creator). You can then choose to either Create a new leaderboard or make use of existing leaderboards. 
+
+![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/df1ef533-ab82-41fe-bef0-a0e9c48dc63c)
+
+If you would like to add the existing leaderboard into the site, you just have to copy the string of key located in leaderboard.cs. and paste it in.
+
+![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/23e903b1-dea5-49d4-aace-5a618dc0fd6e)
+
+If you choose to add a new leaderboard you can do so but if you want the game to make use of the newly created leaderboard, you would have to copy the secret key and replace the string of key located in leaderboard.cs
+
+private string publicLeaderboardKey = "9adf1b039fb92837c0a268411dd78ff70a7820d1734da55b9640cdcf9f7561fa";
 
 ## Tutorial
 
