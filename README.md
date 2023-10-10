@@ -158,6 +158,15 @@ To test how it looks on WebPage, Click File -> Build Setting -> Select WebGL -> 
 
 For Deploying, Zip the file and upload to [itch.io](itch.io)
 
+1) Log-in with the following email and password, taamgame@gmail.com | ActiveMobility123
+2) Navigate to the drop down arrow located at the top right and upload project
+
+![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/95601ba0-a4d2-496c-991e-4dd13db3e99f)
+
+3) You can then fill up the basic information of the game and upload the project onto itch for testing
+
+![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/b09616bd-5646-41ce-a82a-729396a9ce33)
+
 ---
 ## Update or manage Leaderboard
 
