@@ -198,7 +198,7 @@ private string publicLeaderboardKey = "9adf1b039fb92837c0a268411dd78ff70a7820d17
    
 ![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/ba448f65-2f0a-4dd9-9cda-3d231e40375d)
 
-3) To update the map, follow along the video tutorial below.
+3) To update the map, follow along the Demo1 video.
 
 ### Stage/Levels, Moving from one scene to another with the use of buttons.
 
@@ -207,6 +207,7 @@ private string publicLeaderboardKey = "9adf1b039fb92837c0a268411dd78ff70a7820d17
 3) Using the MapLoaderScript.loadScene, input the scene number assigned in the Build Settings to load the respective map/level.
 
 ![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/01a5c1bb-5d01-49cb-898c-9d50660cbf5e)
+Refer to demo2 video.
  
 ---
 ## Extra guide
