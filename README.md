@@ -29,7 +29,7 @@ Go to Visual Studio Installer and Download the Necessary Workloads Stated Below
 - [Pixel It](https://giventofly.github.io/pixelit/)
 
 ---
-a.	Objective of the game
+## a.	Objective of the game
 
 - The Active Mobility Game is designed to offer users invaluable insights into the nuances of road safety as they manoeuvre through the intricate web of lanes and navigate the ever-changing traffic lights in the vibrant streets of Singapore.
 
@@ -37,6 +37,17 @@ a.	Objective of the game
 
 
 -	Our goal for the game is to provide an engaging journey through a series of meticulously designed levels or stages. Each stage is designed to present you with distinct learning points and scenarios, ensuring that you acquire a comprehensive understanding of road safety as you progress.
+
+## b.	Architecture diagram
+
+## c.	Modules of the games
+
+-	Menu Module
+-	Objective Module
+-	Map Module
+-	Score Module
+-	Gameplay Module
+-	Leader board Module
 
 ---
 ## Setting up the Working Environment from Downloaded Asset
