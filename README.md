@@ -36,7 +36,6 @@ Go to Visual Studio Installer and Download the Necessary Workloads Stated Below
 
 -	Within this immersive gaming experience, your mission is to safely reach your desired destination by adhering to a set of foundational traffic rules. Deviating from these rules will result in the loss of one precious life, so stay alert and follow the road code diligently.
 
-
 -	Our goal for the game is to provide an engaging journey through a series of meticulously designed levels or stages. Each stage is designed to present you with distinct learning points and scenarios, ensuring that you acquire a comprehensive understanding of road safety as you progress.
 
 ## Architecture diagram
@@ -71,6 +70,34 @@ Go to Visual Studio Installer and Download the Necessary Workloads Stated Below
 Install the [SuperTiled2Unity](https://seanba.itch.io/supertiled2unity) for Unity by Assets -> Import Package -> Custom Package -> Select [SuperTiled2Unity](https://seanba.itch.io/supertiled2unity)
 
 If you've imported the game and encounter any errors related to the scene order, you can resolve them by navigating to Unity's Build Settings. There, you should ensure that the scene numbers are configured to load the first scene of the game, which in this case is the MainScene. Adjusting this setting correctly will help resolve any scene-related issues that may arise during setup.
+
+![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/f53b2d04-8eb4-4bb1-886b-1807c08cebe3)
+
+### Code walkthrough / explanation 
+
+GC.cs – Within GC mostly contain codes that affect the gameobjects that the player comes in contact with. you'll primarily find codes responsible for handling interactions between the player and various game objects, such as coins and roads. Additionally, the script includes functions that enable the player to lose health upon collision with roads or vehicles. Adding of points and what happens when the game ends.
+
+Playermovement.cs – The script contains codes that affect player movement. It contains the code of not allowing players to go backwards within the game. It also contains the code which disables/enables the gamepad when using either the web/mobile to play the game.
+
+TileManager.cs – The script contains codes that generates out the maps in the list in a random order. The object that has the script attached to has the list of maps that are in random order. If more new maps are being created, you can add them into the list.
+
+TrafficLightCar.cs & TrafficSystem.cs – Both scripts contains codes that changes the animator for the traffic lights based on a specific duration. The value can be changed in the code. 
+
+VehicleMovement.cs – the script contains codes that changes the car movement and positioning on the road. Changing of speed can also be changed from the script.
+
+Readxml.cs – within Readxml are codes that specifically to manage text associated with popups and notifications. 'ReadXML' provides a convenient way to modify these texts without the need for direct in-game editing. You can effortlessly upload this code to GitHub and customize it to display your preferred text variations."
+
+PopupManager.cs – The script contains the behaviour of the popups when it is being toggled on or off. 
+
+ButtonToggleScript.cs – The script is linked to popupmanager and what it does is that is saves the toggle state of the toggle and how the toggle button behaves.
+
+HealthManager.cs – The HealthManager manages the hearts of the game which is located at the top left of the player information. It contains code that shows the hearts as well as the the additional points which will be added accordingly once the player ends the game with x number of hearts left.
+
+DistanceCalculator.cs – The distance calculator checks the distance which the player has covered, distance between gems and the player as well as the behaviour of how the compass reacts when the player is near a gem.
+
+Scoremanager.cs – The scoremanager will invoke and parse the score that is saved in the end game screen which will allow you to submit the values into the leaderboard and display them.
+
+Leaderboard.cs – The leaderboard script makes use of an api key that uses a leaderboard plugin which can be accessed by us to manage the leader board. Uploading an entry or deleting an entry can be done via code as well. 
 
 ### Linking up Visual Studio and Unity for Auto Complete statements when coding / developing in Visual Studio
 
