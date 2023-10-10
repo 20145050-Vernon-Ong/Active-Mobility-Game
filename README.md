@@ -68,6 +68,8 @@ Go to Visual Studio Installer and Download the Necessary Workloads Stated Below
 
 Install the [SuperTiled2Unity](https://seanba.itch.io/supertiled2unity) for Unity by Assets -> Import Package -> Custom Package -> Select [SuperTiled2Unity](https://seanba.itch.io/supertiled2unity)
 
+If you've imported the game and encounter any errors related to the scene order, you can resolve them by navigating to Unity's Build Settings. There, you should ensure that the scene numbers are configured to load the first scene of the game, which in this case is the MainScene. Adjusting this setting correctly will help resolve any scene-related issues that may arise during setup.
+
 ### Linking up Visual Studio and Unity for Auto Complete statements when coding / developing in Visual Studio
 
 Go to Edit -> Preferences -> External Tools
