@@ -39,6 +39,7 @@ Go to Visual Studio Installer and Download the Necessary Workloads Stated Below
 -	Our goal for the game is to provide an engaging journey through a series of meticulously designed levels or stages. Each stage is designed to present you with distinct learning points and scenarios, ensuring that you acquire a comprehensive understanding of road safety as you progress.
 
 ## b.	Architecture diagram
+![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/5cab2ff2-adb9-4232-a58b-698da092f432)
 
 ## c.	Modules of the games
 
