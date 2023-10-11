@@ -149,7 +149,8 @@ If not Downloaded, Download in Unity Editor and Restart the Project
 3) Under Compression Format -> Select Disabled
 ![image](https://user-images.githubusercontent.com/25051402/209916468-305da456-01d2-469c-bf6a-e2f6e21415a0.png)
 
-### Testing & Deploying
+---
+## Testing & Deploying
 
 For Testing, just press play in Unity.
 ![image](https://user-images.githubusercontent.com/25051402/209916155-7e40f7d6-c903-48ad-be9b-ffde3bf23a8d.png)
