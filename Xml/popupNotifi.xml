@@ -5,10 +5,7 @@
 	<popNoti>
 		<!--Sub Child Element-->
 		<text>
-1. You need to get to the tuition centre.
-2. Use W, A and D to move.
-3. Stay in the correct lane and keep a lookout.
-4. Use the phone to assist you.</text>
+Stopping and looking out for oncoming vehicles before crossing the road is important for your safety as it helps you to avoid accidents. Vehicles can be travelling at high speeds and may not be able to stop or avoid pedestrians in time, especially if they are not paying attention or are distracted. By stopping and looking out for oncoming vehicles, you can ensure that it is safe to cross the road and avoid any potential accidents.</text>
 		<!--mobileText is used for smartphone while text is for computers-->
 		<mobileText>
 1. You need to get to the tuition centre.
