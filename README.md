@@ -11,7 +11,7 @@ Git Clone / Pull or Download as Zip in the following GitHub Repository
 Unity Hub is required to open or run any of the Unity Projects. You can install them by clicking [here](https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup.exe) if not visit the official website [here](https://unity3d.com/get-unity/download)
 
 ### Choose your appropriate Unity Version that you need.
-For this case we're using **2021.3.36f1** where you can find all the archive [here](https://unity3d.com/get-unity/download/archive)
+For this case we're using **2022.3.11f1** where you can find all the archive [here](https://unity3d.com/get-unity/download/archive)
 
 ### Choose the Visual Studio you prefer to use
 Tested with VS Community 2022 and VS Commmunity 2019. You can find these [here](https://visualstudio.microsoft.com/downloads/)
