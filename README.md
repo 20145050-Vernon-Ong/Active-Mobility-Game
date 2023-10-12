@@ -40,7 +40,7 @@ Go to Visual Studio Installer and Download the Necessary Workloads Stated Below
   
 ---
 ## Architecture diagram
-![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/5cab2ff2-adb9-4232-a58b-698da092f432)
+![Untitled Diagram drawio (4)](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/66571854-a017-46a6-ae1e-2121911cc501)
 
 ---
 ## Modules of the games
