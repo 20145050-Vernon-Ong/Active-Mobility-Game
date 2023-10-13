@@ -17,13 +17,12 @@ public class PopupManager : MonoBehaviour
 
         if (activatePopups == 1) // Check if popups should be disabled (assuming 0 means disabled)
         {
-            xl.tutorPopup.SetActive(false);
-            xl.popup.SetActive(false);
+            xl.tutorialPage.SetActive(false);
             isChecked = true;
             xl.DisableAllPopupsPermanently();
         } else
         {
-            xl.tutorPopup.SetActive(true);
+            xl.tutorialPage.SetActive(true);
             isChecked= false;
         }
         // Optionally, you can add an 'else' block here if you want to enable popups.

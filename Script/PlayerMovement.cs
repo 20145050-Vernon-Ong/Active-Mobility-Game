@@ -1,6 +1,9 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using Image = UnityEngine.UI.Image;
+using System.Collections;
+// using MongoDB.Bson.Serialization.Serializers;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,6 +17,13 @@ public class PlayerMovement : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject endPoint;
     public GameObject DPad;
+    public GameObject objectiveManager;
+
+    public GameObject button1;
+    public GameObject button2;
+
+    public GameObject arrow;
+    public GameObject playerInfo;
     public TextMeshProUGUI distanceText;
     /*private Touch touch;
     private Vector2 startTouch;
@@ -58,13 +68,13 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
     change = Vector3.zero;
-    if (SystemInfo.operatingSystemFamily == operatingSystemFamily.Window))
+    if (PlayerPrefs.GetInt("mobile") == 0)
     {
         change.x = Input.GetAxisRaw("Horizontal");
         change.y = Input.GetAxisRaw("Vertical");
         joystick.gameObject.SetActive(false);
         pauseBtn.gameObject.SetActive(false);
-    } else if (SystemInfo.operatingSystemFamily == operatingSystemFamily.Other){
+    } else {
         change.x = new Vector2(joystick.Horizontal * movespeed, myRigidBody.velocity.x).x;
         change.y = new Vector2(joystick.Vertical * movespeed, myRigidBody.velocity.y).x;
         joystick.gameObject.SetActive(true);
@@ -104,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
 
     void CheckPopup()
     {
-        if (read.tutorPopup.activeInHierarchy || read.popup.activeInHierarchy)
+        if (read.tutorPopup.activeInHierarchy || read.tutorialPage.activeInHierarchy)
         {
             change = Vector3.zero;
             keyDisabled = false;
@@ -246,4 +256,38 @@ public class PlayerMovement : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
+    IEnumerator LoadAsynchronously()
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync("mainScene");
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    public void Restart()
+    {
+        StartCoroutine(LoadAsynchronously());
+    }
+
+    public void Objective()
+    {
+        if (objectiveManager.activeInHierarchy)
+        {
+            arrow.transform.eulerAngles = new Vector3(arrow.transform.rotation.x, arrow.transform.rotation.y, 270);
+            //playerInfo.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(infoWidth, 342.0916f);
+            objectiveManager.SetActive(false);
+            button1.SetActive(true);
+            button2.SetActive(false);
+        } else
+        {
+            arrow.transform.eulerAngles = new Vector3(arrow.transform.rotation.x, arrow.transform.rotation.y, 0);
+            //playerInfo.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(infoWidth, infoHeight);
+            objectiveManager.SetActive(true);
+            button2.SetActive(true);
+            button1.SetActive(false);
+            
+        }
+        
+    }
 }

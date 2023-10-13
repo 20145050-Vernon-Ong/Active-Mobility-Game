@@ -33,10 +33,9 @@ public class Readxml : MonoBehaviour
     }
     public GameObject notifpop;
     public GameObject tutorPopup;
-    public GameObject popup;
+    public GameObject tutorialPage;
     public TMP_Text notifText;
     public TMP_Text tutorText;
-    public TMP_Text popupText;
 
     private bool popupsDisabled;
     private XmlNodeList nodes;
@@ -97,26 +96,16 @@ public class Readxml : MonoBehaviour
 
     IEnumerator WaitBeforeShow(float time)
     {
-        // for(;;) 
-        // {
-        // execute block of code here
         yield return new WaitForSeconds(0.5f);
         notifpop.SetActive(true);
         yield return new WaitForSeconds(time);
         notifpop.SetActive(false);
-        // }
     }
 
     void Awake()
     {
         pop = GetComponent<PopupManager>();
         StartCoroutine(ReadXML("https://raw.githubusercontent.com/20145050-Vernon-Ong/Active-Mobility-Game/main/Xml/popupNotifi.xml"));
-    }
-
-    private void Start()
-    {
-        
-        
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -127,8 +116,8 @@ public class Readxml : MonoBehaviour
             {
                 if (popNotifiList[i].GetType().Equals("popup"))
                 {
-                    popupText.text = popNotifiList[i].GetText();
-                    popup.SetActive(true);
+                    tutorText.text = popNotifiList[i].GetText();
+                    tutorPopup.SetActive(true);
                     if (float.Parse(popNotifiList[i].GetDuration()) > 0)
                     {
                         popNotifiList[i].SetType("notification");
@@ -154,9 +143,10 @@ public class Readxml : MonoBehaviour
         {
             tutorPopup.SetActive(false);
         }
-        else if (popup.activeInHierarchy)
+        else if (tutorialPage.activeInHierarchy)
         {
-            popup.SetActive(false);
+            tutorialPage.SetActive(false);
+            tutorPopup.SetActive(true);
         }
     }
 

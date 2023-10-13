@@ -5,6 +5,8 @@ public class VehicleMovement : MonoBehaviour
     public float speed;
     public float exitSpeed;
     public GameObject vehicle;
+    public GameObject tutor;
+    public GameObject popup;
     private Vector3 PosX;
     // Start is called before the first frame update
     void Start()
@@ -23,11 +25,12 @@ public class VehicleMovement : MonoBehaviour
         {
             vehicle.transform.position += Vector3.down * speed;
         }
+        
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Stop"))
+        if (collision.CompareTag("car") || collision.CompareTag("Stop"))
         {
             speed = 0;
         }
@@ -41,22 +44,15 @@ public class VehicleMovement : MonoBehaviour
             {
                 vehicle.transform.position = new Vector3(PosX.x, GameObject.Find("carSpawn (1)").transform.position.y, 0);
             }
-        } else if (collision.CompareTag("car"))
-        {
-            speed = 0;
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Stop"))
+        if (collision.CompareTag("car") || collision.CompareTag("Stop"))
         {
             speed = exitSpeed;
-        }
-        else if (collision.CompareTag("car"))
-        {
-            speed = exitSpeed;
-        }
+        } 
     }
 
 }

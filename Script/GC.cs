@@ -15,10 +15,17 @@ public class GC : MonoBehaviour
     public TextMeshProUGUI learningPoints3;
     public TextMeshProUGUI pointsText;
 
+
+    public GameObject check1;
+    public GameObject check2;
+    public GameObject check3;
+
+
     private SimpleFlash sf;
     private Vector3 pos;
     private Vector3 initialPosition;
     private bool isInDamageZone = false;
+    private bool hasHealthDecremented = false;
     private bool isTouch;
     private bool isPhone;
     private float _timeColliding;
@@ -64,13 +71,22 @@ public class GC : MonoBehaviour
     {
         if (isPhone == true && animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
         {
-            Debug.Log("Player has moved while the mobilephone is active.");
-            isGreen3 = 0;
-            learningPoints3.color = new Color(255, 0, 0, 255);
+            if (!hasHealthDecremented)
+            {
+                Debug.Log("Player has moved while the mobilephone is active.");
+                isGreen3 = 0;
+                check3.SetActive(false);
+                learningPoints3.color = new Color(255, 0, 0, 255);
+                HealthManager.health -= 1;
+                hasHealthDecremented = true;
+            }
         } else
         {
             Debug.Log("Player stop moving while the mobilephone is active.");
+            summaryText.text = "Player stop moving while the mobilephone is active.";
+            hasHealthDecremented = false;
         }
+        StartCoroutine(RestartCurrentlevel());
     }
 
     void OnTriggerEnter2D(Collider2D other)  
@@ -86,18 +102,17 @@ public class GC : MonoBehaviour
         if (other.CompareTag("macetag") || other.CompareTag("maceTrafficTag"))
         {
             summaryText.text = "Be on the correct lane to avoid conflicts!";
-            //lifetotalpoints --;
             HealthManager.health--;
             sf.Flash();
             PlayerPrefs.SetString("distance", pm.distanceLeft.ToString());
             if (other.CompareTag("maceTrafficTag"))
             {
                 isGreen2 = 0;
+                check2.SetActive(false);
                 _timeColliding = 0f;
                 learningPoints2.color = new Color(255, 0, 0, 255);
                 summaryText.text = "Be sure to cross only when the green man is flashing!";
             }
-            //lifeValueText.text = lifetotalpoints.ToString();
             StartCoroutine(RestartCurrentlevel());
         }
         else if (other.CompareTag("coinTag"))
@@ -106,18 +121,21 @@ public class GC : MonoBehaviour
             totalpoints++;
             ValueText.text = totalpoints.ToString();
             AddPoints(1);
+            // Debug.Log("hello my name"+totalpoints);
         }
         else if (other.CompareTag("car"))
         {
             sf.Flash();
             isGreen = 0;
             isGreen2 = 0;
+            check2.SetActive(false);
+            check1.SetActive(false);
             learningPoints.color = new Color(255, 0, 0, 255);
             learningPoints2.color = new Color(255, 0, 0, 255);
             HealthManager.health = 0;
             summaryText.text = "Be sure to lookout for moving vehicles.";
             PlayerPrefs.SetString("distance", pm.distanceLeft.ToString("0"));
-            StartCoroutine(RestartCurrentlevel());
+            //StartCoroutine(RestartCurrentlevel());
         }
         else if (other.CompareTag("questPoint"))
         {
@@ -127,7 +145,7 @@ public class GC : MonoBehaviour
             ValueText.text = addPoints.ToString();
             PlayerPrefs.SetString("distance", pm.differenceY.ToString("0"));
             AddPoints(HealthManager.points);
-            StartCoroutine(RestartCurrentlevel());
+            //StartCoroutine(RestartCurrentlevel());
         }
         else if (other.CompareTag("gemTag"))
         {
@@ -153,10 +171,11 @@ public class GC : MonoBehaviour
                 sf.Flash();
                 summaryText.text = "Avoid walking across the wrong path";
                 isGreen = 0;
+                check2.SetActive(false);
                 learningPoints.color = new Color(255, 0, 0, 255);
                 // Stop tracking position to prevent further damage
                 isInDamageZone = false;
-                StartCoroutine(RestartCurrentlevel());
+                //StartCoroutine(RestartCurrentlevel());
             }
         }
 
@@ -171,6 +190,7 @@ public class GC : MonoBehaviour
                 sf.Flash();
                 HealthManager.health--;
                 isGreen = 0;
+                check1.SetActive(false);
                 summaryText.text = "Avoid walking across the wrong path!";
                 learningPoints.color = new Color(255, 0, 0, 255);
                 _timeColliding = 0f;
@@ -178,7 +198,7 @@ public class GC : MonoBehaviour
             // Time is over theshold, player takes damag
             // Reset timer
             PlayerPrefs.SetString("distance", pm.distanceLeft.ToString("0"));
-            StartCoroutine(RestartCurrentlevel());
+            //StartCoroutine(RestartCurrentlevel());
         }
     }
 
@@ -215,7 +235,7 @@ public class GC : MonoBehaviour
         {
             isPhone = false;
             Phone.transform.localPosition = new Vector3(pos.x, pos.y, 0);
-        } else
+        } else if (Phone.transform.localPosition.y == pos.y)
         {
             isPhone = true;
             Phone.transform.localPosition = new Vector3(pos.x, -109, 0);
