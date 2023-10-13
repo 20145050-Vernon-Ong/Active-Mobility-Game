@@ -161,14 +161,6 @@ Click File -> Build Setting -> Select WebGL -> Build and Run
 
 ![image](https://user-images.githubusercontent.com/25051402/209916109-94901c68-c116-451c-970f-a46e2f650f19.png)
 
-If there are any problems when Deploying, 
-Click File -> Build Setting -> Player Settings -> Player -> Settings for WebGl
-
-1) Disable Compression Format
-2) Set Power Preference to High Performance
-
-![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/3351edcd-68f7-4b29-865e-bdc72467f428)
-
 For Deploying, Zip the file and upload to [itch.io](itch.io)
 
 1) Log-in with the following email and password, taamgame@gmail.com | ActiveMobility123
