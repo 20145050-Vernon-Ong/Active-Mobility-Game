@@ -153,11 +153,17 @@ If not Downloaded, Download in Unity Editor and Restart the Project
 ## Testing & Deploying
 
 For Testing, just press play in Unity.
+
 ![image](https://user-images.githubusercontent.com/25051402/209916155-7e40f7d6-c903-48ad-be9b-ffde3bf23a8d.png)
-To test how it looks on WebPage, Click File -> Build Setting -> Select WebGL -> Build and Run
+
+To test how it looks on WebPage, 
+Click File -> Build Setting -> Select WebGL -> Build and Run
+
 ![image](https://user-images.githubusercontent.com/25051402/209916109-94901c68-c116-451c-970f-a46e2f650f19.png)
 
-If there are any problems when Deploying, Click File -> Build Setting -> Player Settings -> Player -> Settings for WebGl
+If there are any problems when Deploying, 
+Click File -> Build Setting -> Player Settings -> Player -> Settings for WebGl
+
 ![image](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104333224/3351edcd-68f7-4b29-865e-bdc72467f428)
 
 For Deploying, Zip the file and upload to [itch.io](itch.io)
