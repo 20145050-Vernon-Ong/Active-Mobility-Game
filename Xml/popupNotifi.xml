@@ -23,7 +23,7 @@
 		<type>startPopup</type>
 	</popNoti>
 	<popNoti>
-		<text>USE THE APPROPRIATE PATH, AVOID WALKING ON THE CYCLING PATH.</text>
+		<text>USE THE APPROPRIATE PATH, AVOID WALKING ON THE CYCLING PATH.USE THE APPROPRIATE PATH, AVOID WALKING ON THE CYCLING PATH.USE THE APPROPRIATE PATH, AVOID WALKING ON THE CYCLING PATH.</text>
 		<colliderName>cyclingTag</colliderName>
 		<!--if type is popup and duration is more than 0, it means this must be popup first and then convert to notification-->
 		<duration>3</duration>
