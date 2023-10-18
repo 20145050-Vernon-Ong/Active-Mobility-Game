@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -13,13 +14,15 @@ public class GC : MonoBehaviour
     public TextMeshProUGUI learningPoints;
     public TextMeshProUGUI learningPoints2;
     public TextMeshProUGUI learningPoints3;
-    public TextMeshProUGUI pointsText;
-
 
     public GameObject check1;
-    public GameObject check2;
+    public GameObject check2; 
     public GameObject check3;
 
+    public Image imageToChangeColor;
+    public Image imageToChangeColor2;
+    public Image imageToChangeColor3;
+    public Color newColor = Color.red;
 
     private SimpleFlash sf;
     private Vector3 pos;
@@ -73,17 +76,19 @@ public class GC : MonoBehaviour
         {
             if (!hasHealthDecremented)
             {
-                Debug.Log("Player has moved while the mobilephone is active.");
+                summaryText.text = "Do not walk while having your phone out!";
                 isGreen3 = 0;
                 check3.SetActive(false);
-                learningPoints3.color = new Color(255, 0, 0, 255);
-                HealthManager.health -= 1;
+                // learningPoints3.color = new Color(255, 0, 0, 255);
+                if (HealthManager.health > 0)
+                {
+                    HealthManager.health -= 1;
+                    imageToChangeColor3.color = newColor;
+                }
                 hasHealthDecremented = true;
             }
         } else
         {
-            Debug.Log("Player stop moving while the mobilephone is active.");
-            summaryText.text = "Player stop moving while the mobilephone is active.";
             hasHealthDecremented = false;
         }
         StartCoroutine(RestartCurrentlevel());
@@ -110,7 +115,8 @@ public class GC : MonoBehaviour
                 isGreen2 = 0;
                 check2.SetActive(false);
                 _timeColliding = 0f;
-                learningPoints2.color = new Color(255, 0, 0, 255);
+                // learningPoints2.color = new Color(255, 0, 0, 255);
+                imageToChangeColor2.color = newColor;
                 summaryText.text = "Be sure to cross only when the green man is flashing!";
             }
             StartCoroutine(RestartCurrentlevel());
@@ -130,8 +136,12 @@ public class GC : MonoBehaviour
             isGreen2 = 0;
             check2.SetActive(false);
             check1.SetActive(false);
-            learningPoints.color = new Color(255, 0, 0, 255);
-            learningPoints2.color = new Color(255, 0, 0, 255);
+            // learningPoints.color = new Color(255, 0, 0, 255);
+            // learningPoints2.color = new Color(255, 0, 0, 255);
+
+            imageToChangeColor.color = newColor;
+            imageToChangeColor2.color = newColor;
+
             HealthManager.health = 0;
             summaryText.text = "Be sure to lookout for moving vehicles.";
             PlayerPrefs.SetString("distance", pm.distanceLeft.ToString("0"));
@@ -172,7 +182,10 @@ public class GC : MonoBehaviour
                 summaryText.text = "Avoid walking across the wrong path";
                 isGreen = 0;
                 check2.SetActive(false);
-                learningPoints.color = new Color(255, 0, 0, 255);
+
+                // learningPoints.color = new Color(255, 0, 0, 255);
+                imageToChangeColor.color = newColor;
+
                 // Stop tracking position to prevent further damage
                 isInDamageZone = false;
                 //StartCoroutine(RestartCurrentlevel());
@@ -192,7 +205,10 @@ public class GC : MonoBehaviour
                 isGreen = 0;
                 check1.SetActive(false);
                 summaryText.text = "Avoid walking across the wrong path!";
-                learningPoints.color = new Color(255, 0, 0, 255);
+
+                // learningPoints.color = new Color(255, 0, 0, 255);
+                imageToChangeColor.color = newColor;
+
                 _timeColliding = 0f;
             }
             // Time is over theshold, player takes damag
@@ -244,7 +260,6 @@ public class GC : MonoBehaviour
 
     public void UpdatePointsDisplay()
     {
-        pointsText.text = points.ToString();
         Debug.Log(points);
     }
 
