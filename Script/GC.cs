@@ -41,6 +41,7 @@ public class GC : MonoBehaviour
     private PlayerMovement pm;
     private HealthManager hm;
     private Animator animator;
+    public gcs_menu gcmenu;
     void Awake()
     {
         // Store currentscore in prefs
@@ -53,14 +54,6 @@ public class GC : MonoBehaviour
     void Start()
     {
         isTouch = false;
-        if (Screen.width / Screen.height == 2)
-        {
-            Phone.transform.localPosition = new Vector3(718, -650, 0);
-        }
-        else if (Screen.width / Screen.height == 1)
-        {
-            Phone.transform.localPosition = new Vector3(718, -754, 0);
-        }
         pos = Phone.transform.localPosition;
         ValueText.text = totalpoints.ToString();
         isGreen = 1;
@@ -82,6 +75,7 @@ public class GC : MonoBehaviour
                 // learningPoints3.color = new Color(255, 0, 0, 255);
                 if (HealthManager.health > 0)
                 {
+                    gcmenu.PlayHurt();
                     HealthManager.health -= 1;
                     imageToChangeColor3.color = newColor;
                 }
@@ -108,6 +102,7 @@ public class GC : MonoBehaviour
         {
             summaryText.text = "Be on the correct lane to avoid conflicts!";
             HealthManager.health--;
+            gcmenu.PlayHurt();
             sf.Flash();
             PlayerPrefs.SetString("distance", pm.distanceLeft.ToString());
             if (other.CompareTag("maceTrafficTag"))
@@ -120,10 +115,12 @@ public class GC : MonoBehaviour
                 summaryText.text = "Be sure to cross only when the green man is flashing!";
             }
             StartCoroutine(RestartCurrentlevel());
+            gcmenu.PlayDie();
         }
         else if (other.CompareTag("coinTag"))
         {
             Destroy(other.gameObject);
+            gcmenu.PlayCoin();
             totalpoints++;
             ValueText.text = totalpoints.ToString();
             AddPoints(1);
@@ -143,6 +140,7 @@ public class GC : MonoBehaviour
             imageToChangeColor2.color = newColor;
 
             HealthManager.health = 0;
+            gcmenu.PlayDie();
             summaryText.text = "Be sure to lookout for moving vehicles.";
             PlayerPrefs.SetString("distance", pm.distanceLeft.ToString("0"));
             //StartCoroutine(RestartCurrentlevel());
@@ -150,6 +148,7 @@ public class GC : MonoBehaviour
         else if (other.CompareTag("questPoint"))
         {
             isTouch = true;
+            gcmenu.PlayFinish();
             summaryText.text = "You have completed the game!";
             addPoints = totalpoints + hm.GetPoints();
             ValueText.text = addPoints.ToString();
@@ -161,6 +160,7 @@ public class GC : MonoBehaviour
         {
             // Add points to the totalpoints variable
             Destroy(other.gameObject);
+            gcmenu.PlayGem();
             AddPoints(10);
             // Update the UI text
             totalpoints += 10;
@@ -178,6 +178,7 @@ public class GC : MonoBehaviour
             {
                 // Player has moved the maximum allowed distance, lose all health
                 HealthManager.health = 0;
+                gcmenu.PlayDie();
                 sf.Flash();
                 summaryText.text = "Avoid walking across the wrong path";
                 isGreen = 0;
@@ -202,6 +203,7 @@ public class GC : MonoBehaviour
             {
                 sf.Flash();
                 HealthManager.health--;
+                gcmenu.PlayHurt();
                 isGreen = 0;
                 check1.SetActive(false);
                 summaryText.text = "Avoid walking across the wrong path!";
@@ -247,14 +249,14 @@ public class GC : MonoBehaviour
 
     public void OpenPhone()
     {
-        if (Phone.transform.localPosition.y == -109)
+        if (Phone.transform.localPosition.y == 280)
         {
             isPhone = false;
             Phone.transform.localPosition = new Vector3(pos.x, pos.y, 0);
         } else if (Phone.transform.localPosition.y == pos.y)
         {
             isPhone = true;
-            Phone.transform.localPosition = new Vector3(pos.x, -109, 0);
+            Phone.transform.localPosition = new Vector3(pos.x, 280, 0);
         }  
     }
 
