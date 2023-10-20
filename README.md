@@ -258,7 +258,12 @@ Remember to save after adding borders to your tileset Asset
 
 ## UI preview on different devices
 
-![Iphone SE](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104403770/dfa2ffaa-92a9-40a4-befa-99c29a535f63)
-![Iphone 13 Pro max](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104403770/5becc4ff-7054-43ba-9000-848869e366d8)
-![Ipad Pro](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104403770/969c2dbd-1bea-4524-853e-7b4bda5e3001)
+From top to bottom:
+Google Pixel > Huawei > Ipad Mini > Ipad Pro > Iphone 13 > Samsung Galaxy Note 20
+
+![Google Pixel XL](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104403770/a8c6e18d-7d5f-47f9-9bad-33dff5c0dd32)
+![Huawei P40 Pro](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104403770/35a48795-a605-46a2-baf6-69cc40bd1e95)
 ![Ipad Mini](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104403770/5b005d78-0064-4fe2-90e0-e82c7eb037ed)
+![Ipad Pro](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104403770/969c2dbd-1bea-4524-853e-7b4bda5e3001)
+![Iphone 13 Pro max](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104403770/c9dda881-3ba8-45ce-a4c8-e268210bed99)
+![Samsung Galaxy Note20 Ultra 5](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104403770/c8ae958a-4abd-4ece-9f26-bb6f78e6cf2d)
