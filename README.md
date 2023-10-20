@@ -255,3 +255,10 @@ Refer to demo2 video.
 ![image](https://user-images.githubusercontent.com/25051402/210028050-8cb97f71-7022-463b-a803-9bd616c1ed7a.png)
 
 Remember to save after adding borders to your tileset Asset
+
+## UI preview on different devices
+
+![Iphone SE](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104403770/dfa2ffaa-92a9-40a4-befa-99c29a535f63)
+![Iphone 13 Pro max](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104403770/5becc4ff-7054-43ba-9000-848869e366d8)
+![Ipad Pro](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104403770/969c2dbd-1bea-4524-853e-7b4bda5e3001)
+![Ipad Mini](https://github.com/20145050-Vernon-Ong/Active-Mobility-Game/assets/104403770/5b005d78-0064-4fe2-90e0-e82c7eb037ed)
