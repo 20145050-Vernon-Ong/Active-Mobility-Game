@@ -45,7 +45,7 @@
 	<popNoti>
 		<text>Remember to stay in the correct lane and keep a lookout.</text>
 		<colliderName>footTag</colliderName>
-		<duration>3</duration>
+		<duration>7</duration>
 		<type>notification</type>
 	</popNoti>
 	<popNoti>
