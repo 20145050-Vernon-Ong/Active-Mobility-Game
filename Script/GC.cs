@@ -6,9 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class GC : MonoBehaviour
 {
+
+    // public GameObject panel;
+    // public GameObject gover;
+    public RectTransform Phone;
+
+    // private Vector2 initialPosition;
+
     public int totalpoints;
     public float maxDistanceBeforeDamage = 1f;
-    public GameObject Phone;
+
+    // public GameObject Phone;
+
     public TextMeshProUGUI ValueText;
     public TextMeshProUGUI summaryText;
     public TextMeshProUGUI learningPoints;
@@ -18,6 +27,8 @@ public class GC : MonoBehaviour
     public GameObject check1;
     public GameObject check2; 
     public GameObject check3;
+
+    public GameObject phoneinfo;
 
     public Image imageToChangeColor;
     public Image imageToChangeColor2;
@@ -53,6 +64,11 @@ public class GC : MonoBehaviour
 
     void Start()
     {
+
+        initialPosition = Phone.anchoredPosition;
+
+
+
         isTouch = false;
         pos = Phone.transform.localPosition;
         ValueText.text = totalpoints.ToString();
@@ -69,7 +85,7 @@ public class GC : MonoBehaviour
         {
             if (!hasHealthDecremented)
             {
-                summaryText.text = "Do not walk while having your phone out!";
+                summaryText.text = "Avoid walking with your phone out!";
                 isGreen3 = 0;
                 check3.SetActive(false);
                 // learningPoints3.color = new Color(255, 0, 0, 255);
@@ -77,6 +93,7 @@ public class GC : MonoBehaviour
                 {
                     gcmenu.PlayHurt();
                     HealthManager.health -= 1;
+                    sf.Flash();
                     imageToChangeColor3.color = newColor;
                 }
                 hasHealthDecremented = true;
@@ -115,15 +132,14 @@ public class GC : MonoBehaviour
                 summaryText.text = "Be sure to cross only when the green man is flashing!";
             }
             StartCoroutine(RestartCurrentlevel());
-            gcmenu.PlayDie();
         }
         else if (other.CompareTag("coinTag"))
         {
             Destroy(other.gameObject);
             gcmenu.PlayCoin();
-            totalpoints++;
+            totalpoints+=700;
             ValueText.text = totalpoints.ToString();
-            AddPoints(1);
+            AddPoints(700);
             // Debug.Log("hello my name"+totalpoints);
         }
         else if (other.CompareTag("car"))
@@ -140,7 +156,7 @@ public class GC : MonoBehaviour
             imageToChangeColor2.color = newColor;
 
             HealthManager.health = 0;
-            gcmenu.PlayDie();
+            gcmenu.PlayHurt();
             summaryText.text = "Be sure to lookout for moving vehicles.";
             PlayerPrefs.SetString("distance", pm.distanceLeft.ToString("0"));
             //StartCoroutine(RestartCurrentlevel());
@@ -178,7 +194,7 @@ public class GC : MonoBehaviour
             {
                 // Player has moved the maximum allowed distance, lose all health
                 HealthManager.health = 0;
-                gcmenu.PlayDie();
+                
                 sf.Flash();
                 summaryText.text = "Avoid walking across the wrong path";
                 isGreen = 0;
@@ -234,7 +250,21 @@ public class GC : MonoBehaviour
     {
         if (HealthManager.health == 0 || isTouch)
         {
-            yield return new WaitForSeconds(0.5f);
+            
+            if (HealthManager.health == 0) 
+            {
+                gcmenu.PlayHurt();
+                // panel.SetActive(true);
+                // gover.SetActive(true);
+                PlayerPrefs.SetInt("enableImageInLoseScene", 0);
+            }
+            else
+            {
+                PlayerPrefs.SetInt("enableImageInLoseScene", 1);
+                yield return new WaitForSeconds(3f);
+            }
+
+            
             PlayerPrefs.SetString("currentScore", ValueText.text);
             PlayerPrefs.SetString("summary", summaryText.text);
             PlayerPrefs.SetString("learningPoint1", learningPoints.text);
@@ -247,17 +277,35 @@ public class GC : MonoBehaviour
         }
     }
 
+    // public void OpenPhone()
+    // {
+    //     if (Phone.transform.localPosition.y == 280)
+    //     {
+    //         isPhone = false;
+    //         Phone.transform.localPosition = new Vector3(pos.x, pos.y, 0);
+    //     } else if (Phone.transform.localPosition.y == pos.y)
+    //     {
+    //         isPhone = true;
+    //         Phone.transform.localPosition = new Vector3(pos.x, 280, 0);
+    //     }  
+    // }
+
     public void OpenPhone()
     {
-        if (Phone.transform.localPosition.y == 280)
+        if (Phone.anchoredPosition.y == 700f)
         {
+            // Close the phone
             isPhone = false;
-            Phone.transform.localPosition = new Vector3(pos.x, pos.y, 0);
-        } else if (Phone.transform.localPosition.y == pos.y)
+            phoneinfo.SetActive(false);
+            Phone.anchoredPosition = initialPosition;
+        }
+        else
         {
+            // Open the phone
             isPhone = true;
-            Phone.transform.localPosition = new Vector3(pos.x, 280, 0);
-        }  
+            phoneinfo.SetActive(true);
+            Phone.anchoredPosition = new Vector2(initialPosition.x, 700f);
+        }
     }
 
     public void UpdatePointsDisplay()
