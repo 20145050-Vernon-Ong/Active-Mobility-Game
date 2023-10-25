@@ -7,6 +7,7 @@ public class spawncoins : MonoBehaviour
     public GC script;
     public Button activateButton;
     public GameObject gemText;
+    public GameObject phoneinfo;
     public GameObject[] gameObjectsToActivate;
     public GameObject compass;
     public int requiredCoins = 3;
@@ -67,6 +68,8 @@ private void ActivateGameObjects()
 
         // Update the button's color to the clicked color
         activateButton.image.color = lowOpacityColor;
+
+        phoneinfo.SetActive(false);
     }
 }
 
