@@ -35,7 +35,7 @@ Transform:
   m_GameObject: {fileID: 1469542469760020653}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.03, y: -45.74, z: 0}
+  m_LocalPosition: {x: -4.08, y: -46.08, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -122,10 +122,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notifpop: {fileID: 0}
   tutorPopup: {fileID: 0}
-  popup: {fileID: 0}
+  tutorialPage: {fileID: 0}
+  panel: {fileID: 0}
   notifText: {fileID: 0}
   tutorText: {fileID: 0}
-  popupText: {fileID: 0}
 --- !u!114 &4456734767622177203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +147,11 @@ MonoBehaviour:
   pauseMenu: {fileID: 0}
   endPoint: {fileID: 0}
   DPad: {fileID: 0}
+  objectiveManager: {fileID: 0}
+  button1: {fileID: 0}
+  button2: {fileID: 0}
+  arrow: {fileID: 0}
+  playerInfo: {fileID: 0}
   distanceText: {fileID: 0}
 --- !u!114 &8301151593142851560
 MonoBehaviour:
@@ -168,7 +173,9 @@ MonoBehaviour:
   learningPoints: {fileID: 0}
   learningPoints2: {fileID: 0}
   learningPoints3: {fileID: 0}
-  pointsText: {fileID: 0}
+  check1: {fileID: 0}
+  check2: {fileID: 0}
+  check3: {fileID: 0}
 --- !u!114 &8880696316881826030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,7 +355,7 @@ Transform:
   m_GameObject: {fileID: 3503217862059125369}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.039999, y: -0.96001434, z: -10}
+  m_LocalPosition: {x: 5.039999, y: -0.2000122, z: -10}
   m_LocalScale: {x: 1.4937757, y: 1.5102744, z: 0.41664}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -441,7 +448,7 @@ Transform:
   m_GameObject: {fileID: 5257523082906271655}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.030000687, y: 2.800003, z: -10}
+  m_LocalPosition: {x: -0.030000687, y: 3.5600052, z: -10}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
