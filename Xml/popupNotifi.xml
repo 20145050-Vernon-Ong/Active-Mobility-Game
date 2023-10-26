@@ -38,7 +38,7 @@
 	<popNoti>
 		<text>WATCH OUT! ZEBRA CROSSING AHEAD. STOP AND LOOK OUT FOR ONCOMING VEHICLES BEFORE CROSSING THE ROAD.</text>
 		<colliderName>zebraTag</colliderName>
-		<duration>0</duration>
+		<duration>3</duration>
 		<type>popup</type>
 	</popNoti>
 	<popNoti>
