@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Xml;
 using UnityEngine.Networking;
+using UnityEngine.Assertions.Must;
 
 public class Readxml : MonoBehaviour
 {
@@ -34,8 +35,10 @@ public class Readxml : MonoBehaviour
     public GameObject notifpop;
     public GameObject tutorPopup;
     public GameObject tutorialPage;
+    public GameObject panel;
     public TMP_Text notifText;
     public TMP_Text tutorText;
+    public gcs_menu gcs;
 
     private bool popupsDisabled;
     private XmlNodeList nodes;
@@ -122,14 +125,14 @@ public class Readxml : MonoBehaviour
                     {
                         popNotifiList[i].SetType("notification");
                     }
-                    else if (popNotifiList[i].GetCollider().Equals("coinTag") || popNotifiList[i].GetCollider().Equals("zebraTag") 
-                        || popNotifiList[i].GetCollider().Equals("trafficTag"))
+                    else if (popNotifiList[i].GetCollider().Equals("coinTag") || popNotifiList[i].GetCollider().Equals("zebraTag") || popNotifiList[i].GetCollider().Equals("trafficTag"))
                     {
                         popNotifiList.RemoveAt(i);          
-                    }
+                    } 
                 }
                 else if (popNotifiList[i].GetType().Equals("notification"))
                 {
+                    gcs.PlayNotif();
                     notifText.text = popNotifiList[i].GetText();
                     StartCoroutine(WaitBeforeShow(float.Parse(popNotifiList[i].GetDuration())));
                 }
@@ -146,6 +149,7 @@ public class Readxml : MonoBehaviour
         else if (tutorialPage.activeInHierarchy)
         {
             tutorialPage.SetActive(false);
+            panel.SetActive(false);
             tutorPopup.SetActive(true);
         }
     }
