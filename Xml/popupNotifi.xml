@@ -47,10 +47,10 @@
 		<duration>0</duration>
 		<type>popup</type>
 	</popNoti>
-	<popNoti>
+	<notiPhone>
 		<text>Do Not Walk while using the phone.</text>
 		<colliderName>Phone</colliderName>
 		<duration>3</duration>
 		<type>notification</type>
-	</popNoti>
+	</notiPhone>
 </popupNotify>
