@@ -85,7 +85,7 @@ public class GC : MonoBehaviour
         {
             if (!hasHealthDecremented)
             {
-                summaryText.text = "Avoid walking with your phone out!";
+                summaryText.text = "Do not use your phone when walking";
                 isGreen3 = 0;
                 check3.SetActive(false);
                 // learningPoints3.color = new Color(255, 0, 0, 255);
@@ -117,7 +117,7 @@ public class GC : MonoBehaviour
 
         if (other.CompareTag("macetag") || other.CompareTag("maceTrafficTag"))
         {
-            summaryText.text = "Be on the correct lane to avoid conflicts!";
+            // summaryText.text = "Be on the correct lane to avoid conflicts!";
             HealthManager.health--;
             gcmenu.PlayHurt();
             sf.Flash();
@@ -129,7 +129,11 @@ public class GC : MonoBehaviour
                 _timeColliding = 0f;
                 // learningPoints2.color = new Color(255, 0, 0, 255);
                 imageToChangeColor2.color = newColor;
-                summaryText.text = "Be sure to cross only when the green man is flashing!";
+
+                if (HealthManager.health <= 0)
+                {
+                    summaryText.text = "Stop and look out for traffic before crossing";
+                }
             }
             StartCoroutine(RestartCurrentlevel());
         }
@@ -137,9 +141,9 @@ public class GC : MonoBehaviour
         {
             Destroy(other.gameObject);
             gcmenu.PlayCoin();
-            totalpoints+=700;
+            totalpoints+=1;
             ValueText.text = totalpoints.ToString();
-            AddPoints(700);
+            AddPoints(1);
             // Debug.Log("hello my name"+totalpoints);
         }
         else if (other.CompareTag("car"))
@@ -196,7 +200,7 @@ public class GC : MonoBehaviour
                 HealthManager.health = 0;
                 
                 sf.Flash();
-                summaryText.text = "Avoid walking across the wrong path";
+                summaryText.text = "Do not walk on the roads";
                 isGreen = 0;
                 check2.SetActive(false);
 
@@ -222,7 +226,7 @@ public class GC : MonoBehaviour
                 gcmenu.PlayHurt();
                 isGreen = 0;
                 check1.SetActive(false);
-                summaryText.text = "Avoid walking across the wrong path!";
+                summaryText.text = "Do not walk on cycling paths";
 
                 // learningPoints.color = new Color(255, 0, 0, 255);
                 imageToChangeColor.color = newColor;
