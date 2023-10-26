@@ -49,7 +49,7 @@
 	</popNoti>
 	<popNoti>
 		<text>Do Not Walk while using the phone.</text>
-		<colliderName>phone</colliderName>
+		<colliderName>Phone</colliderName>
 		<duration>3</duration>
 		<type>notification</type>
 	</popNoti>
