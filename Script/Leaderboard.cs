@@ -68,7 +68,7 @@ public class Leaderboard : MonoBehaviour
             {
                 if (msg[i].Rank > 10)
                 {
-                    if (/*PlayerPrefs.GetString("playerName") == msg[i].Username*/ playerID == msg[i].Extra)
+                    if (playerID == msg[i].Extra)
                     {
                         playerrank.text = msg[i].Rank + ". " + msg[i].Username;
                         playerscore.text = msg[i].Score.ToString();
@@ -78,17 +78,18 @@ public class Leaderboard : MonoBehaviour
                 {
                     names[i].text = msg[i].Rank + ". " + msg[i].Username;
                     scores[i].text = msg[i].Score.ToString();
+                    names[i].color = Color.white; // Set all names to white
+                    scores[i].color = Color.white; // Set all scores to white
+
                     if (playerID == msg[i].Extra)
                     {
-                        names[i].color = Color.green;
-                        scores[i].color = Color.green;
-                    }
-                    if (/*PlayerPrefs.GetString("playerName") == msg[i].Username*/ playerID == msg[i].Extra)
-                    {
+                        names[i].color = Color.green; // Change the name color to green
+                        scores[i].color = Color.green; // Change the score color to green
                         playerrank.text = msg[i].Rank + ". " + msg[i].Username;
                         playerscore.text = msg[i].Score.ToString();
                     }
                 }
+
             }
         }));
         
