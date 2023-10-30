@@ -32,7 +32,7 @@
 	<popNoti>
 		<text>WATCH OUT! TRAFFIC LIGHT AHEAD. STOP AND WAIT FOR THE GREEN MAN BEFORE CROSSING THE ROAD.</text>
 		<colliderName>trafficTag</colliderName>
-		<duration>0</duration>
+		<duration>3</duration>
 		<type>popup</type>
 	</popNoti>
 	<popNoti>
