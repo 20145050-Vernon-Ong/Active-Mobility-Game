@@ -48,7 +48,7 @@
 		<type>popup</type>
 	</popNoti>
 	<notiPhone>
-		<text>Do Not Walk while using the phone.</text>
+		<text>Do not use the phone when walking.</text>
 		<colliderName>Phone</colliderName>
 		<duration>3</duration>
 		<type>notification</type>
