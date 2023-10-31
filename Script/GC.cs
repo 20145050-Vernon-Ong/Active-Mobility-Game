@@ -28,8 +28,6 @@ public class GC : MonoBehaviour
     public GameObject check2; 
     public GameObject check3;
 
-    public GameObject phoneinfo;
-
     public Image imageToChangeColor;
     public Image imageToChangeColor2;
     public Image imageToChangeColor3;
@@ -85,7 +83,7 @@ public class GC : MonoBehaviour
         {
             if (!hasHealthDecremented)
             {
-                summaryText.text = "Do not use your phone when walking";
+                summaryText.text = "Avoid walking with your phone out!";
                 isGreen3 = 0;
                 check3.SetActive(false);
                 // learningPoints3.color = new Color(255, 0, 0, 255);
@@ -117,7 +115,7 @@ public class GC : MonoBehaviour
 
         if (other.CompareTag("macetag") || other.CompareTag("maceTrafficTag"))
         {
-            // summaryText.text = "Be on the correct lane to avoid conflicts!";
+            summaryText.text = "Be on the correct lane to avoid conflicts!";
             HealthManager.health--;
             gcmenu.PlayHurt();
             sf.Flash();
@@ -129,11 +127,7 @@ public class GC : MonoBehaviour
                 _timeColliding = 0f;
                 // learningPoints2.color = new Color(255, 0, 0, 255);
                 imageToChangeColor2.color = newColor;
-
-                if (HealthManager.health <= 0)
-                {
-                    summaryText.text = "Stop and look out for traffic before crossing";
-                }
+                summaryText.text = "Be sure to cross only when the green man is flashing!";
             }
             StartCoroutine(RestartCurrentlevel());
         }
@@ -141,7 +135,7 @@ public class GC : MonoBehaviour
         {
             Destroy(other.gameObject);
             gcmenu.PlayCoin();
-            totalpoints+=1;
+            totalpoints++;
             ValueText.text = totalpoints.ToString();
             AddPoints(1);
             // Debug.Log("hello my name"+totalpoints);
@@ -168,12 +162,43 @@ public class GC : MonoBehaviour
         else if (other.CompareTag("questPoint"))
         {
             isTouch = true;
+           
             gcmenu.PlayFinish();
-            summaryText.text = "You have completed the game!";
-            addPoints = totalpoints + hm.GetPoints();
-            ValueText.text = addPoints.ToString();
-            PlayerPrefs.SetString("distance", pm.differenceY.ToString("0"));
-            AddPoints(HealthManager.points);
+
+            //summaryText.text = "You have completed the game!";
+            //addPoints = totalpoints + hm.GetPoints();
+            //ValueText.text = addPoints.ToString();
+            //PlayerPrefs.SetString("distance", pm.differenceY.ToString("0"));
+            //AddPoints(HealthManager.points);
+
+
+            // Add points to the totalpoints variable
+
+            
+
+            if (HealthManager.health == 3)
+            {
+                totalpoints += 15;
+                AddPoints(15);
+            }
+            else if (HealthManager.health == 2)
+            {
+                totalpoints += 10;
+                AddPoints(10);
+            }
+            else if (HealthManager.health == 1)
+            {
+                totalpoints += 5;
+                AddPoints(5);
+            }
+
+            Debug.Log("this is your health :" + HealthManager.health);
+
+            // Update the UI text
+            
+            ValueText.text = totalpoints.ToString();
+
+
             //StartCoroutine(RestartCurrentlevel());
         }
         else if (other.CompareTag("gemTag"))
@@ -200,7 +225,7 @@ public class GC : MonoBehaviour
                 HealthManager.health = 0;
                 
                 sf.Flash();
-                summaryText.text = "Do not walk on the roads";
+                summaryText.text = "Avoid walking across the wrong path";
                 isGreen = 0;
                 check2.SetActive(false);
 
@@ -226,7 +251,7 @@ public class GC : MonoBehaviour
                 gcmenu.PlayHurt();
                 isGreen = 0;
                 check1.SetActive(false);
-                summaryText.text = "Do not walk on cycling paths";
+                summaryText.text = "Avoid walking across the wrong path!";
 
                 // learningPoints.color = new Color(255, 0, 0, 255);
                 imageToChangeColor.color = newColor;
@@ -300,14 +325,12 @@ public class GC : MonoBehaviour
         {
             // Close the phone
             isPhone = false;
-            phoneinfo.SetActive(false);
             Phone.anchoredPosition = initialPosition;
         }
         else
         {
             // Open the phone
             isPhone = true;
-            phoneinfo.SetActive(true);
             Phone.anchoredPosition = new Vector2(initialPosition.x, 700f);
         }
     }
