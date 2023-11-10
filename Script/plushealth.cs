@@ -5,7 +5,7 @@ public class plushealth : MonoBehaviour
 {
     public GC script;
     public Button activateButton;
-    public int requiredCoins = 3;
+    public int requiredCoins;
     public int healthamt = 1;
 
     public Color fullOpacityColor = Color.white;
@@ -26,10 +26,10 @@ public class plushealth : MonoBehaviour
 
     private void Update()
     {
-        // Update the userCoins value in every frame
+        // // Update the userCoins value in every frame
         userCoins = script.totalpoints;
         
-        // Update the button's color based on the user's coin count
+        // // Update the button's color based on the user's coin count
         UpdateButtonColor();
     }
 
@@ -59,7 +59,7 @@ private void ActivateGameObjects()
         Debug.Log("Deducting coins. userCoins after: " + userCoins);
 
         script.SetTotalPoints(userCoins);
-
+        script.AddPoints(-requiredCoins);
         // Disable the button to prevent further clicks until the user collects more coins
         activateButton.interactable = false;
 

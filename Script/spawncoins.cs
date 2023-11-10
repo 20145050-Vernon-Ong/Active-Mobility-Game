@@ -10,7 +10,7 @@ public class spawncoins : MonoBehaviour
     public GameObject phoneinfo;
     public GameObject[] gameObjectsToActivate;
     public GameObject compass;
-    public int requiredCoins = 3;
+    public int requiredCoins;
     public Color fullOpacityColor = Color.white;
     public Color lowOpacityColor = new Color(1f, 1f, 1f, 0.5f);
     //public AudioSource activationSound; // Reference to the AudioSource for the activation sound
@@ -59,7 +59,7 @@ private void ActivateGameObjects()
         // UpdateCoinCounter();
 
         script.SetTotalPoints(userCoins);
-
+        script.AddPoints(-requiredCoins);
         // Disable the button to prevent further clicks until the user collects more coins
         activateButton.interactable = false;
 

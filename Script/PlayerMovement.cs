@@ -1,10 +1,8 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using Image = UnityEngine.UI.Image;
 using System.Collections;
-// using MongoDB.Bson.Serialization.Serializers;
-
+using SystemInfo = UnityEngine.Device.SystemInfo;
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -18,10 +16,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject endPoint;
     public GameObject DPad;
     public GameObject objectiveManager;
-
     public GameObject button1;
     public GameObject button2;
-
     public GameObject arrow;
     public GameObject playerInfo;
     public TextMeshProUGUI distanceText;
@@ -84,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
     }*/
     void Update()
     {
-        if (PlayerPrefs.GetInt("mobile") == 1)
+        if (SystemInfo.operatingSystemFamily == OperatingSystemFamily.Other)
         {
             speed = 3;
             DPad.SetActive(true);
@@ -258,7 +254,7 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator LoadAsynchronously()
     {
-        AsyncOperation operation = SceneManager.LoadSceneAsync("mainScene");
+        AsyncOperation operation = SceneManager.LoadSceneAsync("newscene");
         while (!operation.isDone)
         {
             yield return null;

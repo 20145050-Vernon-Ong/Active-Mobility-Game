@@ -10,7 +10,7 @@ public class Leaderboard : MonoBehaviour
 
     [SerializeField] private List<TextMeshProUGUI> names;
     [SerializeField] private List<TextMeshProUGUI> scores;
-    [SerializeField] private TextMeshProUGUI inputScore;
+    [SerializeField] private TMP_Text inputScore;
     [SerializeField] private TMP_InputField inputName;
     public string textPrefix = "player";
     public TextMeshProUGUI playerscore;
@@ -18,7 +18,7 @@ public class Leaderboard : MonoBehaviour
 
     public UnityEvent<string, int, string> submitScoreEvent;
 
-    private string publicLeaderboardKey = "6c3aafdd5f037297bc202dbda1db7c77df98e15e980ef623e0e3cacf99ca7efe";
+    private string publicLeaderboardKey = "5cbc34a611b89ceb59f2199c62c43d79838f6f3f6bd956565b5ba720c4c2c76e";
 
     private void Awake()
     {
@@ -70,13 +70,13 @@ public class Leaderboard : MonoBehaviour
                 {
                     if (playerID == msg[i].Extra)
                     {
-                        playerrank.text = msg[i].Rank + ". " + msg[i].Username;
-                        playerscore.text = msg[i].Score.ToString();
+                        playerrank.text = msg[i].Rank + ".   " + msg[i].Username;
+                        playerscore.text = inputScore.text;
                     }
                 }
                 else
                 {
-                    names[i].text = msg[i].Rank + ". " + msg[i].Username;
+                    names[i].text = msg[i].Rank + ".   " + msg[i].Username;
                     scores[i].text = msg[i].Score.ToString();
                     names[i].color = Color.white; // Set all names to white
                     scores[i].color = Color.white; // Set all scores to white
@@ -86,7 +86,7 @@ public class Leaderboard : MonoBehaviour
                         names[i].color = Color.green; // Change the name color to green
                         scores[i].color = Color.green; // Change the score color to green
                         playerrank.text = msg[i].Rank + ". " + msg[i].Username;
-                        playerscore.text = msg[i].Score.ToString();
+                        playerscore.text = inputScore.text;
                     }
                 }
 
@@ -168,7 +168,7 @@ public class Leaderboard : MonoBehaviour
     
     private IEnumerator DelayedSubmitScore()
     {
-        yield return new WaitForSeconds(0f);
+        yield return new WaitForSeconds(0.1f);
         SubmitScore();
     }
 

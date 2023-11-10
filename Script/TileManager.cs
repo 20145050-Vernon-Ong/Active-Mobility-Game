@@ -17,6 +17,11 @@ public class TileManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        // Log a message when a tile is spawned
+        // string logMessage = "Tilemanager loaded" + spawnY;
+        // LogToBrowserConsole(logMessage);
+
         activeTiles = new List<GameObject>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         for (int i = 0; i < amnTileOnScreen; i++)
@@ -70,4 +75,13 @@ public class TileManager : MonoBehaviour
         return randomIndex;
 
     }
+
+    // private void LogToBrowserConsole(string message)
+    // {
+    //     // Prepare the JavaScript code to log the message
+    //     string jsCode = "console.log('" + message + "');";
+
+    //     // Call the JavaScript code using Application.ExternalEval
+    //     Application.ExternalEval(jsCode);
+    // }
 }

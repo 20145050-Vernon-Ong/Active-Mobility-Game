@@ -27,6 +27,9 @@ public class GC : MonoBehaviour
     public GameObject check1;
     public GameObject check2; 
     public GameObject check3;
+    public GameObject phoneinfo;
+
+    public bool isPhone;
 
     public Image imageToChangeColor;
     public Image imageToChangeColor2;
@@ -39,7 +42,6 @@ public class GC : MonoBehaviour
     private bool isInDamageZone = false;
     private bool hasHealthDecremented = false;
     private bool isTouch;
-    private bool isPhone;
     private float _timeColliding;
     private readonly float timeThreshold = 2f;
     private int points;
@@ -47,10 +49,13 @@ public class GC : MonoBehaviour
     private int isGreen2;
     private int isGreen3;
     private int addPoints = 0;
+
+
+    // private int additionalPoints = 0;
     private PlayerMovement pm;
     private HealthManager hm;
     private Animator animator;
-    public gcs_menu gcmenu;
+    // public gcs_menu gcmenu;
     void Awake()
     {
         // Store currentscore in prefs
@@ -62,11 +67,7 @@ public class GC : MonoBehaviour
 
     void Start()
     {
-
         initialPosition = Phone.anchoredPosition;
-
-
-
         isTouch = false;
         pos = Phone.transform.localPosition;
         ValueText.text = totalpoints.ToString();
@@ -79,27 +80,43 @@ public class GC : MonoBehaviour
 
     void Update()
     {
+
+            // if (check1.activeSelf)
+            // {
+            //     Debug.Log("check 1 is active");
+            // }
+            //  if (check2.activeSelf)
+            // {
+            //     Debug.Log("check 2 is active");
+            // }
+            //  if (check3.activeSelf)
+            // {
+            //     Debug.Log("check 3 is active");
+            // }
+
         if (isPhone == true && animator.GetCurrentAnimatorStateInfo(0).IsName("Walking"))
         {
             if (!hasHealthDecremented)
             {
-                summaryText.text = "Avoid walking with your phone out!";
+                // summaryText.text = "Do not use your phone when walking";
                 isGreen3 = 0;
                 check3.SetActive(false);
                 // learningPoints3.color = new Color(255, 0, 0, 255);
                 if (HealthManager.health > 0)
                 {
-                    gcmenu.PlayHurt();
+                    // gcmenu.PlayHurt();
                     HealthManager.health -= 1;
                     sf.Flash();
                     imageToChangeColor3.color = newColor;
                 }
                 hasHealthDecremented = true;
             }
-        } else
-        {
-            hasHealthDecremented = false;
         }
+        else
+        {
+            hasHealthDecremented = false; // Reset the flag when the conditions are not met
+        }
+
         StartCoroutine(RestartCurrentlevel());
     }
 
@@ -115,9 +132,9 @@ public class GC : MonoBehaviour
 
         if (other.CompareTag("macetag") || other.CompareTag("maceTrafficTag"))
         {
-            summaryText.text = "Be on the correct lane to avoid conflicts!";
+            // summaryText.text = "Be on the correct lane to avoid conflicts!";
             HealthManager.health--;
-            gcmenu.PlayHurt();
+            // gcmenu.PlayHurt();
             sf.Flash();
             PlayerPrefs.SetString("distance", pm.distanceLeft.ToString());
             if (other.CompareTag("maceTrafficTag"))
@@ -127,14 +144,18 @@ public class GC : MonoBehaviour
                 _timeColliding = 0f;
                 // learningPoints2.color = new Color(255, 0, 0, 255);
                 imageToChangeColor2.color = newColor;
-                summaryText.text = "Be sure to cross only when the green man is flashing!";
+
+                // if (HealthManager.health <= 0)
+                // {
+                //     summaryText.text = "Stop and look out for traffic before crossing";
+                // }
             }
             StartCoroutine(RestartCurrentlevel());
         }
         else if (other.CompareTag("coinTag"))
         {
             Destroy(other.gameObject);
-            gcmenu.PlayCoin();
+            // gcmenu.PlayCoin();
             totalpoints++;
             ValueText.text = totalpoints.ToString();
             AddPoints(1);
@@ -154,27 +175,43 @@ public class GC : MonoBehaviour
             imageToChangeColor2.color = newColor;
 
             HealthManager.health = 0;
-            gcmenu.PlayHurt();
-            summaryText.text = "Be sure to lookout for moving vehicles.";
+            // gcmenu.PlayHurt();
+            summaryText.text = "Be sure to lookout for moving vehicles";
             PlayerPrefs.SetString("distance", pm.distanceLeft.ToString("0"));
             //StartCoroutine(RestartCurrentlevel());
         }
         else if (other.CompareTag("questPoint"))
         {
             isTouch = true;
-           
-            gcmenu.PlayFinish();
 
-            //summaryText.text = "You have completed the game!";
+            // gcmenu.PlayFinish();
+
+            summaryText.text = "You have completed the game!";
             //addPoints = totalpoints + hm.GetPoints();
             //ValueText.text = addPoints.ToString();
             //PlayerPrefs.SetString("distance", pm.differenceY.ToString("0"));
             //AddPoints(HealthManager.points);
 
 
-            // Add points to the totalpoints variable
-
             
+
+            if (check1.activeSelf)
+            {
+                totalpoints += 10;
+                AddPoints(10);
+            }
+            if (check2.activeSelf)
+            {
+                totalpoints += 10;
+                AddPoints(10);
+            }
+            if (check3.activeSelf)
+            {
+                totalpoints += 10;
+                AddPoints(10);
+            }
+
+
 
             if (HealthManager.health == 3)
             {
@@ -192,10 +229,12 @@ public class GC : MonoBehaviour
                 AddPoints(5);
             }
 
+
+
             Debug.Log("this is your health :" + HealthManager.health);
 
             // Update the UI text
-            
+
             ValueText.text = totalpoints.ToString();
 
 
@@ -205,7 +244,7 @@ public class GC : MonoBehaviour
         {
             // Add points to the totalpoints variable
             Destroy(other.gameObject);
-            gcmenu.PlayGem();
+            // gcmenu.PlayGem();
             AddPoints(10);
             // Update the UI text
             totalpoints += 10;
@@ -225,7 +264,7 @@ public class GC : MonoBehaviour
                 HealthManager.health = 0;
                 
                 sf.Flash();
-                summaryText.text = "Avoid walking across the wrong path";
+                summaryText.text = "Do not walk on the roads";
                 isGreen = 0;
                 check2.SetActive(false);
 
@@ -248,10 +287,10 @@ public class GC : MonoBehaviour
             {
                 sf.Flash();
                 HealthManager.health--;
-                gcmenu.PlayHurt();
+                // gcmenu.PlayHurt();
                 isGreen = 0;
                 check1.SetActive(false);
-                summaryText.text = "Avoid walking across the wrong path!";
+                summaryText.text = "Do not walk on cycling paths";
 
                 // learningPoints.color = new Color(255, 0, 0, 255);
                 imageToChangeColor.color = newColor;
@@ -282,7 +321,7 @@ public class GC : MonoBehaviour
             
             if (HealthManager.health == 0) 
             {
-                gcmenu.PlayHurt();
+                // gcmenu.PlayHurt();
                 // panel.SetActive(true);
                 // gover.SetActive(true);
                 PlayerPrefs.SetInt("enableImageInLoseScene", 0);
@@ -302,7 +341,11 @@ public class GC : MonoBehaviour
             PlayerPrefs.SetInt("tick1", isGreen);
             PlayerPrefs.SetInt("tick2", isGreen2);
             PlayerPrefs.SetInt("tick3", isGreen3);
-            SceneManager.LoadScene("LoseScreen");
+            AsyncOperation operation = SceneManager.LoadSceneAsync("LoseScreen");
+            while (!operation.isDone)
+            {
+                yield return null;
+            }
         }
     }
 
@@ -318,6 +361,7 @@ public class GC : MonoBehaviour
     //         Phone.transform.localPosition = new Vector3(pos.x, 280, 0);
     //     }  
     // }
+    
 
     public void OpenPhone()
     {
@@ -325,12 +369,14 @@ public class GC : MonoBehaviour
         {
             // Close the phone
             isPhone = false;
+            phoneinfo.SetActive(false);
             Phone.anchoredPosition = initialPosition;
         }
         else
         {
             // Open the phone
             isPhone = true;
+            phoneinfo.SetActive(true);
             Phone.anchoredPosition = new Vector2(initialPosition.x, 700f);
         }
     }
@@ -354,4 +400,7 @@ public class GC : MonoBehaviour
         totalpoints = newValue;
         ValueText.text = totalpoints.ToString();
     }
+
+
+
 }

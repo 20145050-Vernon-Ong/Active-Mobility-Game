@@ -4,28 +4,40 @@ public class VehicleMovement : MonoBehaviour
 {
     public float speed;
     public float exitSpeed;
-    public GameObject vehicle;
-    public GameObject tutor;
-    public GameObject popup;
     private Vector3 PosX;
+    public GameObject spawn;
+    public GameObject spawn2;
+    private Rigidbody2D rigid;
+
+    void Awake()
+    {
+        rigid = GetComponent<Rigidbody2D>();
+    }
     // Start is called before the first frame update
     void Start()
     {
         exitSpeed = speed;
-        PosX = vehicle.transform.position;
+        PosX = transform.position;
     }
     // Update is called once per frame
     void Update()
     {
-        if (vehicle.transform.rotation.z == 0)
+        if (transform.rotation.z == 0)
         {
-            vehicle.transform.position += Vector3.up * speed;
+            rigid.MovePosition(transform.position + speed * Time.deltaTime * Vector3.up);
         }
         else
         {
-            vehicle.transform.position += Vector3.down * speed;
+            rigid.MovePosition(transform.position + speed * Time.deltaTime * Vector3.down);
         }
-        
+
+        if (GameObject.Find("pauseMenuUI"))
+        {
+            Time.timeScale = 0;
+        } else
+        {
+            Time.timeScale = 1;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -36,13 +48,13 @@ public class VehicleMovement : MonoBehaviour
         }
         else if (collision.CompareTag("resetCarPos"))
         {
-            if (vehicle.transform.rotation.z == 0)
+            if (transform.rotation.z == 0)
             {
-                vehicle.transform.position = new Vector3(PosX.x, GameObject.Find("carSpawn").transform.position.y, 0);
+                transform.position = new Vector3(PosX.x, spawn.transform.position.y, 0);
             }
             else
             {
-                vehicle.transform.position = new Vector3(PosX.x, GameObject.Find("carSpawn (1)").transform.position.y, 0);
+                transform.position = new Vector3(PosX.x, spawn2.transform.position.y, 0);
             }
         }
     }

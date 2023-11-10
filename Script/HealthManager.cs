@@ -24,7 +24,7 @@ public class HealthManager : MonoBehaviour
         {
             hearts[i].sprite = fullHeart;
         }
-        points = health * 5;
+        // points = health * 5;
     }
 
     public int GetPoints()
