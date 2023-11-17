@@ -12,6 +12,7 @@ Unity Hub is required to open or run any of the Unity Projects. You can install 
 
 ### Choose your appropriate Unity Version that you need.
 For this case we're using **2022.3.11f1** where you can find all the archive [here](https://unity3d.com/get-unity/download/archive)
+Check module build support WebGL
 
 ### Choose the Visual Studio you prefer to use
 Tested with VS Community 2022 and VS Commmunity 2019. You can find these [here](https://visualstudio.microsoft.com/downloads/)
